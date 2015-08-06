@@ -1,4 +1,4 @@
-package bologna.sdwn;
+package it.unibo.sdwn;
 
 public class App
 {

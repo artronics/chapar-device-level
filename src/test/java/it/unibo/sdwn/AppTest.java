@@ -1,4 +1,4 @@
-package bologna.sdwn;
+package it.unibo.sdwn;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
