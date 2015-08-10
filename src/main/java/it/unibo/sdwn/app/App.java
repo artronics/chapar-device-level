@@ -10,5 +10,6 @@ public class App
         Configuration con = new Configuration();
         System.out.println(con.getAppConfig().getProperty("comPort"));
         con.getAppConfig().setProperty("kjcomPort", "jalal");
+
     }
 }
