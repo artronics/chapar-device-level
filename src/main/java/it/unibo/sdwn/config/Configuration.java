@@ -1,11 +1,32 @@
 package it.unibo.sdwn.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Properties;
 
 public final class Configuration
 {
+    public Logger getLogger()
+    {
+        return logger;
+    }
+
+    private Logger logger;
+
+    public Configuration()
+    {
+        this.logger= initLogger();
+    }
+
+    private Logger initLogger(){
+        Logger logger = LoggerFactory.getLogger("logger");
+
+        return logger;
+    }
+
     public ConfigProperties getAppConfig()
     {
         ConfigProperties properties = new ConfigProperties();

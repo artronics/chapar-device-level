@@ -12,9 +12,9 @@ public class ConfigurationTest extends TestCase
      *
      * @param testName name of the test case
      */
-    public ConfigurationTest( String testName )
+    public ConfigurationTest(String testName)
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -22,7 +22,7 @@ public class ConfigurationTest extends TestCase
      */
     public static Test suite()
     {
-        return new TestSuite( ConfigurationTest.class );
+        return new TestSuite(ConfigurationTest.class);
     }
 
     /**
@@ -30,13 +30,15 @@ public class ConfigurationTest extends TestCase
      */
     public void testApp()
     {
-        assertTrue( true );
+        assertTrue(true);
     }
-    public void getAppConfigTest(){
+
+    public void getAppConfigTest()
+    {
         Configuration conf = new Configuration();
         String actual = conf.getAppConfig().getProperty("testKey");
         String expected = "testValue";
         //Assert.assertEquals(expected,actual);
-        assertTrue(false);
+        assertEquals(expected, actual);
     }
 }
