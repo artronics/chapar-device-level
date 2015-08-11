@@ -39,7 +39,7 @@ public class MessageFormatter
             final boolean displayUsage,
             final OutputStream out)
     {
-        final String commandLineSyntax = "java -cp ApacheCommonsCLI.jar";
+        final String commandLineSyntax = "java -cp SDWN-<version>.jar";
         final PrintWriter writer = new PrintWriter(out);
         final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.printHelp(
