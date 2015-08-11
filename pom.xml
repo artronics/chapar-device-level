@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>SDWN</name>
-  <url>http://maven.apache.org</url>
+    <url>https://bitbucket.org/artronics/sdwn</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,6 +54,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+      <!-- Logger (logback) dependencies -->
       <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
@@ -69,12 +70,14 @@
           <artifactId>logback-core</artifactId>
           <version>${logback.version}</version>
       </dependency>
+      <!-- Dependency Injection-->
       <dependency>
           <groupId>javax.enterprise</groupId>
           <artifactId>cdi-api</artifactId>
           <version>2.0-EDR1</version>
           <scope>provided</scope>
       </dependency>
+      <!-- Command Line -->
       <dependency>
           <groupId>commons-cli</groupId>
           <artifactId>commons-cli</artifactId>
