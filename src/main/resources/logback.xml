@@ -15,10 +15,16 @@
         </encoder>
     </appender>
 
+    <appender name="STDOUT-DETAILED" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="debug">
     </root>
     <logger name="main" level="debug">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="STDOUT-DETAILED"/>
         <appender-ref ref="FILE" />
     </logger>
     <logger name="stdout" level="debug">
