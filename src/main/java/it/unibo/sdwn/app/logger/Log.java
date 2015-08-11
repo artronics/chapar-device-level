@@ -32,4 +32,14 @@ public class Log implements ILogger
 
         return logger;
     }
+
+    public static void instantiate(Object object)
+    {
+        Log.main().debug("Instanciating: {}", object);
+    }
+
+    public static void instantiate(String msg, Object object)
+    {
+        Log.main().warn(msg + " Instanciating: {}", object);
+    }
 }
