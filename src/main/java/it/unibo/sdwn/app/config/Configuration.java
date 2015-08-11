@@ -1,11 +1,7 @@
-package it.unibo.sdwn.config;
+package it.unibo.sdwn.app.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.*;
+import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.Properties;
 
 public final class Configuration
 {

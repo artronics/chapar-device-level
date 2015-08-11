@@ -1,4 +1,4 @@
-package it.unibo.sdwn.config;
+package it.unibo.sdwn.app.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

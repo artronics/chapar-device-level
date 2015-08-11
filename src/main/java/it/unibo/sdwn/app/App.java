@@ -1,15 +1,61 @@
 package it.unibo.sdwn.app;
 
-import it.unibo.sdwn.config.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.unibo.sdwn.app.commandLine.CommandLineOptions;
+import it.unibo.sdwn.app.config.Configuration;
+import it.unibo.sdwn.app.logger.Log;
 
 
-public class App
+public final class App
 {
-    public Logger log(Log logType){
-        Logger logger = LoggerFactory.getLogger(logType.toString());
+    private static App instance = null;
+    private static String version = "0.0";
+    private static String appName = "Bologna-SDWN";
+    private static Configuration config;
+    private static CommandLineOptions cmd;
 
-        return logger;
+    private App()
+    {
     }
+
+    public static App getInstance(String[] appArgs)
+    {
+        if (instance == null) {
+            config = new Configuration();
+            cmd = cmd.getInstance(appArgs);
+            instance = new App();
+            return instance;
+        }
+        Log.instantiate("Attempt to re-instantiating singleton:", instance);
+
+        return instance;
+    }
+
+    public static String getAppName()
+    {
+        return appName;
+    }
+
+    public static String getVersion()
+    {
+        return version;
+    }
+
+    public Configuration getConfig()
+    {
+        return config;
+    }
+
+    public void init()
+    {
+        //these options cause program to exit
+        if (cmd.askedForHelp()) {
+            cmd.printHelp();
+            System.exit(0);
+        }
+        if (cmd.askedForVersion()) {
+            System.out.println("0.0");
+            System.exit(0);
+        }
+    }
+
 }
