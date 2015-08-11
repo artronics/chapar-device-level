@@ -9,6 +9,5 @@ public enum Log{
 
     Log()
     {
-        Logger main = LoggerFactory.getLogger("main");
     }
 }

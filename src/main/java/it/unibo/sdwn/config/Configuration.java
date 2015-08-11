@@ -9,23 +9,6 @@ import java.util.Properties;
 
 public final class Configuration
 {
-    public Logger getLogger()
-    {
-        return logger;
-    }
-
-    private Logger logger;
-
-    public Configuration()
-    {
-        this.logger= initLogger();
-    }
-
-    private Logger initLogger(){
-        Logger logger = LoggerFactory.getLogger("logger");
-
-        return logger;
-    }
 
     public ConfigProperties getAppConfig()
     {
