@@ -1,9 +1,7 @@
-package it.unibo.sdwn;
+package it.unibo.sdwn.app.config;
 
-import it.unibo.sdwn.app.config.Configuration;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
 
 public class ConfigurationTest extends TestCase
 {
