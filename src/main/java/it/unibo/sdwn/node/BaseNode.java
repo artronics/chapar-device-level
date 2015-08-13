@@ -1,6 +1,6 @@
 package it.unibo.sdwn.node;
 
-public class BaseNode implements Node
+public abstract class BaseNode implements Node
 {
     private Address address;
 
