@@ -1,23 +1,9 @@
 package it.unibo.sdwn.node;
 
-public class Node implements INode
+public interface Node
 {
-    private Address address;
+    public Address getAddress();
 
-    public Node(Address nodeAddr)
-    {
-        this.address = nodeAddr;
-    }
+    public void setAddress(Address address);
 
-    @Override
-    public Address getAddress()
-    {
-        return this.address;
-    }
-
-    @Override
-    public void setAddress(Address address)
-    {
-        this.address = address;
-    }
 }
