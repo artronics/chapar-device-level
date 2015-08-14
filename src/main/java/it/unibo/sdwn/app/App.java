@@ -1,11 +1,10 @@
 package it.unibo.sdwn.app;
 
 import it.unibo.sdwn.app.commandLine.CommandLineOptions;
-import it.unibo.sdwn.app.config.Configuration;
 import it.unibo.sdwn.app.config.DependencyInjection;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.controller.Controller;
-import it.unibo.sdwn.map.Map;
+import it.unibo.sdwn.map.NetworkMap;
 import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.trasport.Transport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,18 @@ public final class App
     private static String appName = "Bologna-SDWN";
     //Main dependencies
     private CommandLineOptions commandLineOptions;
-    private Configuration configuration;
     private Controller controller;
-    private Map map;
+    private NetworkMap networkMap;
     private Routing routing;
     private Transport transport;
 
     //Resolving dependencies by Dependency Injection
     //See DependencyInjection class in configuration package to change implementations
     @Autowired
-    public App(Controller controller, Map map, Routing routing, Transport transport)
+    public App(Controller controller, NetworkMap networkMap, Routing routing, Transport transport)
     {
         this.controller = controller;
-        this.map = map;
+        this.networkMap = networkMap;
         this.routing = routing;
         this.transport = transport;
     }
@@ -61,17 +59,10 @@ public final class App
         instance.controller = context.getBean(Controller.class);
         instance.routing = context.getBean(Routing.class);
         instance.transport = context.getBean(Transport.class);
-        instance.map = context.getBean(Map.class);
+        instance.networkMap = context.getBean(NetworkMap.class);
 
-        Configuration conf = new Configuration();
-        instance.configuration = conf;
     }
 
-    private CommandLineOptions getCommandLineOptions(String[] args){
-        CommandLineOptions cmd = CommandLineOptions.getInstance(args);
-
-        return cmd;
-    }
     public static String getAppName()
     {
         return appName;
@@ -82,9 +73,11 @@ public final class App
         return version;
     }
 
-    private void setConfiguration(Configuration configuration)
+    private CommandLineOptions getCommandLineOptions(String[] args)
     {
-        instance.configuration = configuration;
+        CommandLineOptions cmd = CommandLineOptions.getInstance(args);
+
+        return cmd;
     }
 
     private void setController(Controller controller)
@@ -92,9 +85,9 @@ public final class App
         instance.controller = controller;
     }
 
-    private void setMap(Map map)
+    private void setNetworkMap(NetworkMap networkMap)
     {
-        instance.map = map;
+        instance.networkMap = networkMap;
     }
 
     private void setRouting(Routing routing)
@@ -105,11 +98,6 @@ public final class App
     private void setTransport(Transport transport)
     {
         instance.transport = transport;
-    }
-
-    public Configuration getConfig()
-    {
-        return configuration;
     }
 
     public void init()

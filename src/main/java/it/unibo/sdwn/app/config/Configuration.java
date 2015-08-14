@@ -2,9 +2,24 @@ package it.unibo.sdwn.app.config;
 
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
-public final class Configuration
+final class Configuration
 {
+
+    private static Map configurations;
+
+    public Configuration()
+    {
+        this.configurations = getAllConfigurations();
+    }
+
+    public static String get(ConfigType configType)
+    {
+        String key = configType.toString();
+        return configurations.get(key).toString();
+    }
 
     public ConfigProperties getAppConfig()
     {
@@ -26,6 +41,19 @@ public final class Configuration
         }
 
         return properties;
+    }
+
+    private Map getAllConfigurations()
+    {
+        int length = ConfigType.values().length;
+        Map<String, String> configs = new HashMap<>();
+        for (int i = 0; i < length; ++i) {
+            String configKey = ConfigType.values()[i].toString();
+            String configValue = this.getAppConfig().getProperty(configKey.toString());
+            configs.put(configKey, configValue);
+        }
+
+        return configs;
     }
 
     /*

@@ -2,7 +2,7 @@ package it.unibo.sdwn.app.config;
 
 import it.unibo.sdwn.controller.Controller;
 import it.unibo.sdwn.controller.artronics.SdwnController;
-import it.unibo.sdwn.map.Map;
+import it.unibo.sdwn.map.NetworkMap;
 import it.unibo.sdwn.map.SdwnMap;
 import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.routing.artronics.SdwnRouting;
@@ -33,7 +33,7 @@ public class DependencyInjection
     }
 
     @Bean
-    public Map getMap()
+    public NetworkMap getNetworkMap()
     {
         return new SdwnMap();
     }
