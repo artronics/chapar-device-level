@@ -8,7 +8,6 @@ public class Main
     {
         App app = App.getInstance(args);
         app.init();
-        Address address = new Address(10);
 
     }
 }
