@@ -1,11 +1,11 @@
 package it.unibo.sdwn.map;
 
-public class SdwnMap implements Map
+public class SdwnMap implements NetworkMap
 {
-    private Map sdwnMap;
+    private NetworkMap sdwnNetworkMap;
     @Override
-    public Map getMap()
+    public NetworkMap getMap()
     {
-        return this.sdwnMap;
+        return this.sdwnNetworkMap;
     }
 }
