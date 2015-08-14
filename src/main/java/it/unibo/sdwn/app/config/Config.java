@@ -1,21 +1,26 @@
 package it.unibo.sdwn.app.config;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
+
 public class Config
 {
-    private static boolean hasInstanciated = false;
+    private static boolean isInstanciated = false;
+    private static PropertiesConfiguration propertiesConfiguration =new PropertiesConfiguration();
 
     private Config()
     {
     }
 
-    public static String get(ConfigType configType)
+    public static PropertiesConfiguration get()
     {
-        Configuration conf = null;
-        if (!hasInstanciated) {
-            conf = new Configuration();
-            hasInstanciated = true;
+        AppConfiguration conf = null;
+        if (!isInstanciated) {
+            conf = new AppConfiguration();
+            propertiesConfiguration = conf.getConfig();
+            isInstanciated = true;
         }
-        return conf.get(configType);
+
+        return propertiesConfiguration;
     }
 
 }
