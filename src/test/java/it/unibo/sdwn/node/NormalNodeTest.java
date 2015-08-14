@@ -29,10 +29,10 @@ public class NormalNodeTest
         nodes[3] = new NormalNode(3);
 
         //since communication is full/half duplex we indicate one way link
-        nodes[0].addLinkTo(nodes[1]);
-        nodes[0].addLinkTo(nodes[2]);
-        nodes[1].addLinkTo(nodes[2]);
-        nodes[3].addLinkTo(nodes[1]);
+        nodes[0].addLinkTo(nodes[1],new LinkQuality(30));
+        nodes[0].addLinkTo(nodes[2], new LinkQuality(200));
+        nodes[1].addLinkTo(nodes[2], new LinkQuality(40));
+        nodes[3].addLinkTo(nodes[1], new LinkQuality(100));
 
     }
 
@@ -50,6 +50,14 @@ public class NormalNodeTest
         boolean condition = nodes[1].hasLinkTo(nodes[0]);
 
         assertTrue(condition);
+    }
+
+    @Test
+    public void Quality_is_reciprocal(){
+        Quality node0Quality = nodes[0].getLinkTo(nodes[1]).getQuality();
+        Quality node1Quality = nodes[1].getLinkTo(nodes[0]).getQuality();
+
+        assertEquals(node0Quality,node1Quality);
     }
 
     @Test

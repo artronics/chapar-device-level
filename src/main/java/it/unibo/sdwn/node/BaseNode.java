@@ -44,21 +44,30 @@ public abstract class BaseNode implements Node
         return null;
     }
 
+
     @Override
-    public final void addLinkTo(Node node)
+    public final void addLinkTo(Node node, Quality linkQuality)
     {
         if (hasLinkTo(node)) {
             Log.main().error("Tried to create a duplicated link");
         }
-        Link link = new CommunicationLink(node);
-        this.links.add(link);
-        //add link in opposite direction in case of
-        //HALF_DUPLEX OR FULL_DUPLEX
-        //AND also we need to check that this link doesn't already exists
-        if ((link.getLinkType() == Link.LinkType.FULL_DUPLEX ||
-                link.getLinkType() == Link.LinkType.HALF_DUPLEX) &&
-                !node.hasLinkTo(this))
-            node.addLinkTo(this);
+        else{
+            Link link = new CommunicationLink(node, linkQuality);
+            this.links.add(link);
+            //add link in opposite direction in case of
+            //HALF_DUPLEX OR FULL_DUPLEX
+            if ((link.getLinkType() == Link.LinkType.FULL_DUPLEX ||
+                    link.getLinkType() == Link.LinkType.HALF_DUPLEX) &&
+                    !node.hasLinkTo(this))
+            {
+                if (LinkQuality.RICIPROCAL_QUALITY)
+                    node.addLinkTo(this, linkQuality);
+                else {
+                    node.addLinkTo(this, null);
+                    Log.main().warn("Try to add a link with null value for Quality");
+                }
+            }
+        }
     }
 
     @Override

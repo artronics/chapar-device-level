@@ -11,6 +11,12 @@ public final class CommunicationLink implements Link
         this.destinationode = destinationNode;
     }
 
+    public CommunicationLink(Node destinationNode, Quality linkQuality)
+    {
+        this.destinationode = destinationNode;
+        this.quality = linkQuality;
+    }
+
     @Override
     public Node getDestinationNode()
     {
