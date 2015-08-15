@@ -1,6 +1,7 @@
 package it.unibo.sdwn.app;
 
-import it.unibo.sdwn.app.config.Config;
+import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.trasport.events.TransportIsReady;
 
 public class Main
 {
@@ -9,9 +10,6 @@ public class Main
         App app = App.getInstance(args);
         app.init();
 
-        System.out.println(Config.get().getString("COM_PORT"));
-        System.out.println(Config.get().getString("comPort"));
-
-        System.out.println(Config.get().getInt("INT_KEY"));
+        Event.mainBus().post(new TransportIsReady());
     }
 }
