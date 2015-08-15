@@ -1,8 +1,6 @@
 package it.unibo.sdwn.app.config;
 
 import it.unibo.sdwn.app.logger.Log;
-import org.apache.commons.configuration.CombinedConfiguration;
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
@@ -13,6 +11,13 @@ import java.nio.file.Path;
 
 public class AppConfiguration
 {
+    private static PropertiesConfiguration config;
+
+    public AppConfiguration()
+    {
+        config = new PropertiesConfiguration();
+        config.setThrowExceptionOnMissing(true);
+    }
 
     public PropertiesConfiguration getConfig(){
 
@@ -23,7 +28,6 @@ public class AppConfiguration
             return loadConfigStreams();
     }
     private PropertiesConfiguration loadConfigFile(File configFile){
-        PropertiesConfiguration config = new PropertiesConfiguration();
         try {
             config.load(configFile);
         }catch (ConfigurationException e) {
@@ -34,7 +38,6 @@ public class AppConfiguration
         return config;
     }
     private PropertiesConfiguration loadConfigStreams(){
-        PropertiesConfiguration config =new PropertiesConfiguration();
         try {
             InputStream mainConfig = loadConfigFile(PathConfig.MAIN_CONFIG_FILE);
             config.load(mainConfig);
