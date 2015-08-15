@@ -23,7 +23,7 @@ public class DependencyInjection
     @Bean
     public Controller getController()
     {
-        return new SdwnController();
+        return new SdwnController(getTransport());
     }
 
     @Bean
