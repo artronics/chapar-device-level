@@ -16,6 +16,11 @@ public class Log implements ILogger
         return ILogger.stdout();
     }
 
+    public static Logger event()
+    {
+        return ILogger.event();
+    }
+
     /*
         defualt constructor assume "main" logger as default
      */

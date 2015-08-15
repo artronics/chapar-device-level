@@ -24,8 +24,17 @@ public interface ILogger
 
     }
 
+    public static Logger event()
+    {
+
+        Logger logger = LoggerFactory.getLogger(LogType.event.toString());
+
+        return logger;
+
+    }
+
     enum LogType
     {
-        main, stdout
+        main, stdout, event
     }
 }

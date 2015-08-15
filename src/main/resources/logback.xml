@@ -9,6 +9,15 @@
         </encoder>
     </appender>
 
+    <appender name="EVENT_FILE" class="ch.qos.logback.core.FileAppender">
+        <param name="Append" value="false"/>
+        <file>events.log</file>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%msg%n</pattern>
@@ -29,5 +38,8 @@
     </logger>
     <logger name="stdout" level="debug">
         <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="event" level="info">
+        <appender-ref ref="EVENT_FILE"/>
     </logger>
 </configuration>
