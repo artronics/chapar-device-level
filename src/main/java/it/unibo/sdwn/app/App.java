@@ -27,9 +27,8 @@ public final class App
     //Resolving dependencies by Dependency Injection
     //See DependencyInjection class in configuration package to change implementations
     @Autowired
-    public App(Controller controller, NetworkMap networkMap, Routing routing, Transport transport)
+    public App(NetworkMap networkMap, Routing routing, Transport transport)
     {
-        this.controller = controller;
         this.networkMap = networkMap;
         this.routing = routing;
         this.transport = transport;
@@ -57,7 +56,6 @@ public final class App
     {
         AnnotationConfigApplicationContext context
                 = new AnnotationConfigApplicationContext(DependencyInjection.class);
-        instance.controller = context.getBean(Controller.class);
         instance.routing = context.getBean(Routing.class);
         instance.transport = context.getBean(Transport.class);
         instance.networkMap = context.getBean(NetworkMap.class);
