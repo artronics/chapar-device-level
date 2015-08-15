@@ -1,6 +1,7 @@
 package it.unibo.sdwn.app;
 
 import it.unibo.sdwn.app.commandLine.CommandLineOptions;
+import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.config.DependencyInjection;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.controller.Controller;
@@ -73,6 +74,14 @@ public final class App
         return version;
     }
 
+    public void runGui()
+    {
+        final boolean hasGui = Config.get().getBoolean("hasGui");
+        if (hasGui) {
+
+        }
+    }
+
     private CommandLineOptions getCommandLineOptions(String[] args)
     {
         CommandLineOptions cmd = CommandLineOptions.getInstance(args);
@@ -111,6 +120,8 @@ public final class App
             System.out.println("0.0");
             System.exit(0);
         }
+        //Run gui if availible
+        runGui();
     }
 
 }
