@@ -23,7 +23,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="Transport" class="it.unibo.sdwn.trasport.ComTransport">
     </bean>
 
-    <bean id="NetworkMap" class="it.unibo.sdwn.map.SdwnMap">
+    <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">
     </bean>
 
     <bean id="controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
