@@ -16,11 +16,11 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <!--<bean id="controller" class="it.unibo.sdwn.controller.artronics.SdwnController"/>-->
     <!--</constructor-arg>-->
     <!--<constructor-arg>-->
-    <!--<bean id="transport" class="it.unibo.sdwn.trasport.ComTransport"/>-->
+    <!--<bean id="transport" class="it.unibo.sdwn.trasport.artronics.ComTransport"/>-->
     <!--</constructor-arg>-->
     <!--</bean>-->
 
-    <bean id="Transport" class="it.unibo.sdwn.trasport.ComTransport">
+    <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
     </bean>
 
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">

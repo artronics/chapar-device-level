@@ -4,8 +4,14 @@ import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.node.Node;
 
-public class ComTransport implements Transport
+public abstract class BaseTransport implements Transport, Runnable
 {
+    private static Transport transport;
+
+    protected BaseTransport()
+    {
+    }
+
     @Override
     public void init()
     {
