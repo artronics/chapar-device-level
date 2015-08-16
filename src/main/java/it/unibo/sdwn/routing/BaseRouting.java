@@ -11,6 +11,7 @@ public abstract class BaseRouting implements Routing, Runnable
     {
     }
 
+    //<editor-fold desc="getter and setters related to dependencies">
     @Override
     public final synchronized NetworkMap getNetworkMap()
     {
@@ -28,4 +29,5 @@ public abstract class BaseRouting implements Routing, Runnable
     {
         routing = routingImpl;
     }
+    //</editor-fold>
 }

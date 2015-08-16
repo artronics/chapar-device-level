@@ -14,6 +14,24 @@ public abstract class BaseController implements Controller, Runnable
     {
     }
 
+
+    @Subscribe
+    public void init()
+    {
+        Thread controllerThread = new Thread(this);
+        Log.main().debug("Controller thread is created and starting...");
+        controllerThread.start();
+    }
+
+    @Override
+    public void run()
+    {
+        Log.main().debug("inside");
+        System.out.println("inside kir");
+
+    }
+
+    //<editor-fold desc="setters and getters related to Controller dependencies">
     @Override
     public final synchronized Transport getTransport()
     {
@@ -37,20 +55,5 @@ public abstract class BaseController implements Controller, Runnable
     {
         routing = routingImpl;
     }
-
-    @Subscribe
-    public void init()
-    {
-        Thread controllerThread = new Thread(this);
-        Log.main().debug("Controller thread is created and starting...");
-        controllerThread.start();
-    }
-
-    @Override
-    public void run()
-    {
-        Log.main().debug("inside");
-        System.out.println("inside kir");
-
-    }
+    //</editor-fold>
 }
