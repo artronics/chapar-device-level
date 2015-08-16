@@ -53,6 +53,11 @@
         <artifactId>junit-dep</artifactId>
         <version>4.8.2</version>
     </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>4.2.0.RELEASE</version>
+      </dependency>
       <!-- Logger (logback) dependencies -->
       <dependency>
           <groupId>org.slf4j</groupId>
