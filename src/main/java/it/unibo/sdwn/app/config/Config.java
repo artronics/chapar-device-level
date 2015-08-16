@@ -11,7 +11,7 @@ public class Config
     {
     }
 
-    public static PropertiesConfiguration get()
+    synchronized public static PropertiesConfiguration get()
     {
         AppConfiguration conf = null;
         if (!isInstanciated) {

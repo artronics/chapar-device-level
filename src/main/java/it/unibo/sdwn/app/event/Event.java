@@ -11,7 +11,7 @@ public class Event
     {
     }
 
-    public static EventBus mainBus()
+    synchronized public static EventBus mainBus()
     {
         if (!isInstanciated) {
             mainBus = new EventBus();
