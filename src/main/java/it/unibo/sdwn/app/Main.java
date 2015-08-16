@@ -1,6 +1,8 @@
 package it.unibo.sdwn.app;
 
 import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.routing.Routing;
+import it.unibo.sdwn.routing.RoutingFactory;
 import it.unibo.sdwn.trasport.events.TransportIsReady;
 
 public class Main
@@ -11,5 +13,8 @@ public class Main
         app.init();
 
         Event.mainBus().post(new TransportIsReady());
+        Routing routing = new RoutingFactory().getInstance();
+        System.out.println(routing);
+
     }
 }

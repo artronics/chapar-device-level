@@ -5,7 +5,7 @@ import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.trasport.Transport;
 
-public class BaseController implements Controller, Runnable
+public abstract class BaseController implements Controller, Runnable
 {
     protected static Transport transport;
     protected static Routing routing;

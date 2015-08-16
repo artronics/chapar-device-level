@@ -14,6 +14,7 @@ public class RoutingFactory
             //get dependencies
             ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext(
                     "DependencyInjection.xml");
+            //TODO change it to factory for network map
             networkMap = xmlContext.getBean(NetworkMap.class);
             routing = xmlContext.getBean(Routing.class);
             xmlContext.close();
