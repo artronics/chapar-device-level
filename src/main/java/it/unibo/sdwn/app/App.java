@@ -3,17 +3,13 @@ package it.unibo.sdwn.app;
 import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.app.commandLine.CommandLineOptions;
 import it.unibo.sdwn.app.config.Config;
-import it.unibo.sdwn.app.config.DependencyInjection;
 import it.unibo.sdwn.app.event.RegisterHandler;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.controller.Controller;
-import it.unibo.sdwn.map.NetworkMap;
-import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.trasport.ComTransport;
 import it.unibo.sdwn.trasport.Transport;
 import it.unibo.sdwn.trasport.events.TransportIsReady;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 public final class App
@@ -25,18 +21,14 @@ public final class App
     //Main dependencies
     private CommandLineOptions commandLineOptions;
     private Controller controller;
-    private NetworkMap networkMap;
-    private Routing routing;
     private Transport transport;
 
     //Resolving dependencies by Dependency Injection
     //See DependencyInjection class in configuration package to change implementations
     @Autowired
-    public App(Controller controller, NetworkMap networkMap, Routing routing, Transport transport)
+    public App(Controller controller, Transport transport)
     {
         this.controller = controller;
-        this.networkMap = networkMap;
-        this.routing = routing;
         this.transport = transport;
     }
     public App()
@@ -60,13 +52,10 @@ public final class App
 
     private static void getDependecies()
     {
-        AnnotationConfigApplicationContext context
-                = new AnnotationConfigApplicationContext(DependencyInjection.class);
-        instance.controller = context.getBean(Controller.class);
-        instance.routing = context.getBean(Routing.class);
-        instance.transport = context.getBean(Transport.class);
-        instance.networkMap = context.getBean(NetworkMap.class);
-
+//        ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext(
+//                "DependencyInjection.xml");
+//        instance.controller = xmlContext.getBean(Controller.class);
+//        instance.transport = xmlContext.getBean(Transport.class);
     }
 
     public static String getAppName()
@@ -99,6 +88,8 @@ public final class App
     {
         manageCommandLineOptions();
 
+        System.out.println(instance.transport);
+        System.out.println(instance.controller);
         RegisterHandler.registerAll();
         ComTransport comTransport = new ComTransport();
 
