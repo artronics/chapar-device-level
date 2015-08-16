@@ -4,7 +4,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class Config
 {
-    private static boolean isInstanciated = false;
+    private static AppConfiguration conf = null;
     private static PropertiesConfiguration propertiesConfiguration =new PropertiesConfiguration();
 
     private Config()
@@ -13,11 +13,9 @@ public class Config
 
     synchronized public static PropertiesConfiguration get()
     {
-        AppConfiguration conf = null;
-        if (!isInstanciated) {
+        if (conf == null) {
             conf = new AppConfiguration();
             propertiesConfiguration = conf.getConfig();
-            isInstanciated = true;
         }
 
         return propertiesConfiguration;
