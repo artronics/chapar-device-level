@@ -1,7 +1,12 @@
 package it.unibo.sdwn.routing.artronics;
 
-import it.unibo.sdwn.routing.Routing;
+import it.unibo.sdwn.routing.BaseRouting;
 
-public class SdwnRouting implements Routing
+public class SdwnRouting extends BaseRouting
 {
+    @Override
+    public void run()
+    {
+
+    }
 }
