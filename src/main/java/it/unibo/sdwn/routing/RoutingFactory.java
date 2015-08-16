@@ -1,6 +1,7 @@
 package it.unibo.sdwn.routing;
 
 import it.unibo.sdwn.map.NetworkMap;
+import it.unibo.sdwn.map.NetworkMapFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class RoutingFactory
@@ -14,8 +15,7 @@ public class RoutingFactory
             //get dependencies
             ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext(
                     "DependencyInjection.xml");
-            //TODO change it to factory for network map
-            networkMap = xmlContext.getBean(NetworkMap.class);
+            networkMap = new NetworkMapFactory().getInstance();
             routing = xmlContext.getBean(Routing.class);
             xmlContext.close();
 

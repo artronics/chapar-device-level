@@ -3,6 +3,7 @@ package it.unibo.sdwn.controller;
 import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.routing.RoutingFactory;
 import it.unibo.sdwn.trasport.Transport;
+import it.unibo.sdwn.trasport.TransportFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ControllerFactory
@@ -18,8 +19,7 @@ public class ControllerFactory
             ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext(
                     "DependencyInjection.xml");
             controller = xmlContext.getBean(Controller.class);
-            //TODO change it to factory for transport
-            transport = xmlContext.getBean(Transport.class);
+            transport = new TransportFactory().getInstance();
             routing = new RoutingFactory().getInstance();
             xmlContext.close();
 
