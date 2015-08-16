@@ -6,27 +6,27 @@ import org.apache.commons.cli.*;
 
 public class CommandLineOptions
 {
-    private static CommandLineOptions instance = null;
     private static String[] args;
     private static CommandLine commandLine = null;
     private static Options options = new Options();
 
-    protected CommandLineOptions()
+    public CommandLineOptions(String[] argsOptns)
     {
+        args = argsOptns;
+        setOptions();
+        setCommandLine();
+
     }
 
-    public static CommandLineOptions getInstance(String[] inputArgs)
+    /*
+        Here you can add all options required for app
+        after adding options put your logic for managing
+        that option inside CommandLineOptionsManager class
+     */
+    private static void setOptions()
     {
-        if (instance == null) {
-            instance = new CommandLineOptions();
-            args = inputArgs;
-            instance.setOptions();
-            instance.setCommandLine();
-            return instance;
-        }
-        Log.instantiate("Attempt to re-instantiating singleton:", instance);
-
-        return instance;
+        options.addOption("h", "help", false, "Print this message");
+        options.addOption("v", "version", false, "Print version of app");
     }
 
     private static void setCommandLine()
@@ -42,42 +42,14 @@ public class CommandLineOptions
         }
     }
 
-    private static void setOptions()
-    {
-        options.addOption("h", "help", false, "Print this message");
-        options.addOption("v", "version", false, "Print version of app");
-    }
-
-    public static boolean askedForHelp()
-    {
-        if (instance.getCommandLine().hasOption("help"))
-            return true;
-
-        return false;
-    }
-
-    public static boolean askedForVersion()
-    {
-        if (instance.getCommandLine().hasOption("version"))
-            return true;
-
-        return false;
-    }
-
-    public static void printHelp()
-    {
-        MessageFormatter.printHelp(options,
-                                   80,
-                                   "--HELP--",
-                                   "\nAuthor: Seyed Jalal Hosseini (jalalhosseiny@gmail.com)",
-                                   3,
-                                   5,
-                                   true,
-                                   System.out);
-    }
 
     public CommandLine getCommandLine()
     {
         return commandLine;
+    }
+
+    public Options getOptions()
+    {
+        return options;
     }
 }
