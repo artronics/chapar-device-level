@@ -15,25 +15,25 @@ public abstract class BaseController implements Controller, Runnable
     }
 
     @Override
-    public synchronized Transport getTransport()
+    public final synchronized Transport getTransport()
     {
         return transport;
     }
 
     @Override
-    public synchronized void setTransport(Transport transportImpl)
+    public final synchronized void setTransport(Transport transportImpl)
     {
         transport = transportImpl;
     }
 
     @Override
-    public synchronized Routing getRouting()
+    public final synchronized Routing getRouting()
     {
         return routing;
     }
 
     @Override
-    public synchronized void setRouting(Routing routingImpl)
+    public final synchronized void setRouting(Routing routingImpl)
     {
         routing = routingImpl;
     }
