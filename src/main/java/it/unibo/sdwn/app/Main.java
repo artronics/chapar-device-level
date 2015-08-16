@@ -9,8 +9,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-        App app = App.getInstance(args);
-        app.init();
+        App app = App.getInstance();
+        app.init(args);
 
         Event.mainBus().post(new TransportIsReady());
         Routing routing = new RoutingFactory().getInstance();
