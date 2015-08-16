@@ -13,7 +13,7 @@ public class RegisterHandler
      */
     public static void registerAll()
     {
-        App app = new App();
+        App app = App.getInstance();
         Event.mainBus().register(new RegisterHandler());
         Event.mainBus().register(app);
     }
