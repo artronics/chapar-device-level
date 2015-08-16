@@ -4,8 +4,7 @@ import com.google.common.eventbus.EventBus;
 
 public class Event
 {
-    private static EventBus mainBus;
-    private static boolean isInstanciated = false;
+    private static EventBus mainBus = null;
 
     private Event()
     {
@@ -13,9 +12,8 @@ public class Event
 
     synchronized public static EventBus mainBus()
     {
-        if (!isInstanciated) {
+        if (mainBus == null) {
             mainBus = new EventBus();
-            isInstanciated = true;
             return mainBus;
         }
 
