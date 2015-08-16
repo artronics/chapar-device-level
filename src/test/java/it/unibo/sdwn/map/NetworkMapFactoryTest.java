@@ -1,8 +1,6 @@
-package it.unibo.sdwn.routing;
+package it.unibo.sdwn.map;
 
-import it.unibo.sdwn.map.NetworkMap;
 import it.unibo.sdwn.map.artronics.SdwnMap;
-import it.unibo.sdwn.routing.artronics.SdwnRouting;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,33 +10,28 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:DependencyInjection.xml")
-public class RoutingFactoryTest
+public class NetworkMapFactoryTest
 {
     //If you changed default implementation of below fields
     //in DependencyInjection.xml, you have to also change
     //these fields to your new implementations.
     private static NetworkMap networkMapImpl = new SdwnMap();
-    private static Routing routingImpl = new SdwnRouting();
 
     @Test
     public void It_should_give_a_singleton()
     {
-        Routing routing = new RoutingFactory().getInstance();
-        Routing secondRouting = new RoutingFactory().getInstance();
+        NetworkMap map = new NetworkMapFactory().getInstance();
+        NetworkMap secondMap = new NetworkMapFactory().getInstance();
 
-        assertSame(routing, secondRouting);
+        assertSame(map, secondMap);
     }
 
     @Test
     public void It_should_resolve_its_dependendencies_considering_DI()
     {
-        Routing routing = new RoutingFactory().getInstance();
-        NetworkMap networkMap = routing.getNetworkMap();
+        NetworkMap map = new NetworkMapFactory().getInstance();
 
-        assertNotNull(routing);
-        assertNotNull(networkMap);
-
-        assertEquals(routingImpl.getClass(), routing.getClass());
-        assertEquals(networkMapImpl.getClass(), networkMap.getClass());
+        assertNotNull(map);
+        assertEquals(networkMapImpl.getClass(), map.getClass());
     }
 }
