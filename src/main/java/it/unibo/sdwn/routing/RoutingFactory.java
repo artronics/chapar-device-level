@@ -14,11 +14,12 @@ public class RoutingFactory
     public synchronized Routing getInstance()
     {
         if (routing == null) {
-
+            //get dependencies
             ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext(
                     "DependencyInjection.xml");
             networkMap = xmlContext.getBean(NetworkMap.class);
             routing = xmlContext.getBean(Routing.class);
+            xmlContext.close();
 
             routing.setNetworkMap(networkMap);
             return routing;

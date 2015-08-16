@@ -12,13 +12,20 @@ public abstract class BaseRouting implements Routing, Runnable
     }
 
     @Override
-    public void setRouting(Routing routingImpl)
+    public synchronized NetworkMap getNetworkMap()
     {
-        routing = routingImpl;
+        return networkMap;
     }
 
-    public void setNetworkMap(NetworkMap networkMapImpl)
+    @Override
+    public synchronized void setNetworkMap(NetworkMap networkMapImpl)
     {
         networkMap = networkMapImpl;
+    }
+
+    @Override
+    public synchronized void setRouting(Routing routingImpl)
+    {
+        routing = routingImpl;
     }
 }
