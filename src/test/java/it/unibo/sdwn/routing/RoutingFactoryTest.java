@@ -21,7 +21,7 @@ public class RoutingFactoryTest
     private static Routing routingImpl = new SdwnRouting();
 
     @Test
-    public void It_should_give_a_singleton_considering_dependency_injection()
+    public void It_should_give_a_singleton()
     {
         Routing routing = new RoutingFactory().getInstance();
         Routing secondRouting = new RoutingFactory().getInstance();
