@@ -25,8 +25,13 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">
     </bean>
-
-    <bean id="controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
+    <bean id="app" class="it.unibo.sdwn.app.App">
+        <property name="controller" ref="Controller"></property>
+    </bean>
+    <!--<bean id="App" class="it.unibo.sdwn.app.App">-->
+    <!--<property name="controller" ref="controller"></property>-->
+    <!--</bean>-->
+    <bean id="Controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
         <property name="transport" ref="Transport"></property>
         <property name="routing" ref="Routing"></property>
     </bean>
