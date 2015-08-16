@@ -20,8 +20,17 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <!--</constructor-arg>-->
     <!--</bean>-->
 
+    <bean id="Transport" class="it.unibo.sdwn.trasport.ComTransport">
+    </bean>
+
     <bean id="NetworkMap" class="it.unibo.sdwn.map.SdwnMap">
     </bean>
+
+    <bean id="controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
+        <property name="transport" ref="Transport"></property>
+        <property name="routing" ref="Routing"></property>
+    </bean>
+
 
     <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting">
         <property name="networkMap" ref="NetworkMap"></property>
