@@ -7,8 +7,8 @@ import it.unibo.sdwn.trasport.Transport;
 
 public abstract class BaseController implements Controller, Runnable
 {
-    protected static Transport transport;
-    protected static Routing routing;
+    protected Transport transport;
+    protected Routing routing;
 
     protected BaseController()
     {
@@ -18,17 +18,15 @@ public abstract class BaseController implements Controller, Runnable
     @Subscribe
     public void init()
     {
-        Thread controllerThread = new Thread(this);
-        Log.main().debug("Controller thread is created and starting...");
-        controllerThread.start();
+        Log.main().debug("Start Controller initializer in {}", this.getClass().getSimpleName());
+        transport.init();
+        routing.init();
+        Log.main().debug("Controller initializing done.");
     }
 
     @Override
     public void run()
     {
-        Log.main().debug("inside");
-        System.out.println("inside kir");
-
     }
 
     //<editor-fold desc="setters and getters related to Controller dependencies">
@@ -41,7 +39,7 @@ public abstract class BaseController implements Controller, Runnable
     @Override
     public final synchronized void setTransport(Transport transportImpl)
     {
-        transport = transportImpl;
+        this.transport = transportImpl;
     }
 
     @Override
@@ -53,7 +51,7 @@ public abstract class BaseController implements Controller, Runnable
     @Override
     public final synchronized void setRouting(Routing routingImpl)
     {
-        routing = routingImpl;
+        this.routing = routingImpl;
     }
     //</editor-fold>
 }

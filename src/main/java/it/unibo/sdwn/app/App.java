@@ -14,7 +14,7 @@ public final class App
     private static App instance = null;
 
     //Main dependencies
-    private static Controller controller;
+    private Controller controller;
 
     private App()
     {
@@ -34,14 +34,14 @@ public final class App
 
     public final synchronized Controller getController()
     {
-        return controller;
+        return this.controller;
     }
 
     //Resolving dependencies by Dependency Injection
     //See DependencyInjection.xml
     public final synchronized void setController(Controller controllerImpl)
     {
-        controller = controllerImpl;
+        this.controller = controllerImpl;
     }
 
     public void init(String[] appArgs)
@@ -51,11 +51,29 @@ public final class App
         //register all event handlers
         RegisterHandler.registerAll();
 
+        loadDependencies();
+        initDependencies();
+
         //Run gui if available
         runGui();
     }
 
-    public void runGui()
+    private void loadDependencies()
+    {
+        DependencyBuilder dependencyBuilder = new DependencyBuilder();
+        dependencyBuilder.start();
+        this.controller = dependencyBuilder.getController();
+
+    }
+
+    private void initDependencies()
+    {
+        Log.main().debug("Start initializing dependency tree...");
+        this.controller.init();
+        Log.main().debug("All dependencies are initialized successfully.");
+    }
+
+    private void runGui()
     {
         final boolean hasGui = Config.get().getBoolean("hasGui");
         if (hasGui) {
