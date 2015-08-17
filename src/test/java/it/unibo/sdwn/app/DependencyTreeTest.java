@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/resources/DependencyInjection.xml")
-public class DependencyBuilderTest
+public class DependencyTreeTest
 {
     /*
         This test will test your interface implementations
