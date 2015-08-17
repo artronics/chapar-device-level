@@ -4,33 +4,14 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <!--
-        <bean id="MyXMLApp" class="com.journaldev.spring.di.consumer.MyXMLApplication">
-            <constructor-arg>
-                <bean class="com.journaldev.spring.di.services.TwitterService" />
-            </constructor-arg>
-        </bean>
-    -->
-    <!--<bean id="App" class="it.unibo.sdwn.app.App">-->
-    <!--<constructor-arg>-->
-    <!--<bean id="controller" class="it.unibo.sdwn.controller.artronics.SdwnController"/>-->
-    <!--</constructor-arg>-->
-    <!--<constructor-arg>-->
-    <!--<bean id="transport" class="it.unibo.sdwn.trasport.artronics.ComTransport"/>-->
-    <!--</constructor-arg>-->
-    <!--</bean>-->
-
     <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
     </bean>
 
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">
     </bean>
-    <!--<bean id="App" class="it.unibo.sdwn.app.App">-->
-    <!--<property name="controller" ref="controller"></property>-->
-    <!--</bean>-->
+
     <bean id="Controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
     </bean>
-
 
     <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting">
     </bean>
