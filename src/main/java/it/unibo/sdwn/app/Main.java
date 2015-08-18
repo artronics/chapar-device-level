@@ -6,5 +6,6 @@ public class Main
     {
         App app = App.getInstance();
         app.init(args);
+
     }
 }
