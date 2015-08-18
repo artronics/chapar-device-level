@@ -1,18 +1,21 @@
 package it.unibo.sdwn.trasport.artronics;
 
-import gnu.io.CommPort;
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
+import gnu.io.*;
 import it.unibo.sdwn.app.config.Config;
+import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
+import it.unibo.sdwn.trasport.events.TransportDataInAvailableEvent;
 
-public class Communicator
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.TooManyListenersException;
+
+public class Communicator implements SerialPortEventListener
 {
     final static int TIMEOUT = 2000;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier = null;
-    private SerialPort connection = null;
+    private SerialPort serialPort = null;
 
     public void init()
     {
@@ -26,6 +29,7 @@ public class Communicator
         return this.selectedPortIdentifier;
     }
 
+    //Open port and add initEventListener
     public SerialPort openPort(CommPortIdentifier commPortIdentifier)
     {
         CommPort commPort;
@@ -42,6 +46,7 @@ public class Communicator
                                            SerialPort.STOPBITS_1,
                                            SerialPort.PARITY_NONE);
 
+
         }catch (PortInUseException e) {
             e.printStackTrace();
             Log.main().error("If you are on Mac, create a /var/lock with 777 permision." +
@@ -51,7 +56,48 @@ public class Communicator
         }
 
         if (serialPort != null) {
+            this.serialPort = serialPort;
+            initListener();
             return serialPort;
         }else throw new NullPointerException();
+    }
+
+    private void initListener()
+    {
+        try {
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            Event.mainBus().register(this);
+        }catch (TooManyListenersException e) {
+        }
+    }
+
+    @Override
+    public void serialEvent(SerialPortEvent serialPortEvent)
+    {
+        if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            try {
+                InputStream in = this.serialPort.getInputStream();
+                //let's fire another event in our own event bus
+                //and delegate it to Transport layer.
+//                ObjectInput dataObjectIn = new ObjectInputStream(in);
+//                Object dataObject = dataObjectIn.readObject();
+                //This event should fire when you get data from
+                //the lowest level (ie. hardware)
+                TransportDataInAvailableEvent event =
+                        new TransportDataInAvailableEvent();
+                byte[] byteStream = new byte[10];
+                in.read(byteStream);
+                event.setData(byteStream);
+                event.setDataType(InputStream.class);
+
+                Event.mainBus().post(event);
+
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("huraaa");
+        }
+
     }
 }

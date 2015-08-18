@@ -24,7 +24,7 @@ public class ComTransport extends BaseTransport
         ComConnection connection = new ComConnection();
         //Well it's ok now!
         this.connection = connection;
-
+        this.connection.open();
         this.queue = new InOutPacketQueue();
 
         Log.main().info("Transport layer initialized in {}", this.getClass().getSimpleName());
