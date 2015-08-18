@@ -4,6 +4,7 @@ import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
+import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.logger.Log;
 
 public class Communicator
@@ -35,7 +36,11 @@ public class Communicator
             //the CommPort object can be casted to a SerialPort object
             serialPort = (SerialPort) commPort;
 
-            //TODO set buad rate, etc
+            int buadRate = Config.get().getInt("SerialCom.BaudRate");
+            serialPort.setSerialPortParams(buadRate,
+                                           SerialPort.DATABITS_8,
+                                           SerialPort.STOPBITS_1,
+                                           SerialPort.PARITY_NONE);
 
         }catch (PortInUseException e) {
             e.printStackTrace();
