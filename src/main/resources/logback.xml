@@ -22,12 +22,17 @@
         <encoder>
             <pattern>%msg%n</pattern>
         </encoder>
+
     </appender>
 
     <appender name="STDOUT-DETAILED" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
     </appender>
 
     <root level="debug">
