@@ -7,6 +7,8 @@ public interface Transport
 {
     public void init();
 
+    public Connection getConnection();
+
     public void sendPacket(Packet packet, Node destinatioNode);
 
     public Packet receivePacket(Node destinationNode);
