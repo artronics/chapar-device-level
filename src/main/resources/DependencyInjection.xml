@@ -4,10 +4,15 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
+    <!-- ids which strats with Capital letters are Interface-->
+
     <!-- Static Factory Methods-->
     <bean id="config" class="it.unibo.sdwn.app.config.Config" factory-method="get"/>
     <bean id="event" class="it.unibo.sdwn.app.event.Event" factory-method="mainBus"/>
 
+    <bean id="app" class="it.unibo.sdwn.app.App">
+        <property name="controller" ref="Controller"></property>
+    </bean>
     <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
     </bean>
 
@@ -15,6 +20,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     </bean>
 
     <bean id="Controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
+        <constructor-arg name="transport" ref="Transport"></constructor-arg>
+        <constructor-arg name="routing" ref="Routing"></constructor-arg>
     </bean>
 
     <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting">
