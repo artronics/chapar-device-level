@@ -58,7 +58,11 @@
           <artifactId>spring-test</artifactId>
           <version>4.2.0.RELEASE</version>
       </dependency>
-      <!-- Logger (logback) dependencies -->
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>2.0.31-beta</version>
+      </dependency><!-- Logger (logback) dependencies -->
       <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
