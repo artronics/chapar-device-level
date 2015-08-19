@@ -4,18 +4,13 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class Config
 {
-    public void setConf(AppConfiguration conf)
-    {
-        this.conf = conf;
-    }
+    private static AppConfiguration conf = new AppConfiguration();
 
-    private AppConfiguration conf ;
-
-    public Config()
+    private Config()
     {
     }
 
-    public PropertiesConfiguration get()
+    public static PropertiesConfiguration get()
     {
         return conf.getConfig();
     }
