@@ -1,9 +1,13 @@
 package it.unibo.sdwn.app.event;
 
 import com.google.common.eventbus.Subscribe;
-import it.unibo.sdwn.app.App;
 import it.unibo.sdwn.app.logger.Log;
 
+/*
+    Use this class for general purpose event handlers
+    and registering specif classes which there is no
+    other appropriate place for them.
+ */
 public class RegisterHandler
 {
     /*
@@ -13,9 +17,7 @@ public class RegisterHandler
      */
     public static void registerAll()
     {
-        App app = App.getInstance();
         Event.mainBus().register(new RegisterHandler());
-        Event.mainBus().register(app);
     }
 
     /*

@@ -4,11 +4,14 @@ import it.unibo.sdwn.app.commandLine.CommandLineOptionsManager;
 import it.unibo.sdwn.app.event.RegisterHandler;
 import it.unibo.sdwn.controller.Controller;
 
+import java.io.Serializable;
 
-public final class App
+
+public final class App implements Serializable
 {
 
-    //Main dependencies
+    //Resolving dependencies by Dependency Injection
+    //See DependencyInjection.xml
     private Controller controller;
 
     public App()
@@ -20,9 +23,7 @@ public final class App
         return this.controller;
     }
 
-    //Resolving dependencies by Dependency Injection
-    //See DependencyInjection.xml
-    public final synchronized void setController(Controller controllerImpl)
+    public void setController(Controller controllerImpl)
     {
         this.controller = controllerImpl;
     }
@@ -39,16 +40,8 @@ public final class App
         RegisterHandler.registerAll();
     }
 
-    private void loadDependencies()
+    public void start()
     {
-        DependencyBuilder dependencyBuilder = new DependencyBuilder();
-        dependencyBuilder.start();
-        this.controller = dependencyBuilder.getController();
-    }
-
-    public void initDependencies()
-    {
-        loadDependencies();
         this.controller.init();
     }
 }
