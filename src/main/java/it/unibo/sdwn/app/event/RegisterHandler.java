@@ -26,6 +26,7 @@ public class RegisterHandler
     @Subscribe
     public void generalHandler(AppBaseEvent e)
     {
+        System.out.println("here");
         Log.event().info("{} just occurred.", e.getClass().getSimpleName());
     }
 }

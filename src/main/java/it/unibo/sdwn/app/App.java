@@ -3,6 +3,7 @@ package it.unibo.sdwn.app;
 import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.app.commandLine.CommandLineOptionsManager;
 import it.unibo.sdwn.app.config.Config;
+import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.event.RegisterHandler;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.controller.Controller;
@@ -46,6 +47,8 @@ public final class App
 
     public void init(String[] appArgs)
     {
+        Event.mainBus().post(new TransportIsReady());
+        Event.mainBus().post(new TransportIsReady());
         CommandLineOptionsManager cmd = new CommandLineOptionsManager(appArgs);
         cmd.start();
         //register all event handlers

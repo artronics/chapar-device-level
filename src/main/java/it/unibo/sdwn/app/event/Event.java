@@ -4,19 +4,14 @@ import com.google.common.eventbus.EventBus;
 
 public class Event
 {
-    private static EventBus mainBus = null;
+    private static EventBus mainBus = new EventBus();
 
     private Event()
     {
     }
 
-    synchronized public static EventBus mainBus()
+    public static EventBus mainBus()
     {
-        if (mainBus == null) {
-            mainBus = new EventBus();
-            return mainBus;
-        }
-
         return mainBus;
     }
 

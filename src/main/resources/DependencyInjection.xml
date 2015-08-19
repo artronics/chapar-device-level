@@ -4,7 +4,9 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
+    <!-- Static Factory Methods-->
     <bean id="config" class="it.unibo.sdwn.app.config.Config" factory-method="get"/>
+    <bean id="event" class="it.unibo.sdwn.app.event.Event" factory-method="mainBus"/>
 
     <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
     </bean>
