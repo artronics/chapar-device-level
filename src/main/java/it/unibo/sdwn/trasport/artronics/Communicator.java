@@ -85,7 +85,7 @@ public class Communicator implements SerialPortEventListener
                 //This event should fire when you get data from
                 //the lowest level (ie. hardware)
                 TransportDataInAvailableEvent event =
-                        new TransportDataInAvailableEvent();
+                        new TransportDataInAvailableEvent(this);
                 byte[] byteStream = new byte[10];
                 in.read(byteStream);
                 event.setData(byteStream);

@@ -4,24 +4,52 @@ import java.util.stream.Stream;
 
 public abstract class AppBaseEvent
 {
+    /**
+     * The object on which the Event initially occurred.
+     */
+    protected transient Object source;
+
     private Object data;
     private Stream stream;
     private String message;
     private Class dataType;
 
-    public AppBaseEvent(Object data, Class dataType)
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source The object on which the Event initially occurred.
+     * @throws IllegalArgumentException if source is null.
+     */
+    public AppBaseEvent(Object source)
     {
-        this.data = data;
-        this.dataType = dataType;
+        if (source == null)
+            throw new IllegalArgumentException("null source");
+
+        this.source = source;
     }
 
     public AppBaseEvent()
     {
     }
 
-    public AppBaseEvent(Object data)
+    /**
+     * The object on which the Event initially occurred.
+     *
+     * @return The object on which the Event initially occurred.
+     */
+    public Object getSource()
     {
-        this.data = data;
+        return source;
+    }
+
+    /**
+     * Returns a String representation of this EventObject.
+     *
+     * @return A a String representation of this EventObject.
+     */
+    public String toString()
+    {
+        return getClass().getName() + "[source=" + source + "]";
     }
 
     public Stream getStream()
