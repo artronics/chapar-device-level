@@ -5,7 +5,8 @@ import it.unibo.sdwn.node.BaseNode;
 /**
  * Created by jalal on 05/08/15.
  */
-public class Response extends Packet{
+public class Response //extends SdwnPacket
+{
 
     private Payload data;
     private byte responseBytes[];
@@ -19,12 +20,12 @@ public class Response extends Packet{
         this.responseBytes = response;
     }
 
-    @Override
+    //@Override
     public int getLength() {
         return this.responseBytes.length;
     }
 
-    @Override
+    //@Override
     public byte[] getPacketBytes() {
         return responseBytes;
     }
