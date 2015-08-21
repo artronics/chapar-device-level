@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class SdwnPacket implements Analysable
 {
     private ArrayList<UnsignedByte> data = new ArrayList<>();
-    private PacketType packetType;
+    private Type type;
+//    private static long
 
     public SdwnPacket(ArrayList<UnsignedByte> data)
     {
@@ -23,22 +24,22 @@ public class SdwnPacket implements Analysable
         this.data = data;
 
         UnsignedByte typeByte = this.data.get(byteMeaning.TYPE.value);
-        for (PacketType packetType : PacketType.values()) {
-            if (typeByte.equals(packetType.value))
-                this.packetType = packetType;
+        for (Type type : Type.values()) {
+            if (typeByte.equals(type.value))
+                this.type = type;
         }
 
         //see original code starter gestisci_pacchetto default
         //case for switch statement. don't forget to change the test
-        //See also PacketType enum constructor
+        //See also Type enum constructor
         //TODO What is the default value for Type if it wouldn't be between those values?
         if (typeByte.intValue() > 6)
-            this.packetType = PacketType.OPEN_PATH;
+            this.type = type.OPEN_PATH;
     }
 
-    public PacketType getPacketType()
+    public Type getType()
     {
-        return packetType;
+        return type;
     }
 
     @Override
@@ -47,12 +48,12 @@ public class SdwnPacket implements Analysable
         return null;
     }
 
-    public boolean is(SdwnPacket.PacketType type)
+    public boolean is(Type type)
     {
-        return (this.packetType == type);
+        return (this.type == type);
     }
 
-    public enum PacketType
+    public enum Type
     {
         DATA(new UnsignedByte(1)),
         BEACON(new UnsignedByte(2)),
@@ -63,7 +64,7 @@ public class SdwnPacket implements Analysable
 
         private UnsignedByte value;
 
-        PacketType(UnsignedByte value)
+        Type(UnsignedByte value)
         {
             if (value.intValue() > 6)
                 this.value = new UnsignedByte(6);

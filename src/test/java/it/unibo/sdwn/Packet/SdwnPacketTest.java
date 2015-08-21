@@ -35,15 +35,15 @@ public class SdwnPacketTest
     public void It_should_tell_us_if_packet_has_specific_type()
     {
         SdwnPacket sdwnPacket = new SdwnPacket(packet);
-        assertTrue(sdwnPacket.is(SdwnPacket.PacketType.DATA));
+        assertTrue(sdwnPacket.is(SdwnPacket.Type.DATA));
 
         packet.set(6, new UnsignedByte(3));
         SdwnPacket sdwnPacket1 = new SdwnPacket(packet);
-        assertTrue(sdwnPacket1.is(SdwnPacket.PacketType.REPORT));
+        assertTrue(sdwnPacket1.is(SdwnPacket.Type.REPORT));
 
         packet.set(6, new UnsignedByte(2));
         SdwnPacket sdwnPacket2 = new SdwnPacket(packet);
-        assertFalse(sdwnPacket2.is(SdwnPacket.PacketType.REPORT));
+        assertFalse(sdwnPacket2.is(SdwnPacket.Type.REPORT));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SdwnPacketTest
     {
         packet.set(6, new UnsignedByte(7));
         SdwnPacket sdwnPacket = new SdwnPacket(packet);
-        assertTrue(sdwnPacket.is(SdwnPacket.PacketType.OPEN_PATH));
+        assertTrue(sdwnPacket.is(SdwnPacket.Type.OPEN_PATH));
     }
 
 }
