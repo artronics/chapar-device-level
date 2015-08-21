@@ -1,11 +1,5 @@
 package it.unibo.sdwn.app;
 
-import it.unibo.sdwn.controller.artronics.SdwnController;
-import it.unibo.sdwn.map.artronics.SdwnMap;
-import it.unibo.sdwn.routing.artronics.SdwnRouting;
-import it.unibo.sdwn.trasport.artronics.ComTransport;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,7 +17,7 @@ public class DependencyTreeTest
         Also remember if you change Dependency tree you
         have to change according tests methods.
      */
-    private String controllerImpl;
+    /*private String controllerImpl;
     private String transportImpl;
     private String routingImpl;
     private String networkMapImpl;
@@ -57,5 +51,5 @@ public class DependencyTreeTest
 //        assertEquals(networkMap.getClass().getSimpleName(), networkMapImpl);
 
     }
-
+*/
 }

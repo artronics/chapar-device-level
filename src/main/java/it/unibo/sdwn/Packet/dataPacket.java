@@ -6,43 +6,53 @@ import it.unibo.sdwn.node.Address;
 
 import java.util.ArrayList;
 
-public class dataPacket extends SdwnPacket
+public final class DataPacket extends SdwnPacket
 {
+    private static final UnsignedByte DATA_PACKET_HEADER_LENGTH = new UnsignedByte(10);
+    private Address destNodeAddress = new Address();
+    private ArrayList<UnsignedByte> data = new ArrayList<>();
+    private ArrayList<UnsignedByte> header = new ArrayList<>();
 
-    private UnsignedByte[] packetHeader = new UnsignedByte[10];
-    private byte responseBytes[];
-    private Address destNodeAddress;
-
-    public dataPacket(ArrayList<UnsignedByte> data, int length, Address destAddress)
+    public DataPacket(ArrayList<UnsignedByte> dataPayload,
+                      Address destNodeAddres)
     {
-        super(data);
-        //this will make a payload of 20 bytes. see the
-        //class to see how it will be initialized
-        //TODO make it flexible
+        int packetLeng = dataPayload.size() + DATA_PACKET_HEADER_LENGTH.intValue();
+        UnsignedByte paketLength = new UnsignedByte(packetLeng);
+
+        setHeader(destNodeAddres, paketLength);
+        data = new ArrayList<>(dataPayload);
+        data.addAll(0, header);
     }
 
-    private void setResponseBytes()
+    protected void setHeader(Address destNodeAddress, UnsignedByte packetLength)
     {
-        data.add(byteMeaning.LENGTH.value, getLength());
-        data.add(byteMeaning.NET_ID.value, new UnsignedByte(Config.get().getByte("NET_ID")));
-        data.add(byteMeaning.SOURCE_L.value, new UnsignedByte(0));
-        data.add(byteMeaning.SOURCE_H.value, new UnsignedByte(0));
-        data.add(byteMeaning.DESTINATION_L.value, destNodeAddress.getAddress()[0]);
-        data.add(byteMeaning.DESTINATION_H.value, destNodeAddress.getAddress()[1]);
-        data.add(byteMeaning.TYPE.value, new UnsignedByte(0));
-        data.add(byteMeaning.TTL.value, new UnsignedByte(Config.get().getByte("TTL")));
-        data.add(byteMeaning.NEXT_HOP_L.value, new UnsignedByte(0));
-        data.add(byteMeaning.NEXT_HOP_H.value, new UnsignedByte(0));
-
+        header.add(byteMeaning.LENGTH.value, packetLength);
+        header.add(byteMeaning.NET_ID.value, new UnsignedByte(Config.get().getByte("NET_ID")));
+        header.add(byteMeaning.SOURCE_L.value, new UnsignedByte(0));
+        header.add(byteMeaning.SOURCE_H.value, new UnsignedByte(0));
+        header.add(byteMeaning.DESTINATION_L.value, destNodeAddress.getAddress()[0]);
+        header.add(byteMeaning.DESTINATION_H.value, destNodeAddress.getAddress()[1]);
+        header.add(byteMeaning.TYPE.value, Type.DATA.value);
+        header.add(byteMeaning.TTL.value, new UnsignedByte(Config.get().getByte("TTL")));
+        header.add(byteMeaning.NEXT_HOP_L.value, new UnsignedByte(0));
+        header.add(byteMeaning.NEXT_HOP_H.value, new UnsignedByte(0));
     }
 
-//    public dataPacket(BaseNode destinationNode, Payload data) {
-//        this.data = data;
-//
-//        byte[] response = new byte[10 + (data.length)];
-//        System.arraycopy(data, 0, response, 10, data.length);
-//
-//        this.responseBytes = response;
-//    }
+    @Override
+    public ArrayList<UnsignedByte> getBytes()
+    {
+        return data;
+    }
 
+    @Override
+    public Type getType()
+    {
+        return Type.DATA;
+    }
+
+    @Override
+    public int getLength()
+    {
+        return data.size();
+    }
 }

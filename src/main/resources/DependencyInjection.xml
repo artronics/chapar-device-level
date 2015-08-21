@@ -11,6 +11,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="event" class="it.unibo.sdwn.app.event.Event" factory-method="mainBus"/>
 
     <bean id="app" class="it.unibo.sdwn.app.App">
+        <constructor-arg ref="Controller"></constructor-arg>
         <property name="controller" ref="Controller"></property>
     </bean>
     <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">

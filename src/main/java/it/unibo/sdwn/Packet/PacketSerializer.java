@@ -1,6 +1,6 @@
 package it.unibo.sdwn.Packet;
 
-public class PcketSerializer
+public class PacketSerializer
 {
     //European countries use ";" as
     //CSV separator because "," is their digit separator
@@ -12,7 +12,7 @@ public class PcketSerializer
         csv = "";
         csv += packet.getType();
         csvAppend();
-        csv += SdwnPacket.getRecievedCounter();
+        csv += SdwnPacket.getPacketSerialNumber();
         csvAppend();
         return csv;
     }

@@ -1,6 +1,7 @@
 package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.node.Address;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,10 +9,11 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class PcketSerializerTest
+public class PacketSerializerTest
 {
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
-    private SdwnPacket packet;
+    private Address add = new Address(10);
+    private SdwnPacket dataPacket;
     private String csv = "";
     private String expCsv;
 
@@ -27,10 +29,10 @@ public class PcketSerializerTest
         pck.add(new UnsignedByte(1));//Type:6
         pck.add(new UnsignedByte(5));
 
-        packet = new SdwnPacket(pck);
-        csv = packet.toCsv();
+        dataPacket = new DataPacket(pck, add);
+        csv = dataPacket.toCsv();
 
-        expCsv = "DATA; 1; ";
+        expCsv = "DATA; 2; ";
     }
 
     @Test

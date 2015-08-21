@@ -1,4 +1,3 @@
-/*
 package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -7,50 +6,63 @@ import java.util.ArrayList;
 
 public class Payload
 {
-
     private ArrayList<UnsignedByte> data;
-    public int length = 0;
 
-    public Payload(int size) {
-        this.data = new ArrayList();
+    private int length = 0;
+
+    public Payload(int size)
+    {
+        this.data = new ArrayList(size);
         this.length = size;
-        init();
+    }
+//    public void add()
+
+    public Payload(ArrayList<UnsignedByte> data)
+    {
+        this.data = data;
     }
 
-    public ArrayList<UnsignedByte> getData() {
+    public ArrayList<UnsignedByte> getData()
+    {
         return data;
     }
 
-    public Payload init(){
+    public Payload init()
+    {
         //place your desired init method here
-        this.initDummy();
+        this.initWithDummyValues();
         return this;
     }
-    public void initDummy(){
-        for (data ){
-            data[i] = new UnsignedByte(i);
-        }
-    }
-    public void init(UnsignedByte initValue){
-        for (int i=0; i<data.length; ++i){
-            data[i] = initValue;
+
+    public void initWithDummyValues()
+    {
+        for (int i = 0; i < length; i++) {
+            data.add(new UnsignedByte(i));
         }
     }
 
-    public void init(UnsignedByte[] initValues){
-        if (initValues.length != data.length)
+    public void initWithDummyValues(UnsignedByte initValue)
+    {
+        for (int i = 0; i < length; i++) {
+            data.add(initValue);
+        }
+    }
+
+    public void init(ArrayList<UnsignedByte> arrayList)
+    {
+        if (arrayList.size() != length)
             throw new IndexOutOfBoundsException("Data and initializer array must have the same size");
-        for (int i=0; i<data.length; ++i){
-            data[i] = initValues[i];
-        }
+        data = new ArrayList<>(arrayList);
     }
 
-    public UnsignedByte getByte(int index) {
-        return data[index];
+    public UnsignedByte getByte(int index)
+    {
+        return data.get(index);
+
     }
 
-    public void setByte(int index, UnsignedByte value) {
-        data[index] = value;
+    public void setByte(int index, UnsignedByte value)
+    {
+        data.set(index, value);
     }
 }
-*/

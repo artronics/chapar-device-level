@@ -7,46 +7,24 @@ import it.unibo.sdwn.helper.UnsignedByte;
 import java.util.ArrayList;
 
 //Todo it must have a minimum length
-public class SdwnPacket implements Analysable
+public abstract class SdwnPacket implements Packet, Analysable
 {
-    private static long recievedCounter = 0;
-    protected ArrayList<UnsignedByte> data = new ArrayList<>();
-    private Type type;
-    private UnsignedByte length;
+    private static long packetSerialNumber = 0;
+    private ArrayList<UnsignedByte> data;
 
-    public SdwnPacket(ArrayList<UnsignedByte> data)
+    protected SdwnPacket()
     {
-        if (data == null) {
-            String msg = "Null <UnsignedByte>data in SdwnPacket constructor";
-            Log.main().error(msg);
-            throw new NullPointerException(msg);
-        }
+        packetSerialNumber++;
+    }
 
-        this.data = data;
-
-        UnsignedByte typeByte = this.data.get(byteMeaning.TYPE.value);
-        for (Type type : Type.values()) {
-            if (typeByte.equals(type.value))
-                this.type = type;
-        }
-
-        //see original code starter gestisci_pacchetto default
-        //case for switch statement. don't forget to change the test
-        //See also Type enum constructor
-        //TODO What is the default value for Type if it wouldn't be between those values?
-        if (typeByte.intValue() > 6)
-            this.type = type.OPEN_PATH;
-
-        length = new UnsignedByte(data.size());
-
-        incReceivedCounter();
-
-        logPacket();
+    public static long getPacketSerialNumber()
+    {
+        return packetSerialNumber;
     }
 
     private static synchronized void incReceivedCounter()
     {
-        recievedCounter++;
+        packetSerialNumber++;
     }
 
     private void logPacket()
@@ -57,22 +35,7 @@ public class SdwnPacket implements Analysable
     @Override
     public String toCsv()
     {
-        return PcketSerializer.toCsv(this);
-    }
-
-    public static long getRecievedCounter()
-    {
-        return recievedCounter;
-    }
-
-    public UnsignedByte getLength()
-    {
-        return length;
-    }
-
-    public Type getType()
-    {
-        return type;
+        return PacketSerializer.toCsv(this);
     }
 
     @Override
@@ -81,56 +44,6 @@ public class SdwnPacket implements Analysable
         return toCsv();
     }
 
-    public boolean is(Type type)
-    {
-        return (this.type == type);
-    }
 
-    public enum Type
-    {
-        DATA(new UnsignedByte(1)),
-        BEACON(new UnsignedByte(2)),
-        REPORT(new UnsignedByte(3)),
-        RULE_REQUEST(new UnsignedByte(4)),
-        RULE_RESPONSE(new UnsignedByte(5)),
-        OPEN_PATH(new UnsignedByte(6));
 
-        private UnsignedByte value;
-
-        Type(UnsignedByte value)
-        {
-            if (value.intValue() > 6)
-                this.value = new UnsignedByte(6);
-            else
-                this.value = value;
-        }
-    }
-
-    protected enum byteMeaning
-    {
-        LENGTH(0),
-        NET_ID(1),
-        SOURCE_L(2),
-        SOURCE_H(3),
-        DESTINATION_L(4),
-        DESTINATION_H(5),
-        TYPE(6),
-        TTL(7),
-        NEXT_HOP_L(8),
-        NEXT_HOP_H(9),
-        DISTANCE(10),
-        BATTERY(11),
-        NEIGHBOUR(12),
-        START_TIME_L(11),
-        START_TIME_H(12),
-        STOP_TIME_L(13),
-        STOP_TIME_H(14),;
-
-        protected int value;
-
-        byteMeaning(int value)
-        {
-            this.value = value;
-        }
-    }
 }
