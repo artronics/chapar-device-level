@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public class SdwnPacket implements Analysable
 {
     private static long recievedCounter = 0;
-    private ArrayList<UnsignedByte> data = new ArrayList<>();
+    protected ArrayList<UnsignedByte> data = new ArrayList<>();
     private Type type;
+    private UnsignedByte length;
 
     public SdwnPacket(ArrayList<UnsignedByte> data)
     {
@@ -36,6 +37,8 @@ public class SdwnPacket implements Analysable
         if (typeByte.intValue() > 6)
             this.type = type.OPEN_PATH;
 
+        length = new UnsignedByte(data.size());
+
         incReceivedCounter();
 
         logPacket();
@@ -46,14 +49,25 @@ public class SdwnPacket implements Analysable
         recievedCounter++;
     }
 
+    private void logPacket()
+    {
+        Log.packet().info(this.toCsv());
+    }
+
+    @Override
+    public String toCsv()
+    {
+        return PcketSerializer.toCsv(this);
+    }
+
     public static long getRecievedCounter()
     {
         return recievedCounter;
     }
 
-    private void logPacket()
+    public UnsignedByte getLength()
     {
-        Log.packet().info(this.toCsv());
+        return length;
     }
 
     public Type getType()
@@ -62,9 +76,9 @@ public class SdwnPacket implements Analysable
     }
 
     @Override
-    public String toCsv()
+    public String toString()
     {
-        return PcketSerializer.toCsv(this);
+        return toCsv();
     }
 
     public boolean is(Type type)
@@ -92,7 +106,7 @@ public class SdwnPacket implements Analysable
         }
     }
 
-    private enum byteMeaning
+    protected enum byteMeaning
     {
         LENGTH(0),
         NET_ID(1),
@@ -106,9 +120,13 @@ public class SdwnPacket implements Analysable
         NEXT_HOP_H(9),
         DISTANCE(10),
         BATTERY(11),
-        NEIGHBOUR(12);
+        NEIGHBOUR(12),
+        START_TIME_L(11),
+        START_TIME_H(12),
+        STOP_TIME_L(13),
+        STOP_TIME_H(14),;
 
-        private int value;
+        protected int value;
 
         byteMeaning(int value)
         {

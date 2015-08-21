@@ -1,17 +1,23 @@
+/*
 package it.unibo.sdwn.Packet;
 
-public class Payload implements ByteStream
+import it.unibo.sdwn.helper.UnsignedByte;
+
+import java.util.ArrayList;
+
+public class Payload
 {
 
-    private byte data[];
+    private ArrayList<UnsignedByte> data;
     public int length = 0;
 
-    public Payload(int sizeInBytes) {
-        this.data = new byte[sizeInBytes];
-        this.length = sizeInBytes;
+    public Payload(int size) {
+        this.data = new ArrayList();
+        this.length = size;
+        init();
     }
 
-    public byte[] getData() {
+    public ArrayList<UnsignedByte> getData() {
         return data;
     }
 
@@ -21,17 +27,17 @@ public class Payload implements ByteStream
         return this;
     }
     public void initDummy(){
-        for (int i=0; i<data.length; ++i){
-            data[i] = (byte)i;
+        for (data ){
+            data[i] = new UnsignedByte(i);
         }
     }
-    public void init(byte initValue){
+    public void init(UnsignedByte initValue){
         for (int i=0; i<data.length; ++i){
             data[i] = initValue;
         }
     }
 
-    public void init(byte[] initValues){
+    public void init(UnsignedByte[] initValues){
         if (initValues.length != data.length)
             throw new IndexOutOfBoundsException("Data and initializer array must have the same size");
         for (int i=0; i<data.length; ++i){
@@ -39,11 +45,12 @@ public class Payload implements ByteStream
         }
     }
 
-    public byte getByte(int index) {
+    public UnsignedByte getByte(int index) {
         return data[index];
     }
 
-    public void setByte(int index, byte value) {
+    public void setByte(int index, UnsignedByte value) {
         data[index] = value;
     }
 }
+*/
