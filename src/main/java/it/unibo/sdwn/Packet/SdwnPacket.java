@@ -8,10 +8,29 @@ import java.util.ArrayList;
 public class SdwnPacket implements Analysable
 {
     private ArrayList<UnsignedByte> data = new ArrayList<>();
+    private PacketType packetType;
 
     public SdwnPacket(ArrayList<UnsignedByte> data)
     {
         this.data = data;
+        //Todo it must have a minimum length
+        UnsignedByte typeByte = this.data.get(byteMeaning.TYPE.value);
+        for (PacketType packetType : PacketType.values()) {
+            if (typeByte.equals(packetType.value))
+                this.packetType = packetType;
+        }
+
+        //see original code starter gestisci_pacchetto default
+        //case for switch statement. don't forget to change the test
+        //See also PacketType enum constructor
+        //TODO What is the default value for Type if it wouldn't be between those values?
+        if (typeByte.intValue() > 6)
+            this.packetType = PacketType.OPEN_PATH;
+    }
+
+    public PacketType getPacketType()
+    {
+        return packetType;
     }
 
     @Override
@@ -22,12 +41,7 @@ public class SdwnPacket implements Analysable
 
     public boolean is(SdwnPacket.PacketType type)
     {
-        UnsignedByte typeByte = data.get(byteMeaning.TYPE.value);
-        for (PacketType packetType : PacketType.values()) {
-            if (typeByte.equals(packetType.value))
-                return true;
-        }
-        return false;
+        return (this.packetType == type);
     }
 
     public enum PacketType
@@ -43,7 +57,10 @@ public class SdwnPacket implements Analysable
 
         PacketType(UnsignedByte value)
         {
-            this.value = value;
+            if (value.intValue() > 6)
+                this.value = new UnsignedByte(6);
+            else
+                this.value = value;
         }
     }
 
@@ -70,6 +87,4 @@ public class SdwnPacket implements Analysable
             this.value = value;
         }
     }
-
-
 }
