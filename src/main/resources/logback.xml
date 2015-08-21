@@ -8,6 +8,14 @@
             <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="PACKET" class="ch.qos.logback.core.FileAppender">
+        <param name="Append" value="false"/>
+        <file>packets.log</file>
+
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
 
     <appender name="EVENT_FILE" class="ch.qos.logback.core.FileAppender">
         <param name="Append" value="false"/>
@@ -43,6 +51,9 @@
     </logger>
     <logger name="stdout" level="debug">
         <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="packet" level="info">
+        <appender-ref ref="PACKET"/>
     </logger>
     <logger name="event" level="info">
         <appender-ref ref="EVENT_FILE"/>

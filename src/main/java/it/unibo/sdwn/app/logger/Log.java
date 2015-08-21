@@ -16,6 +16,11 @@ public class Log implements ILogger
         return ILogger.stdout();
     }
 
+    public static Logger packet()
+    {
+        return ILogger.packet();
+    }
+
     public static Logger event()
     {
         return ILogger.event();
