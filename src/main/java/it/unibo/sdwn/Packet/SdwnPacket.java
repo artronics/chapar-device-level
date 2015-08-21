@@ -1,10 +1,12 @@
 package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.app.analyser.Analysable;
+import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
 
+//Todo it must have a minimum length
 public class SdwnPacket implements Analysable
 {
     private ArrayList<UnsignedByte> data = new ArrayList<>();
@@ -12,8 +14,14 @@ public class SdwnPacket implements Analysable
 
     public SdwnPacket(ArrayList<UnsignedByte> data)
     {
+        if (data == null) {
+            String msg = "Null <UnsignedByte>data in SdwnPacket constructor";
+            Log.main().error(msg);
+            throw new NullPointerException(msg);
+        }
+
         this.data = data;
-        //Todo it must have a minimum length
+
         UnsignedByte typeByte = this.data.get(byteMeaning.TYPE.value);
         for (PacketType packetType : PacketType.values()) {
             if (typeByte.equals(packetType.value))

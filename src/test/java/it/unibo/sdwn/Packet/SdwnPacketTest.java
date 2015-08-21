@@ -26,6 +26,11 @@ public class SdwnPacketTest
         packet.add(new UnsignedByte(5));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void Throw_exp_if_data_is_null()
+    {
+        SdwnPacket sdwnPacket = new SdwnPacket(null);
+    }
     @Test
     public void It_should_tell_us_if_packet_has_specific_type()
     {
@@ -42,6 +47,7 @@ public class SdwnPacketTest
     }
 
     @Test
+    //see class comments and todoo
     public void It_should_consider_packet_type_as_OPEN_PATH_if_Type_value_is_greater_than_6()
     {
         packet.set(6, new UnsignedByte(7));
