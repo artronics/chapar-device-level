@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SdwnPacketTest
 {
@@ -55,4 +54,14 @@ public class SdwnPacketTest
         assertTrue(sdwnPacket.is(SdwnPacket.Type.OPEN_PATH));
     }
 
+    //TODO don't forget to add other constructors
+    @Test
+    public void It_sould_increment_receivedCounter_after_each_construction()
+    {
+        SdwnPacket sdwnPacket = new SdwnPacket(packet);
+        SdwnPacket sdwnPacket1 = new SdwnPacket(packet);
+        SdwnPacket sdwnPacket2 = new SdwnPacket(packet);
+
+        assertEquals(3, SdwnPacket.getRecievedCounter());
+    }
 }

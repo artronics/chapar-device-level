@@ -9,9 +9,9 @@ import java.util.ArrayList;
 //Todo it must have a minimum length
 public class SdwnPacket implements Analysable
 {
+    private static long recievedCounter = 0;
     private ArrayList<UnsignedByte> data = new ArrayList<>();
     private Type type;
-//    private static long
 
     public SdwnPacket(ArrayList<UnsignedByte> data)
     {
@@ -35,6 +35,15 @@ public class SdwnPacket implements Analysable
         //TODO What is the default value for Type if it wouldn't be between those values?
         if (typeByte.intValue() > 6)
             this.type = type.OPEN_PATH;
+
+        incReceivedCounter();
+    }
+
+    private static void incReceivedCounter() {recievedCounter++;}
+
+    public static long getRecievedCounter()
+    {
+        return recievedCounter;
     }
 
     public Type getType()
