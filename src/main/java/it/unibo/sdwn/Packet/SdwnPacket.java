@@ -41,7 +41,7 @@ public class SdwnPacket implements Analysable
         logPacket();
     }
 
-    private static void incReceivedCounter()
+    private static synchronized void incReceivedCounter()
     {
         recievedCounter++;
     }

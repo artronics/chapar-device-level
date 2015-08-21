@@ -13,6 +13,7 @@ public class PcketSerializer
         csv += packet.getType();
         csvAppend();
         csv += SdwnPacket.getRecievedCounter();
+        csvAppend();
         return csv;
     }
 

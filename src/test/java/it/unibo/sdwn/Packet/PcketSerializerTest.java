@@ -30,9 +30,8 @@ public class PcketSerializerTest
         packet = new SdwnPacket(pck);
         csv = packet.toCsv();
 
-        expCsv = "DATA; 1";
+        expCsv = "DATA; 1; ";
     }
-
 
     @Test
     public void It_should_create_csv_string()
