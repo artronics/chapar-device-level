@@ -10,7 +10,7 @@
     </appender>
     <appender name="PACKET" class="ch.qos.logback.core.FileAppender">
         <param name="Append" value="false"/>
-        <file>packets.log</file>
+        <file>packets.csv</file>
 
         <encoder>
             <pattern>%msg%n</pattern>
