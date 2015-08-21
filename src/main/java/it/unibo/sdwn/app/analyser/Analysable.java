@@ -1,6 +1,6 @@
 package it.unibo.sdwn.app.analyser;
 
-public interface Analysable<T>
+public interface Analysable
 {
-    String toCsv(T object);
+    String toCsv();
 }

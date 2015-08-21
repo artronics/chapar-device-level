@@ -37,13 +37,23 @@ public class SdwnPacket implements Analysable
             this.type = type.OPEN_PATH;
 
         incReceivedCounter();
+
+        logPacket();
     }
 
-    private static void incReceivedCounter() {recievedCounter++;}
+    private static void incReceivedCounter()
+    {
+        recievedCounter++;
+    }
 
     public static long getRecievedCounter()
     {
         return recievedCounter;
+    }
+
+    private void logPacket()
+    {
+        Log.packet().info(this.toCsv());
     }
 
     public Type getType()
@@ -52,9 +62,9 @@ public class SdwnPacket implements Analysable
     }
 
     @Override
-    public String toCsv(Object object)
+    public String toCsv()
     {
-        return null;
+        return PcketSerializer.toCsv(this);
     }
 
     public boolean is(Type type)
