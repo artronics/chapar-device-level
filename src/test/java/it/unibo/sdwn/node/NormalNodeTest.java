@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class NormalNodeTest
 {
-    private Node[] nodes = new Node[4];
+    private INode[] nodes = new INode[4];
 
     @Before
     public void setUp()
@@ -23,10 +23,10 @@ public class NormalNodeTest
             3<->1 ::value for Quality:100
          */
 
-        nodes[0] = new NormalNode(0);
-        nodes[1] = new NormalNode(1);
-        nodes[2] = new NormalNode(2);
-        nodes[3] = new NormalNode(3);
+        nodes[0] = new Node(0);
+        nodes[1] = new Node(1);
+        nodes[2] = new Node(2);
+        nodes[3] = new Node(3);
 
         //since communication is full/half duplex we indicate one way link
         nodes[0].addLinkTo(nodes[1],new LinkQuality(30));
@@ -68,7 +68,7 @@ public class NormalNodeTest
         //You can also consider this as a test for getLinkT
         nodes[0].setAddress(new Address(10));
         Link linkTo = nodes[1].getLinkTo(nodes[0]);
-        Node destinationNode = linkTo.getDestinationNode();
+        INode destinationNode = linkTo.getDestinationNode();
         Address actualAddr = destinationNode.getAddress();
 
         assertEquals(nodes[0].getAddress(), actualAddr);

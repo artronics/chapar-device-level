@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
 import it.unibo.sdwn.Packet.SdwnPacket;
-import it.unibo.sdwn.node.Node;
+import it.unibo.sdwn.node.INode;
 
 public abstract class BaseTransport implements Transport, Runnable
 {
@@ -12,13 +12,13 @@ public abstract class BaseTransport implements Transport, Runnable
 
 
     @Override
-    public void sendPacket(SdwnPacket sdwnPacket, Node destinatioNode)
+    public void sendPacket(SdwnPacket sdwnPacket, INode destinatioNode)
     {
 
     }
 
     @Override
-    public SdwnPacket receivePacket(Node destinationNode)
+    public SdwnPacket receivePacket(INode destinationNode)
     {
         return null;
     }

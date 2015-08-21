@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
 import it.unibo.sdwn.Packet.SdwnPacket;
-import it.unibo.sdwn.node.Node;
+import it.unibo.sdwn.node.INode;
 
 public interface Transport
 {
@@ -9,7 +9,7 @@ public interface Transport
 
     public Connection getConnection();
 
-    public void sendPacket(SdwnPacket sdwnPacket, Node destinatioNode);
+    public void sendPacket(SdwnPacket sdwnPacket, INode destinatioNode);
 
-    public SdwnPacket receivePacket(Node destinationNode);
+    public SdwnPacket receivePacket(INode destinationNode);
 }

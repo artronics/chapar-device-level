@@ -4,21 +4,21 @@ public final class CommunicationLink implements Link
 {
     private static final LinkType linkType = LinkType.FULL_DUPLEX;
     private Quality quality;
-    private Node destinationode;
+    private INode destinationode;
 
-    public CommunicationLink(Node destinationNode)
+    public CommunicationLink(INode destinationNode)
     {
         this.destinationode = destinationNode;
     }
 
-    public CommunicationLink(Node destinationNode, Quality linkQuality)
+    public CommunicationLink(INode destinationNode, Quality linkQuality)
     {
         this.destinationode = destinationNode;
         this.quality = linkQuality;
     }
 
     @Override
-    public Node getDestinationNode()
+    public INode getDestinationNode()
     {
         return this.destinationode;
     }
