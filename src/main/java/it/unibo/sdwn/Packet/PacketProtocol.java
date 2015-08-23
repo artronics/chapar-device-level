@@ -12,10 +12,16 @@ import java.util.ArrayList;
 //STOP_BYTE. system keeps adding bytes to byteArray until next STOP_BYTE.
 //see LUNGHEZZA_FRAME_MAX in original code in Sdwn_Protocol.java
 //TODO [Potential Bug] There must be some max value for packet length
+
+/**
+ * Use this class when you get bytes from source and you want to construct a packet. Use addByte method to add received
+ * byte. If you want to change SDWN protocol for the receiving packets this is where you should add new protocol
+ * engine.
+ */
 public class PacketProtocol
 {
-    private final static UnsignedByte START_BYTE =UnsignedByte.of(Config.get().getByte("startByte"));
-    private final static UnsignedByte STOP_BYTE =UnsignedByte.of(Config.get().getByte("stopByte"));
+    private final static UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
+    private final static UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));
     private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;
     private boolean isStarted = false;
