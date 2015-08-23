@@ -2,25 +2,26 @@ package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.logger.Log;
+import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import it.unibo.sdwn.trasport.exceptions.PacketNotReadyException;
 
 import java.util.ArrayList;
 
-//what if we get startByte and system gets corrupted value for
-//stopByte. system keeps adding bytes to byteArray until next stopByte.
+//what if we get START_BYTE and system gets corrupted value for
+//STOP_BYTE. system keeps adding bytes to byteArray until next STOP_BYTE.
 //see LUNGHEZZA_FRAME_MAX in original code in Sdwn_Protocol.java
 //TODO [Potential Bug] There must be some max value for packet length
 public class PacketProtocol
 {
-    private final byte startByte = Config.get().getByte("startByte");
-    private final byte stopByte = Config.get().getByte("stopByte");
-    private ArrayList byteArray = new ArrayList<Byte>(0);
+    private final static UnsignedByte START_BYTE =UnsignedByte.of(Config.get().getByte("startByte"));
+    private final static UnsignedByte STOP_BYTE =UnsignedByte.of(Config.get().getByte("stopByte"));
+    private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;
     private boolean isStarted = false;
     private int expetedSize = 0;
 
-    public synchronized ArrayList<Byte> getPacket() throws PacketNotReadyException
+    public synchronized ArrayList<UnsignedByte> getPacket() throws PacketNotReadyException
     {
         if (isReady()) {
             //Clear this object before passing the byteArray
@@ -47,20 +48,20 @@ public class PacketProtocol
         expetedSize = 0;
     }
 
-    public synchronized void add(byte receivedByte) throws MalformedPacketException
+    public synchronized void add(UnsignedByte receivedByte) throws MalformedPacketException
     {
         int size = byteArray.size();
-        if (size == 0 && receivedByte == startByte) {
+        if (size == 0 && receivedByte.equals(START_BYTE)) {
             //Do nothing just clear this clear and get ready for new packet
             clear();
             isStarted = true;
         }else if (isStarted) {
             if (expetedSize == 0) {
                 byteArray.add(receivedByte);
-                expetedSize = (int) receivedByte;
+                expetedSize = receivedByte.intValue();
             }else if (size < expetedSize) {
                 byteArray.add(receivedByte);
-            }else if (size == expetedSize && receivedByte == stopByte) {
+            }else if (size == expetedSize && receivedByte.equals(STOP_BYTE)) {
                 isReady = true;
                 isStarted = false;
             }else {
