@@ -48,7 +48,7 @@ public class PacketProtocol
         expetedSize = 0;
     }
 
-    public synchronized void add(UnsignedByte receivedByte) throws MalformedPacketException
+    public synchronized void addByte(UnsignedByte receivedByte) throws MalformedPacketException
     {
         int size = byteArray.size();
         if (size == 0 && receivedByte.equals(START_BYTE)) {

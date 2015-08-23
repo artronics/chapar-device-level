@@ -29,7 +29,7 @@ public class Communicator implements SerialPortEventListener
         return this.selectedPortIdentifier;
     }
 
-    //Open port and add initEventListener
+    //Open port and addByte initEventListener
     public SerialPort openPort(CommPortIdentifier commPortIdentifier)
     {
         CommPort commPort;

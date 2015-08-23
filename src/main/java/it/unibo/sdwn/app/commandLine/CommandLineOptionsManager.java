@@ -15,17 +15,31 @@ public final class CommandLineOptionsManager
         options = commandLineOptions.getOptions();
     }
 
+    /*
+        First addByte your option on CommandLineOptions class
+        then here, create appropriate private methods for managing
+        them. Final addByte your entry method on start method.
+     */
+    public void start()
+    {
+        requiresProgExit();
+    }
+
+    private void requiresProgExit()
+    {
+        if (askedForHelp()) {
+            printHelp();
+            System.exit(0);
+        }
+        if (askedForVersion()) {
+            System.out.println("0.0");
+            System.exit(0);
+        }
+    }
+
     private static boolean askedForHelp()
     {
         if (commandLine.hasOption("help"))
-            return true;
-
-        return false;
-    }
-
-    private static boolean askedForVersion()
-    {
-        if (commandLine.hasOption("version"))
             return true;
 
         return false;
@@ -43,26 +57,12 @@ public final class CommandLineOptionsManager
                                    System.out);
     }
 
-    /*
-        First add your option on CommandLineOptions class
-        then here, create appropriate private methods for managing
-        them. Final add your entry method on start method.
-     */
-    public void start()
+    private static boolean askedForVersion()
     {
-        requiresProgExit();
-    }
+        if (commandLine.hasOption("version"))
+            return true;
 
-    private void requiresProgExit()
-    {
-        if (askedForHelp()) {
-            printHelp();
-            System.exit(0);
-        }
-        if (askedForVersion()) {
-            System.out.println("0.0");
-            System.exit(0);
-        }
+        return false;
     }
 
 }
