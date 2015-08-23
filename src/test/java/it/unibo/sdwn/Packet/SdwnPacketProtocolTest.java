@@ -11,18 +11,18 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class PacketProtocolTest
+public class SdwnPacketProtocolTest
 {
     private final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
     private final UnsignedByte stopByte =UnsignedByte.of( Config.get().getByte("stopByte"));
     private ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
     private ArrayList<UnsignedByte> malformedPacket = new ArrayList<>();
-    private PacketProtocol packetProtocol;
+    private SdwnPacketProtocol packetProtocol;
 
     @Before
     public void setUp()
     {
-        packetProtocol = new PacketProtocol();
+        packetProtocol = new SdwnPacketProtocol();
         //lets say the packet is something like this
         //startByte lengthOfPacket someDate stopByte
         goodPacket.add(UnsignedByte.of(4)); //packet length
