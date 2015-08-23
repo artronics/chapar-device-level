@@ -8,7 +8,7 @@ import it.unibo.sdwn.app.event.AppBaseEvent;
     For example in case of Serial Comm
     when data is available on buffer you should fire this event.
  */
-public class TransportDataInAvailableEvent extends AppBaseEvent
+public class TransportDataIsAvailableEvent extends AppBaseEvent
 {
     /**
      * Constructs a prototypical Event.
@@ -16,7 +16,7 @@ public class TransportDataInAvailableEvent extends AppBaseEvent
      * @param source The object on which the Event initially occurred.
      * @throws IllegalArgumentException if source is null.
      */
-    public TransportDataInAvailableEvent(Object source)
+    public TransportDataIsAvailableEvent(Object source)
     {
         super(source);
     }
