@@ -10,6 +10,11 @@ import it.unibo.sdwn.app.event.AppBaseEvent;
  */
 public class TransportDataIsAvailableEvent extends AppBaseEvent
 {
+    public TransportDataIsAvailableEvent(Object source, Object data)
+    {
+        super(source, data);
+    }
+
     /**
      * Constructs a prototypical Event.
      *

@@ -4,6 +4,7 @@ import gnu.io.*;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
+import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.events.TransportDataIsAvailableEvent;
 
 import java.io.IOException;
@@ -84,19 +85,18 @@ public class Communicator implements SerialPortEventListener
 //                Object dataObject = dataObjectIn.readObject();
                 //This event should fire when you get data from
                 //the lowest level (ie. hardware)
-                TransportDataIsAvailableEvent event =
-                        new TransportDataIsAvailableEvent(this);
                 byte[] byteStream = new byte[10];
-                in.read(byteStream);
-                event.setData(byteStream);
-                event.setDataType(InputStream.class);
+                UnsignedByte receivedByte;
+                receivedByte = UnsignedByte.of(in.read(byteStream));
 
+                System.out.printf(receivedByte.toString());
+                TransportDataIsAvailableEvent event =
+                        new TransportDataIsAvailableEvent(this, receivedByte);
                 Event.mainBus().post(event);
 
             }catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("huraaa");
         }
 
     }

@@ -1,35 +1,61 @@
 package it.unibo.sdwn.app.event;
 
-import java.util.stream.Stream;
-
+/**
+ * The type App base event.
+ */
 public abstract class AppBaseEvent
 {
+    private final Object data;
+    private final String message;
     /**
      * The object on which the Event initially occurred.
      */
     protected transient Object source;
 
-    private Object data;
-    private Stream stream;
-    private String message;
-    private Class dataType;
+
+    /**
+     * Instantiates a new App base event.
+     *
+     * @param source the source
+     */
+    public AppBaseEvent(Object source)
+    {
+//        if (source == null)
+//            throw new IllegalArgumentException("null source");
+//
+        this.source = source;
+        this.data = null;
+        this.message = null;
+    }
+
+
+    /**
+     * Instantiates a new App base event.
+     *
+     * @param source the source
+     * @param data   the data
+     */
+    public AppBaseEvent(Object source, Object data)
+    {
+        this.source = source;
+        this.data = data;
+        message = null;
+    }
 
     /**
      * Constructs a prototypical Event.
      *
      * @param source The object on which the Event initially occurred.
+     * @param data the data
+     * @param message the message
      * @throws IllegalArgumentException if source is null.
      */
-    public AppBaseEvent(Object source)
+    public AppBaseEvent(Object source, Object data, String message)
     {
-        if (source == null)
-            throw new IllegalArgumentException("null source");
 
         this.source = source;
-    }
-
-    public AppBaseEvent()
-    {
+        this.data = data;
+        this.message = message;
     }
 
     /**
@@ -52,45 +78,23 @@ public abstract class AppBaseEvent
         return getClass().getName() + "[source=" + source + "]";
     }
 
-    public Stream getStream()
-    {
-
-        return stream;
-    }
-
-    public void setStream(Stream stream)
-    {
-        this.stream = stream;
-    }
-
-    public Class getDataType()
-    {
-
-        return dataType;
-    }
-
-    public void setDataType(Class dataType)
-    {
-        this.dataType = dataType;
-    }
-
+    /**
+     * Gets data.
+     *
+     * @return the data
+     */
     public Object getData()
     {
         return data;
     }
 
-    public void setData(Object data)
-    {
-        this.data = data;
-    }
-
+    /**
+     * Gets message.
+     *
+     * @return the message
+     */
     public String getMessage()
     {
         return message;
-    }
-
-    public void setMessage(String message)
-    {
-        this.message = message;
     }
 }
