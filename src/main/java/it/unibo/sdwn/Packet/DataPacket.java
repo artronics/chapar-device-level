@@ -13,6 +13,7 @@ public final class DataPacket extends SdwnPacket
     private ArrayList<UnsignedByte> data = new ArrayList<>();
     private ArrayList<UnsignedByte> header = new ArrayList<>();
 
+    //See PacketFactory
     protected DataPacket(ArrayList<UnsignedByte> dataPayload,
                       Address destNodeAddres)
     {

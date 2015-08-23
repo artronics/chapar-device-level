@@ -1,4 +1,4 @@
-package it.unibo.sdwn.trasport;
+package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.logger.Log;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 //stopByte. system keeps adding bytes to byteArray until next stopByte.
 //see LUNGHEZZA_FRAME_MAX in original code in Sdwn_Protocol.java
 //TODO [Potential Bug] There must be some max value for packet length
-public class PacketByteStreamAdapter
+public class PacketProtocol
 {
     private final byte startByte = Config.get().getByte("startByte");
     private final byte stopByte = Config.get().getByte("stopByte");
@@ -32,6 +32,19 @@ public class PacketByteStreamAdapter
             Log.main().debug("Attempt to get not ready packet");
             throw new PacketNotReadyException();
         }
+    }
+
+    public synchronized boolean isReady()
+    {
+        return isReady;
+    }
+
+    private synchronized void clear()
+    {
+        byteArray.clear();
+        isReady = false;
+        isStarted = false;
+        expetedSize = 0;
     }
 
     public synchronized void add(byte receivedByte) throws MalformedPacketException
@@ -56,18 +69,5 @@ public class PacketByteStreamAdapter
                 throw new MalformedPacketException();
             }
         }
-    }
-
-    private synchronized void clear()
-    {
-        byteArray.clear();
-        isReady = false;
-        isStarted = false;
-        expetedSize = 0;
-    }
-
-    public synchronized boolean isReady()
-    {
-        return isReady;
     }
 }
