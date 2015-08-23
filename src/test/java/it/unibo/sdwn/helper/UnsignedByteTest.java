@@ -53,4 +53,20 @@ public class UnsignedByteTest
         UnsignedByte unsignedByte = UnsignedByte.of(intValue);
     }
 
+    @Test
+    public void It_should_convert_negative_bytes_to_positive()
+    {
+        UnsignedByte act = UnsignedByte.of(-128);
+        UnsignedByte exp = UnsignedByte.of(128);
+        assertEquals(exp, act);
+
+        act = UnsignedByte.of(0);
+        exp = UnsignedByte.of(0);
+        assertEquals(exp, act);
+
+        act = UnsignedByte.of(-1);
+        exp = UnsignedByte.of(255);
+        assertEquals(exp, act);
+    }
+
 }

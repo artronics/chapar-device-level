@@ -16,6 +16,10 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
     private int checkBounds(Number number)
     {
         int intValue = number.intValue();
+        //deals with negative byte value
+        if (intValue < 0 && intValue >= -128) {
+            intValue += 256;
+        }
         if (intValue < 0 || intValue > 255) {
             Log.main().error("Tried to construct a byte with out-of-band value");
             throw new IllegalArgumentException("Value must be between 0 and 255");
@@ -42,25 +46,11 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         return b;
     }
 
-    //    private UnsignedByte(short number)
-//    {
-//        this.number = checkBounds(number);
-//    }
-//
-//    private UnsignedByte(int number)
-//    {
-//        this.number = checkBounds(number);
-//    }
-//    private UnsignedByte(Number number){
-//        this.number = checkBounds(number);
-//    }
     public static UnsignedByte of(Number number)
     {
         UnsignedByte unsignedByte = new UnsignedByte(number);
         return unsignedByte;
     }
-
-//    public boolean equals(Number number)
 
     @Override
     public boolean equals(Object obj)
@@ -70,11 +60,6 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         }
         return false;
     }
-//    {
-//        int intValue = number.intValue();
-//
-//        return (this.intValue() == intValue);
-//    }
 
     @Override
     public String toString()
