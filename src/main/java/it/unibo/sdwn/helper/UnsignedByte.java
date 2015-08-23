@@ -6,26 +6,22 @@ import java.io.Serializable;
 
 public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Serializable
 {
-    private final byte value;
+    private final int value;
 
-    public UnsignedByte()
+    private UnsignedByte(Number number)
     {
-        this.value = 0;
+        this.value = checkBounds(number);
     }
 
-    public UnsignedByte(short value)
+    private int checkBounds(Number number)
     {
-        this.value = checkBounds(value);
-    }
+        int intValue = number.intValue();
+        if (intValue < 0 || intValue > 255) {
+            Log.main().error("Tried to construct a byte with out-of-band value");
+            throw new IllegalArgumentException("Value must be between 0 and 255");
+        }
 
-    public UnsignedByte(int value)
-    {
-        this.value = checkBounds(value);
-    }
-
-    public UnsignedByte(byte value)
-    {
-        this.value = value;
+        return intValue;
     }
 
     public static byte[] toByteArray(UnsignedByte[] array)
@@ -37,81 +33,82 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         return b;
     }
 
-    private static byte checkBounds(int value)
+    public static UnsignedByte[] toUnsignedByteArray(byte[] array)
     {
-        if (value < 0 || value > 255) {
-            Log.main().error("Tried to construct a byte with out-of-band value");
-            throw new IllegalArgumentException("Value must be between 0 and 255");
-        }
-        return (byte) (value);
-    }
-
-    public static UnsignedByte[] toUnsignedByteArray(byte[] array) {
         UnsignedByte[] b = new UnsignedByte[array.length];
         for (int i = 0; i < array.length; i++) {
-            b[i] = new UnsignedByte(array[i]);
+            b[i] = UnsignedByte.of(array[i]);
         }
         return b;
     }
 
-    @Override
-    public int compareTo(UnsignedByte other)
+    //    private UnsignedByte(short number)
+//    {
+//        this.number = checkBounds(number);
+//    }
+//
+//    private UnsignedByte(int number)
+//    {
+//        this.number = checkBounds(number);
+//    }
+//    private UnsignedByte(Number number){
+//        this.number = checkBounds(number);
+//    }
+    public static UnsignedByte of(Number number)
     {
-        return new Integer(this.intValue()).compareTo(new Integer(other.intValue()));
+        UnsignedByte unsignedByte = new UnsignedByte(number);
+        return unsignedByte;
     }
 
-    @Override
-    public int hashCode()
-    {
-        return new Integer(value).hashCode();
-    }
+//    public boolean equals(Number number)
+//    {
+//        int intValue = number.intValue();
+//
+//        return (this.intValue() == intValue);
+//    }
 
     @Override
     public boolean equals(Object obj)
     {
-        return obj instanceof UnsignedByte && ((UnsignedByte) obj).value == value;
+        if (obj instanceof UnsignedByte) {
+            return value == ((UnsignedByte) obj).intValue();
+        }
+        return false;
     }
 
     @Override
     public int intValue()
     {
-        return value & 0xFF;// (value>=0) ? value : (256+value);
+        return this.value;
     }
 
     @Override
     public long longValue()
     {
-        return value & 0xFF;// (value>=0) ? value : (256+value);
+        return (long) this.value;
     }
 
     @Override
     public float floatValue()
     {
-        return value & 0xFF;// (value>=0) ? value : (256+value);
-    }
-
-    @Override
-    public short shortValue()
-    {
-        return (short) (value & 0xFF);//(value>=0) ? (short)value : (short)(value+256);
-    }
-
-    @Override
-    public byte byteValue()
-    {
-        return this.value;
+        return (float) this.value;
     }
 
     @Override
     public double doubleValue()
     {
-        return value & 0xFF;// (value>=0) ? value : (256+value);
+        return (double) this.value;
     }
 
     @Override
-    public String toString()
+    public int compareTo(UnsignedByte anotherUnsignedByte)
     {
-        return Integer.toString(this.intValue());
+        return compare(this.value, anotherUnsignedByte.value);
+    }
+
+    public static int compare(int x, int y)
+    {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
     }
 
 }

@@ -15,14 +15,14 @@ public class SdwnPacketTest
     @Before
     public void setUp()
     {
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(5));
-        packet.add(new UnsignedByte(1));//Type:6
-        packet.add(new UnsignedByte(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(5));
+        packet.add(UnsignedByte.of(1));//Type:6
+        packet.add(UnsignedByte.of(5));
     }
 
     @Test(expected = NullPointerException.class)
@@ -36,11 +36,11 @@ public class SdwnPacketTest
         SdwnPacket sdwnPacket = new SdwnPacket(packet);
         assertTrue(sdwnPacket.is(SdwnPacket.Type.DATA));
 
-        packet.set(6, new UnsignedByte(3));
+        packet.set(6, UnsignedByte.of(3));
         SdwnPacket sdwnPacket1 = new SdwnPacket(packet);
         assertTrue(sdwnPacket1.is(SdwnPacket.Type.REPORT));
 
-        packet.set(6, new UnsignedByte(2));
+        packet.set(6, UnsignedByte.of(2));
         SdwnPacket sdwnPacket2 = new SdwnPacket(packet);
         assertFalse(sdwnPacket2.is(SdwnPacket.Type.REPORT));
     }
@@ -49,7 +49,7 @@ public class SdwnPacketTest
     //see class comments and todoo
     public void It_should_consider_packet_type_as_OPEN_PATH_if_Type_value_is_greater_than_6()
     {
-        packet.set(6, new UnsignedByte(7));
+        packet.set(6, UnsignedByte.of(7));
         SdwnPacket sdwnPacket = new SdwnPacket(packet);
         assertTrue(sdwnPacket.is(SdwnPacket.Type.OPEN_PATH));
     }

@@ -20,14 +20,14 @@ public class PacketSerializerTest
     @Before
     public void setUp()
     {
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(5));
-        pck.add(new UnsignedByte(1));//Type:6
-        pck.add(new UnsignedByte(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(5));
+        pck.add(UnsignedByte.of(1));//Type:6
+        pck.add(UnsignedByte.of(5));
 
         dataPacket = new DataPacket(pck, add);
         csv = dataPacket.toCsv();

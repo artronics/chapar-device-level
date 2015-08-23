@@ -17,22 +17,17 @@ public class Address implements Comparable<Address>, Serializable
         splitBytes(addrInt);
     }
 
+    private void splitBytes(int addrInt)
+    {
+        UnsignedByte firstByte = UnsignedByte.of(addrInt >> 8);
+        UnsignedByte secondByte = UnsignedByte.of(addrInt & 0xFF);
+        this.address[0] = firstByte;
+        this.address[1] = secondByte;
+    }
+
     public UnsignedByte[] getAddress()
     {
         return checkNull();
-    }
-    public UnsignedByte[] getAddress(int addrInt)
-    {
-        splitBytes(addrInt);
-        return checkNull();
-    }
-
-    private void splitBytes(int addrInt)
-    {
-        UnsignedByte firstByte = new UnsignedByte(addrInt>>8);
-        UnsignedByte secondByte = new UnsignedByte(addrInt & 0xFF);
-        this.address[0] = firstByte;
-        this.address[1] = secondByte;
     }
 
     private UnsignedByte[] checkNull()
@@ -42,28 +37,37 @@ public class Address implements Comparable<Address>, Serializable
         }else throw new NullPointerException("Address is null");
     }
 
+    public UnsignedByte[] getAddress(int addrInt)
+    {
+        splitBytes(addrInt);
+        return checkNull();
+    }
+
+    @Override
+    public int compareTo(Address other)
+    {
+        return new Integer(this.intValue()).compareTo(new Integer(other.intValue()));
+    }
 
     public int intValue() {
         return this.address[0].intValue() * 256 + this.address[1].intValue();
     }
 
     @Override
-    public String toString() {
-        return this.address[0].toString() + "." + this.address[1].toString();
-    }
-
-    @Override
-    public int compareTo(Address other) {
-        return new Integer(this.intValue()).compareTo(new Integer(other.intValue()));
-    }
-
-    @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return new Integer(this.intValue()).hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         return obj instanceof Address && ((Address) obj).intValue() == this.intValue();
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.address[0].toString() + "." + this.address[1].toString();
     }
 }

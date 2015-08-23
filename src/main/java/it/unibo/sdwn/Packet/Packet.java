@@ -14,19 +14,19 @@ public interface Packet
 
     enum Type
     {
-        DATA(new UnsignedByte(1)),
-        BEACON(new UnsignedByte(2)),
-        REPORT(new UnsignedByte(3)),
-        RULE_REQUEST(new UnsignedByte(4)),
-        RULE_RESPONSE(new UnsignedByte(5)),
-        OPEN_PATH(new UnsignedByte(6));
+        DATA(UnsignedByte.of(1)),
+        BEACON(UnsignedByte.of(2)),
+        REPORT(UnsignedByte.of(3)),
+        RULE_REQUEST(UnsignedByte.of(4)),
+        RULE_RESPONSE(UnsignedByte.of(5)),
+        OPEN_PATH(UnsignedByte.of(6));
 
         protected UnsignedByte value;
 
         Type(UnsignedByte value)
         {
             if (value.intValue() > 6)
-                this.value = new UnsignedByte(6);
+                this.value = UnsignedByte.of(6);
             else
                 this.value = value;
         }

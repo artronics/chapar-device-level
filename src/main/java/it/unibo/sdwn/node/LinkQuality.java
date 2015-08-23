@@ -8,7 +8,7 @@ public class LinkQuality implements Quality
 
     public LinkQuality(int qualityValue)
     {
-        this.value = new UnsignedByte(qualityValue);
+        this.value = UnsignedByte.of(qualityValue);
     }
 
     public LinkQuality(UnsignedByte value)
