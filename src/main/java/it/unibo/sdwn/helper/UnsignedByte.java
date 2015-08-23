@@ -61,11 +61,6 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
     }
 
 //    public boolean equals(Number number)
-//    {
-//        int intValue = number.intValue();
-//
-//        return (this.intValue() == intValue);
-//    }
 
     @Override
     public boolean equals(Object obj)
@@ -74,6 +69,17 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
             return value == ((UnsignedByte) obj).intValue();
         }
         return false;
+    }
+//    {
+//        int intValue = number.intValue();
+//
+//        return (this.intValue() == intValue);
+//    }
+
+    @Override
+    public String toString()
+    {
+        return Integer.toString(this.value);
     }
 
     @Override

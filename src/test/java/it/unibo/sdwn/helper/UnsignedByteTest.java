@@ -18,6 +18,8 @@ public class UnsignedByteTest
 
         assertTrue(equals);
         assertFalse(notEquals);
+        assertEquals(first, second);
+        assertNotEquals(first, unEq);
     }
 
     @Test
@@ -34,6 +36,14 @@ public class UnsignedByteTest
         int intValue = 100;
         UnsignedByte unsignedByte = UnsignedByte.of(intValue);
         assertEquals(intValue, unsignedByte.shortValue());
+    }
+
+    @Test
+    public void Test_toString()
+    {
+        UnsignedByte ub = UnsignedByte.of(30);
+        String ecpStr = "30";
+        assertEquals(ecpStr, ub.toString());
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -12,6 +12,12 @@ public class Address implements Comparable<Address>, Serializable
     {
     }
 
+    public Address(UnsignedByte addrUb)
+    {
+        this.address[0] = addrUb;
+        this.address[1] = UnsignedByte.of(0);
+    }
+
     public Address(int addrInt)
     {
         splitBytes(addrInt);

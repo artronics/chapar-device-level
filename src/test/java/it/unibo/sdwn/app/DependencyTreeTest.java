@@ -1,3 +1,4 @@
+/*
 package it.unibo.sdwn.app;
 
 import org.junit.runner.RunWith;
@@ -51,5 +52,6 @@ public class DependencyTreeTest
 //        assertEquals(networkMap.getClass().getSimpleName(), networkMapImpl);
 
     }
-*/
+
 }
+*/
