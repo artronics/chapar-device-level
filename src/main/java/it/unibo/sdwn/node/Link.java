@@ -2,7 +2,7 @@ package it.unibo.sdwn.node;
 
 public interface Link
 {
-    public INode getDestinationNode();
+    public Node getDestinationNode();
 
     public LinkType getLinkType();
 
