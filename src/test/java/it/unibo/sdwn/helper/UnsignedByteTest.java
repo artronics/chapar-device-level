@@ -69,4 +69,21 @@ public class UnsignedByteTest
         assertEquals(exp, act);
     }
 
+    @Test
+    public void It_should_converet_a_byte_array_to_UnsignedByte_array()
+    {
+        byte[] b = new byte[15];
+        b[0] = 0;
+        b[1] = 1;
+        b[2] = 3;
+        int length = 3;
+        UnsignedByte[] act = UnsignedByte.toUnsignedByteArray(b, length);
+
+        assertEquals(3, act.length);
+        assertEquals(b[0], act[0].byteValue());
+        assertEquals(b[1], act[1].byteValue());
+        assertEquals(b[2], act[2].byteValue());
+
+    }
+
 }

@@ -37,11 +37,11 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         return b;
     }
 
-    public static UnsignedByte[] toUnsignedByteArray(byte[] array)
+    public static UnsignedByte[] toUnsignedByteArray(byte[] buff, int length)
     {
-        UnsignedByte[] b = new UnsignedByte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            b[i] = UnsignedByte.of(array[i]);
+        UnsignedByte[] b = new UnsignedByte[length];
+        for (int i = 0; i < length; i++) {
+            b[i] = UnsignedByte.of(buff[i]);
         }
         return b;
     }
