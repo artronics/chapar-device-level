@@ -19,4 +19,14 @@ public class ConnectionDataAvailableEvent extends AppBaseEvent
         this.buff = buff;
         this.length = length;
     }
+
+    public byte[] getBuff()
+    {
+        return buff;
+    }
+
+    public int getLength()
+    {
+        return length;
+    }
 }
