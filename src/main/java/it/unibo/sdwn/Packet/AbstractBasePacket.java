@@ -63,12 +63,7 @@ public abstract class AbstractBasePacket implements Packet, Analysable
 
     public Type getType()
     {
-
         return packetType;
     }
 
-    public int getLength()
-    {
-        return 0;
-    }
 }

@@ -28,7 +28,7 @@ public class PacketSerializer
     private static void addPacketBytes(ArrayList<UnsignedByte> receivedBytes)
     {
         for (UnsignedByte ub : receivedBytes) {
-            csv += ub.toHex();
+            csv += ub.toString();
             csvAppend();
         }
     }

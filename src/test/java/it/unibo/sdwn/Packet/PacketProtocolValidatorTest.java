@@ -13,31 +13,12 @@ import static org.junit.Assert.assertFalse;
 
 public class PacketProtocolValidatorTest
 {
-    private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
-    private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
-    private ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
-    private ArrayList<UnsignedByte> malformedPacket = new ArrayList<>();
+    private ArrayList<UnsignedByte> goodPacket ;
+    private ArrayList<UnsignedByte> malformedPacket ;
 
     @Before
     public void setUp()
     {
-        //lets say the packet is something like this
-        //startByte lengthOfPacket someDate stopByte
-        goodPacket.add(UnsignedByte.of(startByte));
-        goodPacket.add(UnsignedByte.of(7)); //packet length
-        goodPacket.add(UnsignedByte.of(1));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(3));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(1));//type=data
-        goodPacket.add(UnsignedByte.of(stopByte));
-
-        malformedPacket.add(UnsignedByte.of(startByte));
-        malformedPacket.add(UnsignedByte.of(2)); //packet length
-        malformedPacket.add(UnsignedByte.of(2));
-        malformedPacket.add(UnsignedByte.of(3));
-
     }
 
     @Test
@@ -56,6 +37,8 @@ public class PacketProtocolValidatorTest
     public void Test_getType()
     {
         boolean thrown = false;
+        goodPacket = FakePacketFactory.buildGoodPacket();
+
         Packet.Type actType = null;
         try {
             actType = PacketProtocol.getType(goodPacket);
@@ -64,6 +47,17 @@ public class PacketProtocolValidatorTest
         }
         assertFalse(thrown);
         assertEquals(Packet.Type.DATA, actType);
+
+        //another time for Rule request
+        goodPacket.clear();
+        goodPacket = FakePacketFactory.buildGoodPacket(Packet.Type.RULE_REQUEST);
+        try {
+            actType = PacketProtocol.getType(goodPacket);
+        }catch (MalformedPacketException e) {
+            thrown = true;
+        }
+        assertFalse(thrown);
+        assertEquals(Packet.Type.RULE_REQUEST, actType);
     }
 
 }

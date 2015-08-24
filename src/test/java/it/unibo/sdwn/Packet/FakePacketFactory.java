@@ -11,7 +11,7 @@ public class FakePacketFactory
     public static final String FakeCsvForBeacon = "BEACON; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x2; 0x7E; ";
     private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
     private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
-    static ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
+    private static ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
 
     protected static ArrayList buildGoodPacket()
     {
