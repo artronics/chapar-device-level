@@ -13,7 +13,7 @@ public class PacketSerializerTest
 {
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
     private Address add = new Address(10);
-    private SdwnPacket dataPacket;
+    private AbstractBasePacket dataPacket;
     private String csv = "";
     private String expCsv;
 

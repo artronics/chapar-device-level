@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public final class DataPacket extends SdwnPacket
 {
-    private static final UnsignedByte DATA_PACKET_HEADER_LENGTH = UnsignedByte.of(10);
     private Address destNodeAddress = new Address();
     private ArrayList<UnsignedByte> data = new ArrayList<>();
     private ArrayList<UnsignedByte> header = new ArrayList<>();

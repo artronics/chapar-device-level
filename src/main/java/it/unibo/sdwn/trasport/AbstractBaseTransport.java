@@ -8,7 +8,6 @@ import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
-import it.unibo.sdwn.trasport.exceptions.PacketNotReadyException;
 
 import java.util.ArrayList;
 
@@ -35,14 +34,15 @@ public abstract class AbstractBaseTransport implements Transport, Runnable
         //When you use SdwnPacketProtocol constructor it doesn't do too much
         //only checks if packet is corrupted or not so we can log it.
         try {
-            PacketProtocol packetProtocol = new SdwnPacketProtocol(bytes);
+            PacketProtocol packetProtocol = new SdwnPacketProtocol();
             packet = packetProtocol.getPacket();
 
         }catch (MalformedPacketException e1) {
             Log.packet().error("corrupted packet is received.");
-        }catch (PacketNotReadyException e1) {
-            Log.packet().error("corrupted packet is received.");
         }
+//        }catch (PacketNotReadyException e1) {
+//            Log.packet().error("corrupted packet is received.");
+//        }
 
         packetQueue.addInput(packet);
     }

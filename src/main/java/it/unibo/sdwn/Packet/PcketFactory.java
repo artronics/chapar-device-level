@@ -7,6 +7,14 @@ import java.util.ArrayList;
 
 public class PcketFactory
 {
+    private PcketFactory()
+    {
+    }
+//    public static Packet build(ArrayList<UnsignedByte> bytes){
+//
+//
+//    }
+
     public static DataPacket createDataFactoy(ArrayList<UnsignedByte> dataPayload,
                                               Address destNodeAddres)
     {

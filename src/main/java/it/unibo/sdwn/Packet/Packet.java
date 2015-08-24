@@ -1,11 +1,15 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
 
 public interface Packet
 {
+    UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
+    UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));
+    UnsignedByte DATA_PACKET_HEADER_LENGTH = UnsignedByte.of(10);
     ArrayList<UnsignedByte> getBytes();
 
     Type getType();

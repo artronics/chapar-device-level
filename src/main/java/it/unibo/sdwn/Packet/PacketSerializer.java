@@ -7,12 +7,12 @@ public class PacketSerializer
     public static final String CSV_SEPARATOR = "; ";
     private static String csv;
 
-    public static String toCsv(SdwnPacket packet)
+    public static String toCsv(AbstractBasePacket packet)
     {
         csv = "";
         csv += packet.getType();
         csvAppend();
-        csv += SdwnPacket.getPacketSerialNumber();
+        csv += AbstractBasePacket.getPacketSerialNumber();
         csvAppend();
         return csv;
     }

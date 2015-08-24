@@ -13,8 +13,8 @@ import static org.junit.Assert.*;
 
 public class SdwnPacketProtocolTest
 {
-    private final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
-    private final UnsignedByte stopByte =UnsignedByte.of( Config.get().getByte("stopByte"));
+    private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
+    private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
     private ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
     private ArrayList<UnsignedByte> malformedPacket = new ArrayList<>();
     private SdwnPacketProtocol packetProtocol;
@@ -36,6 +36,26 @@ public class SdwnPacketProtocolTest
         malformedPacket.add(UnsignedByte.of(3));
     }
 
+    private void setBytes() throws MalformedPacketException, PacketNotReadyException
+    {
+        packetProtocol.addByte(UnsignedByte.of(startByte));
+        packetProtocol.addByte(UnsignedByte.of(4));
+        packetProtocol.addByte(UnsignedByte.of(1));
+        packetProtocol.addByte(UnsignedByte.of(2));
+        packetProtocol.addByte(UnsignedByte.of(3));
+        packetProtocol.addByte(UnsignedByte.of(stopByte));
+
+    }
+
+    @Test
+    public void It_should_construct_packet() throws PacketNotReadyException, MalformedPacketException
+    {
+        setBytes();
+        ArrayList<UnsignedByte> actualPacket = packetProtocol.getPacket();
+
+        assertEquals(goodPacket, actualPacket);
+    }
+
     @Test
     public void It_should_construct_a_new_packet_after_finishig_previous_one() throws PacketNotReadyException,
             MalformedPacketException
@@ -49,14 +69,6 @@ public class SdwnPacketProtocolTest
         It_should_ignore_non_sense_bytes_BEFORE_getting_start_byte();
     }
 
-    @Test
-    public void It_should_construct_packet() throws PacketNotReadyException, MalformedPacketException
-    {
-        setBytes();
-        ArrayList<UnsignedByte> actualPacket = packetProtocol.getPacket();
-
-        assertEquals(goodPacket, actualPacket);
-    }
 
     @Test
     public void If_packet_is_ready_and_we_send_unapproprited_bytes_it_should_give_last_packet() throws
@@ -86,17 +98,6 @@ public class SdwnPacketProtocolTest
         assertEquals(goodPacket, actualPacket);
     }
 
-    private void setBytes() throws MalformedPacketException, PacketNotReadyException
-    {
-        packetProtocol.addByte(UnsignedByte.of(startByte));
-        packetProtocol.addByte(UnsignedByte.of(4));
-        packetProtocol.addByte(UnsignedByte.of(1));
-        packetProtocol.addByte(UnsignedByte.of(2));
-        packetProtocol.addByte(UnsignedByte.of(3));
-        packetProtocol.addByte(UnsignedByte.of(stopByte));
-
-    }
-
     @Test
     public void It_should_be_clear_after_geting_the_packet()
     {
@@ -117,8 +118,9 @@ public class SdwnPacketProtocolTest
         boolean thrown = false;
         try {
             packetProtocol.getPacket();
-        }catch (PacketNotReadyException e) {
+        }catch (MalformedPacketException e) {
             thrown = true;
+            e.printStackTrace();
         }
 
         assertTrue(thrown);
@@ -143,8 +145,9 @@ public class SdwnPacketProtocolTest
         try {
 
             packetProtocol.getPacket();
-        }catch (PacketNotReadyException packetNotReady) {
+        }catch (MalformedPacketException e) {
             assertFalse(packetProtocol.isReady());
+            e.printStackTrace();
         }
         try {
             packetProtocol.addByte(malformedPacket.get(0));
@@ -154,8 +157,48 @@ public class SdwnPacketProtocolTest
             ArrayList<UnsignedByte> actualPacket = packetProtocol.getPacket();
         }catch (MalformedPacketException malformedPacket1) {
             assertFalse(packetProtocol.isReady());
-        }catch (PacketNotReadyException packetNotReady) {
         }
+    }
+
+    @Test
+    public void It_should_validate_a_receive_bytes()
+    {
+        //lets create a array of good packet
+        ArrayList<UnsignedByte> good = new ArrayList<>(4);
+        good.add(startByte);
+        good.add(UnsignedByte.of(2));
+        good.add(UnsignedByte.of(2));
+        good.add(stopByte);
+        //Now validate just throw an exp in case of malformed packet
+        boolean throeExp = false;
+        try {
+            packetProtocol.validateReceivedBytes(good);
+        }catch (MalformedPacketException e) {
+            throeExp = true;
+        }
+        //since packet is ok, we should get no exp
+        assertFalse(throeExp);
+    }
+
+    @Test
+    public void It_should_validate_a_receive_bytes_and_throw_exp_when_it_isnt_ok()
+    {
+        //lets create a array of good packet
+        ArrayList<UnsignedByte> good = new ArrayList<>(4);
+        good.add(startByte);
+        good.add(UnsignedByte.of(2));
+        good.add(UnsignedByte.of(2));
+        good.add(UnsignedByte.of(2));//add extra byte
+        good.add(stopByte);
+        //Now validate just throw an exp in case of malformed packet
+        boolean throeExp = false;
+        try {
+            packetProtocol.validateReceivedBytes(good);
+        }catch (MalformedPacketException e) {
+            throeExp = true;
+        }
+        //since packet is ok, we should get no exp
+        assertTrue(throeExp);
     }
 
 }

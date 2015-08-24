@@ -1,13 +1,10 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
-import it.unibo.sdwn.trasport.exceptions.PacketNotReadyException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //what if we get START_BYTE and system gets corrupted value for
 //STOP_BYTE. system keeps adding bytes to byteArray until next STOP_BYTE.
@@ -19,21 +16,15 @@ import java.util.Arrays;
  * byte. If you want to change SDWN protocol for the receiving packets this is where you should add new protocol
  * engine.
  */
-public final class SdwnPacketProtocol implements PacketProtocol
+public final class SdwnPacketProtocol extends AbstractBasePacket implements PacketProtocol
 {
-    private final static UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
-    private final static UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));
     private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;
     private boolean isStarted = false;
     private int expetedSize = 0;
 
-    public SdwnPacketProtocol(ArrayList<UnsignedByte> byteArray) throws MalformedPacketException
+    public SdwnPacketProtocol()
     {
-        for (UnsignedByte b : byteArray) {
-            addByte(b);
-        }
-        this.byteArray = byteArray;
     }
 
     @Override
@@ -56,7 +47,7 @@ public final class SdwnPacketProtocol implements PacketProtocol
             }else {
                 clear();
                 Log.main().debug("Malformed packet received");
-                throw new MalformedPacketException();
+                throw new MalformedPacketException("Malformed packet received");
             }
         }
     }
@@ -68,7 +59,7 @@ public final class SdwnPacketProtocol implements PacketProtocol
     }
 
     @Override
-    public ArrayList<UnsignedByte> getPacket() throws PacketNotReadyException
+    public ArrayList<UnsignedByte> getPacket() throws MalformedPacketException
     {
         if (isReady()) {
             //Clear this object before passing the byteArray
@@ -78,8 +69,17 @@ public final class SdwnPacketProtocol implements PacketProtocol
         }else {
             clear();
             Log.main().debug("Attempt to get not ready packet");
-            throw new PacketNotReadyException();
+            throw new MalformedPacketException("Attempt to get not ready packet");
         }
+    }
+
+    @Override
+    public void validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes) throws MalformedPacketException
+    {
+        for (UnsignedByte b : receivedBytes) {
+            addByte(b);
+        }
+        clear();
     }
 
     private synchronized void clear()
@@ -88,17 +88,5 @@ public final class SdwnPacketProtocol implements PacketProtocol
         isReady = false;
         isStarted = false;
         expetedSize = 0;
-    }
-
-    public SdwnPacketProtocol()
-    {
-    }
-
-    public SdwnPacketProtocol(UnsignedByte[] byteArray) throws MalformedPacketException
-    {
-        for (UnsignedByte b : byteArray) {
-            addByte(b);
-        }
-        this.byteArray = new ArrayList<UnsignedByte>(Arrays.asList(byteArray));
     }
 }
