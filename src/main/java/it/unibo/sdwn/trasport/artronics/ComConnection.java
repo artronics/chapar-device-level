@@ -4,17 +4,17 @@ import gnu.io.*;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
-import it.unibo.sdwn.trasport.Connection;
+import it.unibo.sdwn.trasport.AbstractBaseConnection;
 import it.unibo.sdwn.trasport.InOutPacketQueue;
 import it.unibo.sdwn.trasport.InOutQueue;
-import it.unibo.sdwn.trasport.events.TransportDataIsAvailableEvent;
+import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.TooManyListenersException;
 
-public class ComConnection implements Connection, SerialPortEventListener
+public class ComConnection extends AbstractBaseConnection implements SerialPortEventListener
 {
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
@@ -32,14 +32,20 @@ public class ComConnection implements Connection, SerialPortEventListener
                 byte[] buff = new byte[MAX_PACKET_BUFF];
                 int a = input.read(buff, 0, MAX_PACKET_BUFF);
                 packetQueue.addInput(buff, a);
-                TransportDataIsAvailableEvent event = new TransportDataIsAvailableEvent(this, buff, a);
-                Event.mainBus().post(event);
+                ConnectionDataAvailableEvent event = new ConnectionDataAvailableEvent(this, buff, a);
+                fireConnectionDataAvailable(event);
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
                 e.printStackTrace();
             }
         }
 
+    }
+
+    @Override
+    protected void fireConnectionDataAvailable(ConnectionDataAvailableEvent event)
+    {
+        Event.mainBus().post(event);
     }
 
     @Override
@@ -98,7 +104,6 @@ public class ComConnection implements Connection, SerialPortEventListener
         try {
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
-            Event.mainBus().register(this);
         }catch (TooManyListenersException e) {
         }
     }

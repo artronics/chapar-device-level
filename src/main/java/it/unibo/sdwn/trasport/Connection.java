@@ -2,8 +2,6 @@ package it.unibo.sdwn.trasport;
 
 import it.unibo.sdwn.app.config.Config;
 
-import java.util.concurrent.TimeoutException;
-
 public interface Connection
 {
     int TIMEOUT = 2000;

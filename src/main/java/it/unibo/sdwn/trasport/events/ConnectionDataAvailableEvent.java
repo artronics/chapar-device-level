@@ -8,12 +8,12 @@ import it.unibo.sdwn.app.event.AppBaseEvent;
     For example in case of Serial Comm
     when data is available on buffer you should fire this event.
  */
-public class TransportDataIsAvailableEvent extends AppBaseEvent
+public class ConnectionDataAvailableEvent extends AppBaseEvent
 {
     private final byte[] buff;
     private final int length;
 
-    public TransportDataIsAvailableEvent(Object source, byte[] buff, int length)
+    public ConnectionDataAvailableEvent(Object source, byte[] buff, int length)
     {
         super(source);
         this.buff = buff;
