@@ -10,12 +10,16 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="config" class="it.unibo.sdwn.app.config.Config" factory-method="get"/>
     <bean id="event" class="it.unibo.sdwn.app.event.Event" factory-method="mainBus"/>
 
+
     <bean id="app" class="it.unibo.sdwn.app.App">
         <property name="controller" ref="Controller"></property>
     </bean>
     <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
+        <constructor-arg name="connection" ref="Connection"></constructor-arg>
     </bean>
 
+    <bean id="Connection"  class="it.unibo.sdwn.trasport.artronics.ComConnection">
+    </bean>
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">
     </bean>
 

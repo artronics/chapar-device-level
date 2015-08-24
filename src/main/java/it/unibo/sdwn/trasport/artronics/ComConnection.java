@@ -1,39 +1,108 @@
 package it.unibo.sdwn.trasport.artronics;
 
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
+import gnu.io.*;
+import it.unibo.sdwn.app.config.Config;
+import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.Connection;
+import it.unibo.sdwn.trasport.InOutPacketQueue;
+import it.unibo.sdwn.trasport.InOutQueue;
 
-public class ComConnection implements Connection<SerialPort>
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.TooManyListenersException;
+
+public class ComConnection implements Connection, SerialPortEventListener
 {
-    private CommPortIdentifier commPortIdentifier;
-    private Communicator communicator;
-    private SerialPort serialPort;
+    //this is the object that contains the opened port
+    private CommPortIdentifier selectedPortIdentifier;
+    private SerialPort serialPort = null;
+    private InputStream input = null;
+    private OutputStream output = null;
+    private InOutQueue packetQueue = new InOutPacketQueue();
 
-    public ComConnection()
+
+    @Override
+    public void serialEvent(SerialPortEvent serialPortEvent)
     {
-        Communicator communicator = new Communicator();
-        communicator.init();
-        this.commPortIdentifier = communicator.getSelectedPortIdentifier();
-        this.communicator = communicator;
+        if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            try {
+                byte[] buff = new byte[MAX_PACKET_BUFF];
+                int a = input.read(buff, 0, MAX_PACKET_BUFF);
+                packetQueue.addInput(buff, a);
+            }catch (IOException e) {
+                Log.main().error("Can not open IO in ComConnection.");
+                e.printStackTrace();
+            }
+        }
+
     }
 
+    @Override
+    public void establishConnection()
+    {
+        CommInitializer commInitializer = new CommInitializer();
+        commInitializer.init();
+        this.selectedPortIdentifier = commInitializer.getSelectedCommPortIdentifier();
+    }
+
+    //Open port and addByte initEventListener
     @Override
     public void open()
     {
-        this.serialPort = communicator.openPort(this.commPortIdentifier);
+        CommPort commPort;
+        SerialPort serialPort = null;
+
+        try {
+            commPort = selectedPortIdentifier.open("SinkPort", TIMEOUT);
+            //the CommPort object can be casted to a SerialPort object
+            serialPort = (SerialPort) commPort;
+
+            int buadRate = Config.get().getInt("SerialCom.BaudRate");
+            serialPort.setSerialPortParams(buadRate,
+                                           SerialPort.DATABITS_8,
+                                           SerialPort.STOPBITS_1,
+                                           SerialPort.PARITY_NONE);
+
+
+        }catch (PortInUseException e) {
+            Log.main().error("Port in use. Make sure there is no other app using this com port.");
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (serialPort != null) {
+            this.serialPort = serialPort;
+            initEventListenersAndIO();
+        }else throw new NullPointerException();
     }
 
-    @Override
-    public void close()
+    private void initEventListenersAndIO()
     {
-        this.serialPort.removeEventListener();
-        this.serialPort.close();
+        try {
+            initListener();
+            initIOStream();
+        }catch (IOException e) {
+            Log.main().error("Can not open IO in ComConnection.");
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public SerialPort getConnection()
+    private void initListener()
     {
-        return this.serialPort;
+        try {
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            Event.mainBus().register(this);
+        }catch (TooManyListenersException e) {
+        }
+    }
+
+    private void initIOStream() throws IOException
+    {
+        input = serialPort.getInputStream();
+        output = serialPort.getOutputStream();
     }
 }

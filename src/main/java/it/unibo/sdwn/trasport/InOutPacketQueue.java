@@ -11,13 +11,15 @@ public class InOutPacketQueue implements InOutQueue
     @Override
     public void addInput(byte[] buff, int length)
     {
+        //convert buff elements to UnsignedByte from 0 to length
+        UnsignedByte[] unsignedBytes = UnsignedByte.toUnsignedByteArray(buff, length);
         try {
-            inQueue.put(UnsignedByte.toUnsignedByteArray(buff, length));
+            inQueue.put(unsignedBytes);
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (byte b : buff) {
-            String msg = " " + UnsignedByte.of(b);
+        for (UnsignedByte b : unsignedBytes ) {
+            String msg = " " + b;
             System.out.print(msg);
         }
         System.out.println();

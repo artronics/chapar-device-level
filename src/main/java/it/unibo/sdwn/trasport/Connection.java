@@ -1,10 +1,14 @@
 package it.unibo.sdwn.trasport;
 
-public interface Connection<T>
+import it.unibo.sdwn.app.config.Config;
+
+import java.util.concurrent.TimeoutException;
+
+public interface Connection
 {
-    public void open();
+    int TIMEOUT = 2000;
+    int MAX_PACKET_BUFF= Config.get().getInt("MAX_PACKET_BUFF");
 
-    public void close();
-
-    public T getConnection();
+    void establishConnection();
+    void open();
 }

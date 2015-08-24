@@ -4,9 +4,6 @@ import it.unibo.sdwn.app.event.AppBaseEvent;
 
 public class TransportEvent extends AppBaseEvent
 {
-    public TransportEvent()
-    {
-    }
 
     /**
      * Constructs a prototypical Event.

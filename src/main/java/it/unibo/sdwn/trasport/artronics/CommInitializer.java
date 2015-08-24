@@ -26,6 +26,8 @@ public final class CommInitializer
         }catch (NoComPortFound noComPortFound) {
             showLogMessage();
             noComPortFound.printStackTrace();
+//            Log.main().error("If you are on Mac, create a /var/lock with 777 permision." +
+//                                     " see: http://pizzaprogramming.blogspot.it/2010/05/gnuioportinuseexception.html");
             //TODO handle this on GUI
             //Dude this is the end! hold your breath and count to ten.
             System.exit(1);
@@ -42,18 +44,17 @@ public final class CommInitializer
                                  "\t4- If non of above worked, well, Happy Debugging!! ;-)");
     }
 
-    private void searchForPorts() throws NoComPortFound
+    private synchronized void searchForPorts() throws NoComPortFound
     {
-        Log.main().info("Searching for Serial Com port(s)...");
-        Log.main().info(
-                "If you get any issue related to comm driver on mac see: http://blog.iharder" +
-                        ".net/2009/08/18/rxtx-java-6-and-librxtxserial-jnilib-on-intel-mac-os-x");
 
         Enumeration ports = CommPortIdentifier.getPortIdentifiers();
 
         filterPorts(ports);
 
         if (this.ports.isEmpty()) {
+            Log.main().info(
+                    "If you get any issue related to comm driver on mac see: http://blog.iharder" +
+                            ".net/2009/08/18/rxtx-java-6-and-librxtxserial-jnilib-on-intel-mac-os-x");
             throw new NoComPortFound();
         }
     }
