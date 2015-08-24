@@ -1,25 +1,45 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.helper.UnsignedByte;
+
+import java.util.ArrayList;
+
 public class PacketSerializer
 {
     //European countries use ";" as
     //CSV separator because "," is their digit separator
     public static final String CSV_SEPARATOR = "; ";
-    private static String csv;
+    private String csv;
+    private AbstractBasePacket packet;
 
-    public static String toCsv(AbstractBasePacket packet)
+    public PacketSerializer(AbstractBasePacket packet)
+    {
+        this.packet = packet;
+    }
+
+    public String toCsv()
     {
         csv = "";
         csv += packet.getType();
         csvAppend();
         csv += packet.getDirection();
         csvAppend();
-        csv += AbstractBasePacket.getPacketSerialNumber();
+        csv += packet.getPacketSerialNumber();
         csvAppend();
+        addPacketBytes();
         return csv;
     }
 
-    private static void csvAppend()
+    private void addPacketBytes()
+    {
+        ArrayList<UnsignedByte> receivedBytes = packet.getReceivedBytes();
+        for (UnsignedByte ub : receivedBytes) {
+            csv += ub.toHex();
+            csvAppend();
+        }
+    }
+
+    private void csvAppend()
     {
         csv += CSV_SEPARATOR;
     }
