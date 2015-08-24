@@ -15,12 +15,11 @@ public interface PacketProtocol extends Packet
      * @param receivedBytes
      * @return
      */
-    static boolean validate(ArrayList<UnsignedByte> receivedBytes)
+    static void validate(ArrayList<UnsignedByte> receivedBytes) throws MalformedPacketException
     {
-        boolean isValid;
         //first lets get all bytes that we need for validation
         final UnsignedByte startByte = receivedBytes.get(0);//0 is always start byte
-        final UnsignedByte length = receivedBytes.get(ByteMeaning.LENGTH.value);
+        final UnsignedByte length = getLength(receivedBytes);
         // +1 length value inside packet doesn't consider startByte
         final UnsignedByte stopByte = receivedBytes.get(length.intValue() + 1);
 
@@ -30,12 +29,25 @@ public interface PacketProtocol extends Packet
                 //doesn't consider startByte and stopByte
                 length.equals(UnsignedByte.of(receivedBytes.size() - 2)) &&
                 stopByte.equals(STOP_BYTE)) {
-            isValid = true;
         }else {
-            isValid = false;
+            throw new MalformedPacketException("Packet validation failed");
         }
+    }
 
-        return isValid;
+    static UnsignedByte getLength(ArrayList<UnsignedByte> receivedBytes)
+    {
+        return receivedBytes.get(ByteMeaning.LENGTH.value);
+    }
+
+    static Type getType(ArrayList<UnsignedByte> receviedBytes) throws MalformedPacketException
+    {
+        UnsignedByte typeByte = receviedBytes.get(ByteMeaning.TYPE.value);
+        for (Type type : Type.values()) {
+            if (typeByte.equals(type.value))
+                return type;
+        }
+        //if type is not among the values we defined, it means packet is malformed.
+        throw new MalformedPacketException("Type is not correct");
     }
 
     void addByte(UnsignedByte receivedByte) throws MalformedPacketException;

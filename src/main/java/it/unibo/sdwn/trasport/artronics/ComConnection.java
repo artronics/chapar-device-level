@@ -20,6 +20,10 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     private InputStream input = null;
     private OutputStream output = null;
 
+    public ComConnection()
+    {
+        super();
+    }
 
     @Override
     public void serialEvent(SerialPortEvent serialPortEvent)

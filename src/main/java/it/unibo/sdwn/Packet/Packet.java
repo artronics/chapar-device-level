@@ -3,21 +3,15 @@ package it.unibo.sdwn.Packet;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 
-import java.util.ArrayList;
-
 public interface Packet
 {
     UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
     UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));
     UnsignedByte DATA_PACKET_HEADER_LENGTH = UnsignedByte.of(10);
-    ArrayList<UnsignedByte> getBytes();
-
-    Type getType();
-
-    int getLength();
 
     enum Type
     {
+        MALFORMED(UnsignedByte.of(0)),
         DATA(UnsignedByte.of(1)),
         BEACON(UnsignedByte.of(2)),
         REPORT(UnsignedByte.of(3)),
@@ -36,29 +30,36 @@ public interface Packet
         }
     }
 
-    enum byteMeaning
+    enum Direction
     {
-        LENGTH(0),
-        NET_ID(1),
-        SOURCE_L(2),
-        SOURCE_H(3),
-        DESTINATION_L(4),
-        DESTINATION_H(5),
-        TYPE(6),
-        TTL(7),
-        NEXT_HOP_L(8),
-        NEXT_HOP_H(9),
-        DISTANCE(10),
-        BATTERY(11),
-        NEIGHBOUR(12),
-        START_TIME_L(11),
-        START_TIME_H(12),
-        STOP_TIME_L(13),
-        STOP_TIME_H(14),;
+        IN,
+        OUT
+    }
+
+    enum ByteMeaning
+    {
+        START_BYTE(0),
+        LENGTH(1),
+        NET_ID(2),
+        SOURCE_L(3),
+        SOURCE_H(4),
+        DESTINATION_L(5),
+        DESTINATION_H(6),
+        TYPE(7),
+        TTL(8),
+        NEXT_HOP_L(9),
+        NEXT_HOP_H(10),
+        DISTANCE(11),
+        BATTERY(12),
+        NEIGHBOUR(13),
+        START_TIME_L(12),
+        START_TIME_H(13),
+        STOP_TIME_L(14),
+        STOP_TIME_H(15),;
 
         protected int value;
 
-        byteMeaning(int value)
+        ByteMeaning(int value)
         {
             this.value = value;
         }

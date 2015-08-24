@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * byte. If you want to change SDWN protocol for the receiving packets this is where you should add new protocol
  * engine.
  */
-public final class SdwnPacketProtocol extends AbstractBasePacket implements PacketProtocol
+public final class SdwnPacketProtocol implements PacketProtocol
 {
     private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;

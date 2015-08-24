@@ -1,6 +1,8 @@
 package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
+import it.unibo.sdwn.Packet.Packet;
+import it.unibo.sdwn.Packet.PacketFactory;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
@@ -33,14 +35,16 @@ public abstract class AbstractBaseTransport implements Transport, Runnable
         //At this time we just deal with second situation. Because Serial Com gives us all bytes at once.
         //TODO [Feature] add code for dealing with byte by byte situation.
 
-        //at this poit we have a buffer with fixed length
+        //at this point we have a buffer with fixed length
         //first we need to convert byte to unsignedByte
         final int length = e.getLength();
         final byte[] buff = e.getBuff();
         ArrayList<UnsignedByte> unsignedBytes = UnsignedByte.toUnsignedByteArrayList(buff, length);
         ArrayList<UnsignedByte> receivedBytes = new ArrayList<>(unsignedBytes);
 
-        //When you done with creating an ArrayList of a pcket send it to packetQueue
-        packetQueue.addInput(receivedBytes);
+        //When you done with creating an ArrayList of a packet we can ask
+        // PacketFactory to generate a packet for us.
+        Packet packet = PacketFactory.build(receivedBytes, Packet.Direction.IN);
+        packetQueue.putInput(packet);
     }
 }

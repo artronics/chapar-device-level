@@ -10,12 +10,24 @@ import java.util.ArrayList;
 public abstract class AbstractBasePacket implements Packet, Analysable
 {
     private static long packetSerialNumber = 0;
-    private ArrayList<UnsignedByte> data;
+    protected final Type packetType;
+    protected final Direction direction;
+    private final ArrayList receivedBytes;
 
-    protected AbstractBasePacket()
+    /**
+     * This id the minimum requirement for constructing a packet. We need Packet.Type and the Direction of packet and
+     * also received bytes. Then logger will log the constructed packet which might be even malformed packet.
+     */
+    protected AbstractBasePacket(Type packetType, Direction dir, ArrayList receivedBytes)
     {
+        this.packetType = packetType;
+        this.direction = dir;
+        this.receivedBytes = new ArrayList(receivedBytes);
         packetSerialNumber++;
+        this.logPacket();
     }
+
+
 
     public static long getPacketSerialNumber()
     {
@@ -25,6 +37,11 @@ public abstract class AbstractBasePacket implements Packet, Analysable
     private static synchronized void incReceivedCounter()
     {
         packetSerialNumber++;
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
     }
 
     private void logPacket()
@@ -45,19 +62,16 @@ public abstract class AbstractBasePacket implements Packet, Analysable
     }
 
 
-    @Override
     public ArrayList<UnsignedByte> getBytes()
     {
         return null;
     }
 
-    @Override
     public Type getType()
     {
-        return null;
+        return packetType;
     }
 
-    @Override
     public int getLength()
     {
         return 0;

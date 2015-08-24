@@ -12,6 +12,8 @@ public class PacketSerializer
         csv = "";
         csv += packet.getType();
         csvAppend();
+        csv += packet.getDirection();
+        csvAppend();
         csv += AbstractBasePacket.getPacketSerialNumber();
         csvAppend();
         return csv;
