@@ -14,10 +14,19 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="app" class="it.unibo.sdwn.app.App">
         <property name="controller" ref="Controller"></property>
     </bean>
-    <bean id="Transport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
+    <bean id="AbstractBaseTransport" abstract="true" class="it.unibo.sdwn.trasport.AbstractBaseTransport">
+        <constructor-arg name="packetQueue" ref="PacketQueue"></constructor-arg>
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
+
     </bean>
 
+    <bean id="PacketQueue" class="it.unibo.sdwn.trasport.InOutPacketQueue">
+
+    </bean>
+
+    <bean id="Transport" parent="AbstractBaseTransport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
+
+    </bean>
     <bean id="Connection"  class="it.unibo.sdwn.trasport.artronics.ComConnection">
     </bean>
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">

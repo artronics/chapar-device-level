@@ -3,18 +3,16 @@ package it.unibo.sdwn.trasport.artronics;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.AbstractBaseTransport;
 import it.unibo.sdwn.trasport.Connection;
-import it.unibo.sdwn.trasport.InOutPacketQueue;
+import it.unibo.sdwn.trasport.InOutQueue;
 
 public class ComTransport extends AbstractBaseTransport
 {
-    private Connection connection;
-    private InOutPacketQueue queue;
-
-    public ComTransport(Connection connection)
+    //resolv with DI
+    public ComTransport(InOutQueue packetQueue, Connection connection)
     {
-        super();
-        this.connection = connection;
+        super(packetQueue, connection);
     }
+
 
     @Override
     public void run()
@@ -25,9 +23,8 @@ public class ComTransport extends AbstractBaseTransport
     @Override
     public void init()
     {
-        ComConnection comConnection = new ComConnection();
-        comConnection.establishConnection();
-        comConnection.open();
+        connection.establishConnection();
+        connection.open();
         Log.main().info("Transport layer initialized in {}", this.getClass().getSimpleName());
     }
 }

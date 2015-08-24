@@ -14,9 +14,13 @@ import java.util.ArrayList;
 
 public abstract class AbstractBaseTransport implements Transport, Runnable
 {
-    private InOutQueue inOutQueue = new InOutPacketQueue();
-    public AbstractBaseTransport()
+    protected Connection connection;
+    private InOutQueue packetQueue;
+
+    public AbstractBaseTransport(InOutQueue packetQueue, Connection connection)
     {
+        this.connection = connection;
+        this.packetQueue = packetQueue;
         Event.mainBus().register(this);
     }
 
@@ -40,6 +44,6 @@ public abstract class AbstractBaseTransport implements Transport, Runnable
             Log.packet().error("corrupted packet is received.");
         }
 
-        inOutQueue.addInput(packet);
+        packetQueue.addInput(packet);
     }
 }

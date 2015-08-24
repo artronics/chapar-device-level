@@ -5,8 +5,6 @@ import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.AbstractBaseConnection;
-import it.unibo.sdwn.trasport.InOutPacketQueue;
-import it.unibo.sdwn.trasport.InOutQueue;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.io.IOException;
@@ -21,7 +19,6 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     private SerialPort serialPort = null;
     private InputStream input = null;
     private OutputStream output = null;
-    private InOutQueue packetQueue = new InOutPacketQueue();
 
 
     @Override
