@@ -9,15 +9,10 @@ public class PacketSerializer
     //European countries use ";" as
     //CSV separator because "," is their digit separator
     public static final String CSV_SEPARATOR = "; ";
-    private String csv;
-    private AbstractBasePacket packet;
+    private static String csv;
 
-    public PacketSerializer(AbstractBasePacket packet)
-    {
-        this.packet = packet;
-    }
 
-    public String toCsv()
+    public static String toCsv(AbstractBasePacket packet)
     {
         csv = "";
         csv += packet.getType();
@@ -26,20 +21,19 @@ public class PacketSerializer
         csvAppend();
         csv += packet.getPacketSerialNumber();
         csvAppend();
-        addPacketBytes();
+        addPacketBytes(packet.getReceivedBytes());
         return csv;
     }
 
-    private void addPacketBytes()
+    private static void addPacketBytes(ArrayList<UnsignedByte> receivedBytes)
     {
-        ArrayList<UnsignedByte> receivedBytes = packet.getReceivedBytes();
         for (UnsignedByte ub : receivedBytes) {
             csv += ub.toHex();
             csvAppend();
         }
     }
 
-    private void csvAppend()
+    private static void csvAppend()
     {
         csv += CSV_SEPARATOR;
     }

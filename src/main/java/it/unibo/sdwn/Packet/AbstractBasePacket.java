@@ -46,7 +46,8 @@ public abstract class AbstractBasePacket implements Packet, Analysable
 
     private void logPacket()
     {
-        Log.packet().info(this.toCsv());
+        String s = this.toCsv();
+        Log.packet().info(s);
     }
 
     @Override
@@ -55,20 +56,14 @@ public abstract class AbstractBasePacket implements Packet, Analysable
         return PacketSerializer.toCsv(this);
     }
 
-    @Override
-    public String toString()
+    public ArrayList<UnsignedByte> getReceivedBytes()
     {
-        return toCsv();
-    }
-
-
-    public ArrayList<UnsignedByte> getBytes()
-    {
-        return null;
+        return this.receivedBytes;
     }
 
     public Type getType()
     {
+
         return packetType;
     }
 
