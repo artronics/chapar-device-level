@@ -10,19 +10,13 @@ import it.unibo.sdwn.app.event.AppBaseEvent;
  */
 public class TransportDataIsAvailableEvent extends AppBaseEvent
 {
-    public TransportDataIsAvailableEvent(Object source, Object data)
-    {
-        super(source, data);
-    }
+    private final byte[] buff;
+    private final int length;
 
-    /**
-     * Constructs a prototypical Event.
-     *
-     * @param source The object on which the Event initially occurred.
-     * @throws IllegalArgumentException if source is null.
-     */
-    public TransportDataIsAvailableEvent(Object source)
+    public TransportDataIsAvailableEvent(Object source, byte[] buff, int length)
     {
         super(source);
+        this.buff = buff;
+        this.length = length;
     }
 }

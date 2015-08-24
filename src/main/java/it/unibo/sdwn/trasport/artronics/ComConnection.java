@@ -7,6 +7,7 @@ import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.Connection;
 import it.unibo.sdwn.trasport.InOutPacketQueue;
 import it.unibo.sdwn.trasport.InOutQueue;
+import it.unibo.sdwn.trasport.events.TransportDataIsAvailableEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,8 @@ public class ComConnection implements Connection, SerialPortEventListener
                 byte[] buff = new byte[MAX_PACKET_BUFF];
                 int a = input.read(buff, 0, MAX_PACKET_BUFF);
                 packetQueue.addInput(buff, a);
+                TransportDataIsAvailableEvent event = new TransportDataIsAvailableEvent(this, buff, a);
+                Event.mainBus().post(event);
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
                 e.printStackTrace();

@@ -1,21 +1,21 @@
 package it.unibo.sdwn.trasport.artronics;
 
-import gnu.io.SerialPort;
 import it.unibo.sdwn.app.logger.Log;
-import it.unibo.sdwn.trasport.BaseTransport;
+import it.unibo.sdwn.trasport.AbstractBaseTransport;
 import it.unibo.sdwn.trasport.Connection;
 import it.unibo.sdwn.trasport.InOutPacketQueue;
 
-public class ComTransport extends BaseTransport
+public class ComTransport extends AbstractBaseTransport
 {
     private Connection connection;
+    private InOutPacketQueue queue;
 
     public ComTransport(Connection connection)
     {
+        super();
         this.connection = connection;
     }
 
-    private InOutPacketQueue queue;
     @Override
     public void run()
     {
@@ -25,14 +25,6 @@ public class ComTransport extends BaseTransport
     @Override
     public void init()
     {
-        //Make a new connection. this simple object holds all you need.
-        //Danger: you are about to run crappy code. Hold your breath!
-//        ComConnection connection = new ComConnection();
-//        //Well it's ok now!
-//        this.connection = connection;
-//        this.connection.open();
-//        this.queue = new InOutPacketQueue();
-
         ComConnection comConnection = new ComConnection();
         comConnection.establishConnection();
         comConnection.open();

@@ -15,7 +15,7 @@ public abstract class BaseRouting implements Routing, Runnable
     public void init()
     {
         Log.main().debug("Start Routing initializer in {}", this.getClass().getSimpleName());
-        networkMap.init();
+//        networkMap.init();
         Log.main().debug("Router initializing done.");
 
     }
