@@ -96,7 +96,13 @@ public class UnsignedByteTest
         assertEquals(b[0], act.get(0).byteValue());
         assertEquals(b[1], act.get(1).byteValue());
         assertEquals(b[2], act.get(2).byteValue());
+    }
 
+    @Test
+    public void It_should_give_hexValue_String_for_toHex(){
+        UnsignedByte b = UnsignedByte.of(255);
+        String exp = "0xFF";
+        assertEquals(exp,b.toHex());
     }
 
 }

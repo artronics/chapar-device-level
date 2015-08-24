@@ -71,6 +71,11 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         return Integer.toString(this.value);
     }
 
+    public String toHex()
+    {
+        return String.format("0x%X", this.value);
+    }
+
     @Override
     public int intValue()
     {
