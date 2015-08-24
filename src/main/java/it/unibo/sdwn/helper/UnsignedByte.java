@@ -3,6 +3,7 @@ package it.unibo.sdwn.helper;
 import it.unibo.sdwn.app.logger.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Serializable
 {
@@ -11,6 +12,35 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
     private UnsignedByte(Number number)
     {
         this.value = checkBounds(number);
+    }
+
+    public static byte[] toByteArray(UnsignedByte[] array)
+    {
+        byte[] b = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            b[i] = array[i].byteValue();
+        }
+        return b;
+    }
+
+    public static ArrayList<UnsignedByte> toUnsignedByteArrayList(byte[] buff, int length)
+    {
+        ArrayList<UnsignedByte> bytes = new ArrayList<>(length);
+        for (int i = 0; i < length; i++) {
+            bytes.add(UnsignedByte.of(buff[i]));
+        }
+        return bytes;
+    }
+
+    public static UnsignedByte of(Number number)
+    {
+        UnsignedByte unsignedByte = new UnsignedByte(number);
+        return unsignedByte;
+    }
+
+    public static int compare(int x, int y)
+    {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
     }
 
     private int checkBounds(Number number)
@@ -24,30 +54,6 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         intValue = intValue & 0xff;
 
         return intValue;
-    }
-
-    public static byte[] toByteArray(UnsignedByte[] array)
-    {
-        byte[] b = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            b[i] = array[i].byteValue();
-        }
-        return b;
-    }
-
-    public static UnsignedByte[] toUnsignedByteArray(byte[] buff, int length)
-    {
-        UnsignedByte[] b = new UnsignedByte[length];
-        for (int i = 0; i < length; i++) {
-            b[i] = UnsignedByte.of(buff[i]);
-        }
-        return b;
-    }
-
-    public static UnsignedByte of(Number number)
-    {
-        UnsignedByte unsignedByte = new UnsignedByte(number);
-        return unsignedByte;
     }
 
     @Override
@@ -93,11 +99,6 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
     public int compareTo(UnsignedByte anotherUnsignedByte)
     {
         return compare(this.value, anotherUnsignedByte.value);
-    }
-
-    public static int compare(int x, int y)
-    {
-        return (x < y) ? -1 : ((x == y) ? 0 : 1);
     }
 
 }
