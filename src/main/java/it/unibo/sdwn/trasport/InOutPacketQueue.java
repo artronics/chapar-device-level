@@ -2,6 +2,8 @@ package it.unibo.sdwn.trasport;
 
 import it.unibo.sdwn.helper.UnsignedByte;
 
+import java.util.ArrayList;
+
 public class InOutPacketQueue implements InOutQueue
 {
     public InOutPacketQueue()
@@ -9,16 +11,14 @@ public class InOutPacketQueue implements InOutQueue
     }
 
     @Override
-    public void addInput(byte[] buff, int length)
+    public void addInput(ArrayList<UnsignedByte> packet)
     {
-        //convert buff elements to UnsignedByte from 0 to length
-        UnsignedByte[] unsignedBytes = UnsignedByte.toUnsignedByteArray(buff, length);
         try {
-            inQueue.put(unsignedBytes);
+            inQueue.put(packet);
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (UnsignedByte b : unsignedBytes ) {
+        for (UnsignedByte b : packet ) {
             String msg = " " + b;
             System.out.print(msg);
         }

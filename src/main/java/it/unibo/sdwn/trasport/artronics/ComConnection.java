@@ -31,9 +31,9 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
             try {
                 byte[] buff = new byte[MAX_PACKET_BUFF];
                 int a = input.read(buff, 0, MAX_PACKET_BUFF);
-                packetQueue.addInput(buff, a);
                 ConnectionDataAvailableEvent event = new ConnectionDataAvailableEvent(this, buff, a);
                 fireConnectionDataAvailable(event);
+
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
                 e.printStackTrace();

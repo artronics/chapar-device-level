@@ -10,5 +10,5 @@ public interface PacketProtocol
 {
     void addByte(UnsignedByte receivedByte) throws MalformedPacketException;
     boolean isReady();
-    ArrayList getPacket() throws PacketNotReadyException;
+    ArrayList<UnsignedByte> getPacket() throws PacketNotReadyException;
 }

@@ -7,6 +7,7 @@ import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import it.unibo.sdwn.trasport.exceptions.PacketNotReadyException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //what if we get START_BYTE and system gets corrupted value for
 //STOP_BYTE. system keeps adding bytes to byteArray until next STOP_BYTE.
@@ -27,10 +28,18 @@ public final class SdwnPacketProtocol implements PacketProtocol
     private boolean isStarted = false;
     private int expetedSize = 0;
 
+    public SdwnPacketProtocol(ArrayList<UnsignedByte> byteArray) throws MalformedPacketException
+    {
+        for (UnsignedByte b : byteArray) {
+            addByte(b);
+        }
+        this.byteArray = byteArray;
+    }
+
     @Override
     public synchronized void addByte(UnsignedByte receivedByte) throws MalformedPacketException
     {
-        int size = byteArray.size();
+        final int size = byteArray.size();
         if (size == 0 && receivedByte.equals(START_BYTE)) {
             //Do nothing just clear this clear and get ready for new packet
             clear();
@@ -79,5 +88,17 @@ public final class SdwnPacketProtocol implements PacketProtocol
         isReady = false;
         isStarted = false;
         expetedSize = 0;
+    }
+
+    public SdwnPacketProtocol()
+    {
+    }
+
+    public SdwnPacketProtocol(UnsignedByte[] byteArray) throws MalformedPacketException
+    {
+        for (UnsignedByte b : byteArray) {
+            addByte(b);
+        }
+        this.byteArray = new ArrayList<UnsignedByte>(Arrays.asList(byteArray));
     }
 }
