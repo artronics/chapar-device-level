@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 public class FakePacketFactory
 {
-    public static final String FakeCsv = "DATA; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x1; 0x7E; ";
-    public static final String FakeCsvForBeacon = "BEACON; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x2; 0x7E; ";
+    public static final String FakeCsvHex = "DATA; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x1; 0x7E; ";
+    public static final String FakeCsvForBeaconHex = "BEACON; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x2; 0x7E; ";
+    public static final String FakeCsv = "DATA; IN; 122; 7; 1; 2; 3; 2; 2; 1; 126; ";
+    public static final String FakeCsvForBeacon = "BEACON; IN; 122; 7; 1; 2; 3; 2; 2; 2; 126; ";
     private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
     private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
     private static ArrayList<UnsignedByte> goodPacket = new ArrayList<>();

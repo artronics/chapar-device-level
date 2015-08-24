@@ -1,6 +1,5 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import org.junit.Before;
@@ -24,6 +23,7 @@ public class PacketProtocolValidatorTest
     @Test
     public void Test_validation()
     {
+        goodPacket = FakePacketFactory.buildGoodPacket();
         boolean thrown = false;
         try {
             PacketProtocol.validate(goodPacket);
