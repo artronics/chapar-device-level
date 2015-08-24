@@ -16,14 +16,12 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
     private int checkBounds(Number number)
     {
         int intValue = number.intValue();
-        //deals with negative byte value
-        if (intValue < 0 && intValue >= -128) {
-            intValue += 256;
-        }
-        if (intValue < 0 || intValue > 255) {
+        if (intValue < -128 || intValue > 255) {
             Log.main().error("Tried to construct a byte with out-of-band value");
             throw new IllegalArgumentException("Value must be between 0 and 255");
         }
+        //deals with negative byte value
+        intValue = intValue & 0xff;
 
         return intValue;
     }

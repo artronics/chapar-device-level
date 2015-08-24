@@ -53,6 +53,13 @@ public class UnsignedByteTest
         UnsignedByte unsignedByte = UnsignedByte.of(intValue);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void should_throw_exp_on_overflow_lower_than_negative_128()
+    {
+        int intValue = -129;
+        UnsignedByte unsignedByte = UnsignedByte.of(intValue);
+    }
+
     @Test
     public void It_should_convert_negative_bytes_to_positive()
     {
@@ -66,6 +73,10 @@ public class UnsignedByteTest
 
         act = UnsignedByte.of(-1);
         exp = UnsignedByte.of(255);
+        assertEquals(exp, act);
+
+        act = UnsignedByte.of(-56);
+        exp = UnsignedByte.of(200);
         assertEquals(exp, act);
     }
 
