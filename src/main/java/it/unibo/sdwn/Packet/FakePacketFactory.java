@@ -4,6 +4,7 @@ import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FakePacketFactory
 {
@@ -14,26 +15,37 @@ public class FakePacketFactory
     private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
     private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
     private static ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
+    private static byte[] receivedBytes = new byte[9];
 
-    protected static ArrayList buildGoodPacket()
+    public static ArrayList buildGoodPacket()
     {
         return buildGoodPacket(Packet.Type.DATA);
     }
 
-    protected static ArrayList buildGoodPacket(Packet.Type type)
+    public static ArrayList buildGoodPacket(Packet.Type type)
     {
-        goodPacket.add(UnsignedByte.of(startByte));
-        goodPacket.add(UnsignedByte.of(7)); //packet length
-        goodPacket.add(UnsignedByte.of(1));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(3));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(type.value));//type=data
-        goodPacket.add(UnsignedByte.of(stopByte));
+        byte[] b = buildGoodByteArray(type);
+        goodPacket = UnsignedByte.toUnsignedByteArrayList(b, b.length);
 
         ArrayList<UnsignedByte> tmp = new ArrayList<>(goodPacket);
         goodPacket.clear();
+        return tmp;
+    }
+
+    public static byte[] buildGoodByteArray(Packet.Type type)
+    {
+        receivedBytes[0] = startByte.byteValue();
+        receivedBytes[1] = 7;
+        receivedBytes[2] = 1;
+        receivedBytes[3] = 2;
+        receivedBytes[4] = 3;
+        receivedBytes[5] = 2;
+        receivedBytes[6] = 2;
+        receivedBytes[7] = type.value.byteValue();
+        receivedBytes[8] = stopByte.byteValue();
+
+        byte[] tmp = Arrays.copyOf(receivedBytes, receivedBytes.length);
+
         return tmp;
     }
 }
