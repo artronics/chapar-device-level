@@ -22,8 +22,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
     </bean>
 
-    <!--<bean id="Connection"  class="it.unibo.sdwn.trasport.artronics.ComConnection"/>-->
-    <bean id="Connection" class="it.unibo.sdwn.trasport.ConnectionSimulator"/>
+    <bean id="Connection" class="it.unibo.sdwn.trasport.artronics.ComConnection"/>
+    <!--<bean id="Connection" class="it.unibo.sdwn.trasport.ConnectionSimulator"/>-->
 
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap"/>
 
