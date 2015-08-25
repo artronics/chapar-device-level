@@ -9,4 +9,6 @@ public interface Connection
 
     void establishConnection();
     void open();
+
+    void close();
 }

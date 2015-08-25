@@ -20,11 +20,6 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     private InputStream input = null;
     private OutputStream output = null;
 
-    public ComConnection()
-    {
-        super();
-    }
-
     @Override
     public void serialEvent(SerialPortEvent serialPortEvent)
     {
@@ -87,6 +82,19 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
             this.serialPort = serialPort;
             initEventListenersAndIO();
         }else throw new NullPointerException();
+    }
+
+    @Override
+    public void close()
+    {
+        try {
+            input.close();
+            output.close();
+            serialPort.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initEventListenersAndIO()
