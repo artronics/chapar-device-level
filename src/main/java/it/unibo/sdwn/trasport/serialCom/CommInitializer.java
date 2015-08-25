@@ -1,4 +1,4 @@
-package it.unibo.sdwn.trasport.artronics;
+package it.unibo.sdwn.trasport.serialCom;
 
 import gnu.io.CommPortIdentifier;
 import it.unibo.sdwn.app.config.Config;
