@@ -1,20 +1,14 @@
 package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.node.sdwn.SdwnNode;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class NormalNodeTest
 {
+    /*
     private Node[] nodes = new Node[4];
 
     @Before
     public void setUp()
     {
-        /*
+        *
             we are going to test a simple network consists of four NormalNodes
             These nodes are stores in a node array and network graph is
             like this: (numbers are array indexes and address)
@@ -22,7 +16,7 @@ public class NormalNodeTest
             1<->2 ::value for Quality:40
             0<->2 ::value for Quality:200
             3<->1 ::value for Quality:100
-         */
+         *
 
         nodes[0] = new SdwnNode(0);
         nodes[1] = new SdwnNode(1);
@@ -74,5 +68,5 @@ public class NormalNodeTest
 
         assertEquals(nodes[0].getAddress(), actualAddr);
     }
-
+*/
 }

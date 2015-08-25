@@ -3,6 +3,7 @@ package it.unibo.sdwn.Packet;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.node.Address;
+import it.unibo.sdwn.node.sdwn.SdwnAddress;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class PacketSerializerTest
 {
     private static final String regex = "\\s*\\d++[;:]"; //See Test_regex() last method
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
-    private Address add = new Address(10);
+    private Address add = new SdwnAddress();
     private Analysable packet;
     private String csv = "";
     private String expCsv;

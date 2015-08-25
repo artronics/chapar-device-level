@@ -1,13 +1,8 @@
 package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.helper.UnsignedByte;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class AddressTest
 {
+    /*
     @Test
     public void It_should_split_an_int_value_to_two_bytes(){
         int intAddress = 256;
@@ -38,4 +33,5 @@ public class AddressTest
         assertEquals(firstAddress.toString(),"1.0");
         assertEquals(firstAddress.compareTo(thirdAddress),-1);
     }
+    */
 }

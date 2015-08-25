@@ -1,13 +1,8 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.app.config.Config;
-import it.unibo.sdwn.helper.UnsignedByte;
-import it.unibo.sdwn.node.Address;
-
-import java.util.ArrayList;
-
 public final class DataPacket implements Packet//extends SdwnPacket
 {
+    /*
     private Address destNodeAddress = new Address();
     private ArrayList<UnsignedByte> data = new ArrayList<>();
     private ArrayList<UnsignedByte> header = new ArrayList<>();
@@ -37,4 +32,5 @@ public final class DataPacket implements Packet//extends SdwnPacket
         header.add(ByteMeaning.NEXT_HOP_L.value, UnsignedByte.of(0));
         header.add(ByteMeaning.NEXT_HOP_H.value, UnsignedByte.of(0));
     }
+    */
 }
