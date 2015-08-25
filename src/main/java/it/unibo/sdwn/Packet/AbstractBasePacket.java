@@ -48,6 +48,7 @@ public abstract class AbstractBasePacket implements Packet, Analysable
     {
         String s = this.toCsv();
         Log.packet().info(s);
+        Log.main().info(s);
     }
 
     @Override
