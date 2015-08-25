@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
-import it.unibo.sdwn.Packet.PacketFactory;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -43,8 +43,8 @@ public final class SdwnTransport implements Transport, Runnable
         ArrayList<UnsignedByte> receivedBytes = new ArrayList<>(unsignedBytes);
 
         //When you're done with creating an ArrayList of a packet we can ask
-        // PacketFactory to generate a packet for us.
-        SdwnPacket packet = PacketFactory.build(receivedBytes, SdwnPacket.Direction.IN);
+        // SdwnPacketFactory to generate a packet for us.
+        SdwnPacket packet = SdwnPacketFactory.build(receivedBytes, SdwnPacket.Direction.IN);
         packetQueue.putInput(packet);
     }
 

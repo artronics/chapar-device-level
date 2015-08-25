@@ -1,5 +1,5 @@
 package it.unibo.sdwn.Packet;
 
-public interface PacketFactory
+public interface Packet
 {
 }
