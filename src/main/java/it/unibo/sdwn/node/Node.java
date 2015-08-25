@@ -2,6 +2,7 @@ package it.unibo.sdwn.node;
 
 public interface Node
 {
+    void addLinkTo(Node node);
 
     enum Type
     {

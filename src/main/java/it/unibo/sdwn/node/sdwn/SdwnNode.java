@@ -15,4 +15,10 @@ public final class SdwnNode extends AbstractBaseNode
     {
         super(address, type);
     }
+
+    @Override
+    public void addLinkTo(Node node)
+    {
+
+    }
 }
