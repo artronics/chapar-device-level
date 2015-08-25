@@ -1,10 +1,10 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.Packet.sdwn;
 
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 
-public interface Packet extends Analysable
+public interface SdwnPacket extends Analysable
 {
     UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
     UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));

@@ -1,5 +1,6 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -7,7 +8,7 @@ import it.unibo.sdwn.helper.UnsignedByte;
 import java.util.ArrayList;
 
 //Todo it must have a minimum length
-public abstract class AbstractBasePacket implements Packet, Analysable
+public abstract class AbstractBasePacket implements SdwnPacket, Analysable
 {
     private static long packetSerialNumber = 0;
     protected final Type packetType;

@@ -1,8 +1,8 @@
 package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
-import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.Packet.PacketFactory;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
@@ -24,7 +24,7 @@ public final class SdwnTransport implements Transport, Runnable
     /**
      * This handler will handle data that Connection Layer provides. There would be two situations, first Connection
      * Layer provides data byte by byte, second Connection Layer provides an Stream of Bytes. If Stream is considered
-     * you just need to put it to PacketQueue, otherwise you need to instantiate a PacketProtocol implementation to deal
+     * you just need to put it to PacketQueue, otherwise you need to instantiate a PacketProtocolHelper implementation to deal
      * with each received byte.
      *
      * @param e
@@ -44,7 +44,7 @@ public final class SdwnTransport implements Transport, Runnable
 
         //When you're done with creating an ArrayList of a packet we can ask
         // PacketFactory to generate a packet for us.
-        Packet packet = PacketFactory.build(receivedBytes, Packet.Direction.IN);
+        SdwnPacket packet = PacketFactory.build(receivedBytes, SdwnPacket.Direction.IN);
         packetQueue.putInput(packet);
     }
 

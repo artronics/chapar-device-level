@@ -1,5 +1,8 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.Packet.sdwn.PacketProtocolHelper;
+import it.unibo.sdwn.Packet.sdwn.SdwnBasePacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 
@@ -11,19 +14,19 @@ public class PacketFactory
     {
     }
 
-    public static Packet build(ArrayList<UnsignedByte> receivedBytes, Packet.Direction direction)
+    public static SdwnPacket build(ArrayList<UnsignedByte> receivedBytes, SdwnPacket.Direction direction)
     {
-        SdwnPacket packet;
+        SdwnBasePacket packet;
         try {
             //First Validate
-            PacketProtocol.validate(receivedBytes);
-            Packet.Type type = PacketProtocol.getType(receivedBytes);
-            packet = new SdwnPacket(type, direction, receivedBytes);
+            PacketProtocolHelper.validate(receivedBytes);
+            SdwnPacket.Type type = PacketProtocolHelper.getType(receivedBytes);
+            packet = new SdwnBasePacket(type, direction, receivedBytes);
 
         }catch (MalformedPacketException e) {
             //If any exp happens we build a malformed type packet
             //this way we can log all kind of packets and track packet lost
-            packet = new SdwnPacket(Packet.Type.MALFORMED, direction, receivedBytes);
+            packet = new SdwnBasePacket(SdwnPacket.Type.MALFORMED, direction, receivedBytes);
         }
 
         return packet;

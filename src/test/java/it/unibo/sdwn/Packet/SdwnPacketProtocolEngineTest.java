@@ -1,5 +1,6 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketProtocolEngine;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
@@ -11,18 +12,18 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class SdwnPacketProtocolTest
+public class SdwnPacketProtocolEngineTest
 {
     private static final UnsignedByte startByte = UnsignedByte.of(Config.get().getByte("startByte"));
     private static final UnsignedByte stopByte = UnsignedByte.of(Config.get().getByte("stopByte"));
     private ArrayList<UnsignedByte> goodPacket = new ArrayList<>();
     private ArrayList<UnsignedByte> malformedPacket = new ArrayList<>();
-    private SdwnPacketProtocol packetProtocol;
+    private SdwnPacketProtocolEngine packetProtocol;
 
     @Before
     public void setUp()
     {
-        packetProtocol = new SdwnPacketProtocol();
+        packetProtocol = new SdwnPacketProtocolEngine();
         //lets say the packet is something like this
         //startByte lengthOfPacket someDate stopByte
         goodPacket.add(UnsignedByte.of(4)); //packet length

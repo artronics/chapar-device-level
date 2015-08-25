@@ -1,4 +1,4 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.Packet.sdwn;
 
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -6,7 +6,7 @@ import it.unibo.sdwn.helper.UnsignedByte;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FakePacketFactory
+public class FakeSdwnPacketFactory
 {
     public static final String FakeCsvHex = "DATA; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x1; 0x7E; ";
     public static final String FakeCsvForBeaconHex = "BEACON; IN; 0x7A; 0x7; 0x1; 0x2; 0x3; 0x2; 0x2; 0x2; 0x7E; ";
@@ -19,10 +19,10 @@ public class FakePacketFactory
 
     public static ArrayList buildGoodPacket()
     {
-        return buildGoodPacket(Packet.Type.DATA);
+        return buildGoodPacket(SdwnPacket.Type.DATA);
     }
 
-    public static ArrayList buildGoodPacket(Packet.Type type)
+    public static ArrayList buildGoodPacket(SdwnPacket.Type type)
     {
         byte[] b = buildGoodByteArray(type);
         goodPacket = UnsignedByte.toUnsignedByteArrayList(b, b.length);
@@ -32,7 +32,7 @@ public class FakePacketFactory
         return tmp;
     }
 
-    public static byte[] buildGoodByteArray(Packet.Type type)
+    public static byte[] buildGoodByteArray(SdwnPacket.Type type)
     {
         receivedBytes[0] = startByte.byteValue();
         receivedBytes[1] = 7;

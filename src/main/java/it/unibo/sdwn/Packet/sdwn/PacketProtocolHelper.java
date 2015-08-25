@@ -1,11 +1,11 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.Packet.sdwn;
 
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 
 import java.util.ArrayList;
 
-public interface PacketProtocol extends Packet
+public interface PacketProtocolHelper extends SdwnPacket
 {
     /**
      * Validate incoming bytes. Put all your validation rules here. If Connection layer provides all packet bytes at
@@ -30,7 +30,7 @@ public interface PacketProtocol extends Packet
                 length.equals(UnsignedByte.of(receivedBytes.size() - 2)) &&
                 stopByte.equals(STOP_BYTE)) {
         }else {
-            throw new MalformedPacketException("Packet validation failed");
+            throw new MalformedPacketException("SdwnPacket validation failed");
         }
     }
 

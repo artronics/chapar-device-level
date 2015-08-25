@@ -1,4 +1,4 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.Packet.sdwn;
 
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -16,14 +16,14 @@ import java.util.ArrayList;
  * byte. If you want to change SDWN protocol for the receiving packets this is where you should add new protocol
  * engine.
  */
-public final class SdwnPacketProtocol implements PacketProtocol
+public final class SdwnPacketProtocolEngine implements PacketProtocolHelper
 {
     private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;
     private boolean isStarted = false;
     private int expetedSize = 0;
 
-    public SdwnPacketProtocol()
+    public SdwnPacketProtocolEngine()
     {
     }
 

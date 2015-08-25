@@ -1,5 +1,8 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.Packet.sdwn.PacketProtocolHelper;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import org.junit.Before;
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class PacketProtocolValidatorTest
+public class SdwnPacketProtocolHelperValidatorTest
 {
     private ArrayList<UnsignedByte> goodPacket ;
     private ArrayList<UnsignedByte> malformedPacket ;
@@ -23,10 +26,10 @@ public class PacketProtocolValidatorTest
     @Test
     public void Test_validation()
     {
-        goodPacket = FakePacketFactory.buildGoodPacket();
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket();
         boolean thrown = false;
         try {
-            PacketProtocol.validate(goodPacket);
+            PacketProtocolHelper.validate(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
@@ -37,27 +40,27 @@ public class PacketProtocolValidatorTest
     public void Test_getType()
     {
         boolean thrown = false;
-        goodPacket = FakePacketFactory.buildGoodPacket();
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket();
 
-        Packet.Type actType = null;
+        SdwnPacket.Type actType = null;
         try {
-            actType = PacketProtocol.getType(goodPacket);
+            actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(Packet.Type.DATA, actType);
+        assertEquals(SdwnPacket.Type.DATA, actType);
 
         //another time for Rule request
         goodPacket.clear();
-        goodPacket = FakePacketFactory.buildGoodPacket(Packet.Type.RULE_REQUEST);
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacket.Type.RULE_REQUEST);
         try {
-            actType = PacketProtocol.getType(goodPacket);
+            actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(Packet.Type.RULE_REQUEST, actType);
+        assertEquals(SdwnPacket.Type.RULE_REQUEST, actType);
     }
 
 }

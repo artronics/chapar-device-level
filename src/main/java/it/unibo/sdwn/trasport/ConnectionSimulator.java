@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.FakePacketFactory;
-import it.unibo.sdwn.Packet.Packet;
+import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
@@ -58,7 +58,7 @@ public class ConnectionSimulator extends AbstractBaseConnection
             }
             while (!isClosed) {
                 byte[] buff = new byte[255];
-                byte[] receivedBytes = FakePacketFactory.buildGoodByteArray(Packet.Type.BEACON);
+                byte[] receivedBytes = FakeSdwnPacketFactory.buildGoodByteArray(SdwnPacket.Type.BEACON);
                 //Simulate inputStream.read
                 for (int i = 0; i < receivedBytes.length; i++) {
                     buff[i] = receivedBytes[i];
