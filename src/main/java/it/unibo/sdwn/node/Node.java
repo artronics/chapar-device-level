@@ -4,6 +4,8 @@ public interface Node
 {
     void addLinkTo(Node node);
 
+    Type getType();
+
     enum Type
     {
         SINK,

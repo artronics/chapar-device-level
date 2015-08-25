@@ -19,4 +19,10 @@ public abstract class AbstractBaseNode implements Node
         this.type = type;
         this.address = address;
     }
+
+    @Override
+    public Type getType()
+    {
+        return this.type;
+    }
 }
