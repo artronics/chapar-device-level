@@ -19,7 +19,8 @@ public class AppConfiguration
         config.setThrowExceptionOnMissing(true);
     }
 
-    public PropertiesConfiguration getConfig(){
+    public PropertiesConfiguration getConfig()
+    {
 
         File configFile = new File("sdwn.config");
         if (configFile.exists() && !configFile.isDirectory())
@@ -27,7 +28,9 @@ public class AppConfiguration
         else
             return loadConfigStreams();
     }
-    private PropertiesConfiguration loadConfigFile(File configFile){
+
+    private PropertiesConfiguration loadConfigFile(File configFile)
+    {
         try {
             config.load(configFile);
         }catch (ConfigurationException e) {
@@ -37,7 +40,9 @@ public class AppConfiguration
 
         return config;
     }
-    private PropertiesConfiguration loadConfigStreams(){
+
+    private PropertiesConfiguration loadConfigStreams()
+    {
         try {
             InputStream mainConfig = loadConfigFile(PathConfig.MAIN_CONFIG_FILE);
             config.load(mainConfig);
@@ -60,6 +65,7 @@ public class AppConfiguration
 
         return config;
     }
+
     private InputStream loadConfigFile(Path configFile)
     {
         InputStream inputStream = null;

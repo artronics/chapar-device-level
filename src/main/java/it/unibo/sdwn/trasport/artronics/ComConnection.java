@@ -81,7 +81,8 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
         if (serialPort != null) {
             this.serialPort = serialPort;
             initEventListenersAndIO();
-        }else throw new NullPointerException();
+        }else
+            throw new NullPointerException();
     }
 
     @Override

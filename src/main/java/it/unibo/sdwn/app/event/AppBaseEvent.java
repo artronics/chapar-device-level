@@ -45,8 +45,8 @@ public abstract class AppBaseEvent
     /**
      * Constructs a prototypical Event.
      *
-     * @param source The object on which the Event initially occurred.
-     * @param data the data
+     * @param source  The object on which the Event initially occurred.
+     * @param data    the data
      * @param message the message
      * @throws IllegalArgumentException if source is null.
      */

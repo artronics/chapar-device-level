@@ -28,7 +28,6 @@ public abstract class AbstractBasePacket implements Packet, Analysable
     }
 
 
-
     public static long getPacketSerialNumber()
     {
         return packetSerialNumber;

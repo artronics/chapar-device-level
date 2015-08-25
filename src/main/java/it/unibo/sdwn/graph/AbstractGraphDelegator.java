@@ -5,6 +5,6 @@ import it.unibo.sdwn.node.Link;
 import it.unibo.sdwn.node.Node;
 import it.unibo.sdwn.routing.GraphDelegator;
 
-public abstract class AbstractGraphDelegator implements GraphDelegator<Node,Link,NetworkMap>
+public abstract class AbstractGraphDelegator implements GraphDelegator<Node, Link, NetworkMap>
 {
 }

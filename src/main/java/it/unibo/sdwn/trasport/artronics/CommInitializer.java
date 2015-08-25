@@ -27,7 +27,8 @@ public final class CommInitializer
             showLogMessage();
             noComPortFound.printStackTrace();
 //            Log.main().error("If you are on Mac, create a /var/lock with 777 permision." +
-//                                     " see: http://pizzaprogramming.blogspot.it/2010/05/gnuioportinuseexception.html");
+//                                     " see: http://pizzaprogramming.blogspot.it/2010/05/gnuioportinuseexception
+// .html");
             //TODO handle this on GUI
             //Dude this is the end! hold your breath and count to ten.
             System.exit(1);
