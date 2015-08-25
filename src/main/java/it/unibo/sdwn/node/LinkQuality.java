@@ -24,7 +24,6 @@ public class LinkQuality implements Quality
     public void setQualityValue(int qualityValue)
     {
         this.qualityValue = qualityValue;
-
     }
 
     @Override
