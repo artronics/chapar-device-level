@@ -6,20 +6,14 @@ import it.unibo.sdwn.node.NodeFactory;
 public class SdwnNodeFactory implements NodeFactory<SdwnNode, SdwnAddress>
 {
     @Override
-    public SdwnNode createNode(SdwnAddress address, Node.Type type)
+    public SdwnNode createNode(SdwnAddress address)
     {
-        return new SdwnNode(address, type);
+        return new SdwnNode(address, Node.Type.NORMAL);
     }
 
     @Override
     public SdwnNode createSink(SdwnAddress address)
     {
         return new SdwnNode(address, Node.Type.SINK);
-    }
-
-    @Override
-    public SdwnNode createNormalNode(SdwnAddress address)
-    {
-        return new SdwnNode(address);
     }
 }
