@@ -58,7 +58,7 @@ public class ConnectionSimulator extends AbstractBaseConnection
             }
             while (!isClosed) {
                 byte[] buff = new byte[255];
-                byte[] receivedBytes = FakePacketFactory.buildGoodByteArray(Packet.Type.DATA);
+                byte[] receivedBytes = FakePacketFactory.buildGoodByteArray(Packet.Type.BEACON);
                 //Simulate inputStream.read
                 for (int i = 0; i < receivedBytes.length; i++) {
                     buff[i] = receivedBytes[i];

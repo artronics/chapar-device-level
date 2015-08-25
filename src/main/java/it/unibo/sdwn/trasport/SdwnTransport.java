@@ -9,9 +9,9 @@ import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public class SdwnTransport implements Transport, Runnable
+public final class SdwnTransport implements Transport, Runnable
 {
-    protected Connection connection;
+    private Connection connection;
     private InOutQueue packetQueue;
 
     public SdwnTransport(InOutQueue packetQueue, Connection connection)
@@ -42,7 +42,7 @@ public class SdwnTransport implements Transport, Runnable
         ArrayList<UnsignedByte> unsignedBytes = UnsignedByte.toUnsignedByteArrayList(buff, length);
         ArrayList<UnsignedByte> receivedBytes = new ArrayList<>(unsignedBytes);
 
-        //When you done with creating an ArrayList of a packet we can ask
+        //When you're done with creating an ArrayList of a packet we can ask
         // PacketFactory to generate a packet for us.
         Packet packet = PacketFactory.build(receivedBytes, Packet.Direction.IN);
         packetQueue.putInput(packet);

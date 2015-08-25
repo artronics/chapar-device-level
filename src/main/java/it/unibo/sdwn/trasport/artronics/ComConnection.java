@@ -25,8 +25,8 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     {
         if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
-                byte[] buff = new byte[MAX_PACKET_BUFF];
-                int a = input.read(buff, 0, MAX_PACKET_BUFF);
+                final byte[] buff = new byte[MAX_PACKET_BUFF];
+                final int a = input.read(buff, 0, MAX_PACKET_BUFF);
                 ConnectionDataAvailableEvent event = new ConnectionDataAvailableEvent(this, buff, a);
                 fireConnectionDataAvailable(event);
 
@@ -56,7 +56,7 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     @Override
     public void open()
     {
-        CommPort commPort;
+        final CommPort commPort;
         SerialPort serialPort = null;
 
         try {
