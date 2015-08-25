@@ -14,7 +14,7 @@ public class PacketSerializerTest
 {
     private static final String regex = "\\s*\\d++[;:]"; //See Test_regex() last method
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
-    private Address add = new SdwnAddress();
+    private Address add = new SdwnAddress(10);
     private Analysable packet;
     private String csv = "";
     private String expCsv;
