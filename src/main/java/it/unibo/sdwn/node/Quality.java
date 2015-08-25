@@ -1,8 +1,8 @@
 package it.unibo.sdwn.node;
 
-public interface Quality
+public interface Quality extends Comparable<Quality>
 {
-    public int getQualityValue();
+    int getQualityValue();
 
-    public void setQualityValue(int value);
+    void setQualityValue(int value);
 }

@@ -9,6 +9,11 @@ public class LinkQuality implements Quality
         this.qualityValue = qualityValue;
     }
 
+    public static int compare(int x, int y)
+    {
+        return (x < y) ? -1 : ((x == y) ? 0 : 1);
+    }
+
     @Override
     public int getQualityValue()
     {
@@ -20,5 +25,11 @@ public class LinkQuality implements Quality
     {
         this.qualityValue = qualityValue;
 
+    }
+
+    @Override
+    public int compareTo(Quality anotherQuality)
+    {
+        return compare(this.qualityValue, anotherQuality.getQualityValue());
     }
 }
