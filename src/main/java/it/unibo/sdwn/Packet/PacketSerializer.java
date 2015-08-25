@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class PacketSerializer
 {
+    //TODO change this class to non static.
+    //TODO each line must end with two csv deparators
     //European countries use ";" as
     //CSV separator because "," is their digit separator
     public static final String CSV_SEPARATOR = "; ";
