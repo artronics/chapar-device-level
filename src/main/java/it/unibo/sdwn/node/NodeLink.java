@@ -1,17 +1,17 @@
 package it.unibo.sdwn.node;
 
-public final class SdwnLink implements Link
+public final class NodeLink implements Link
 {
     private static final LinkType linkType = LinkType.FULL_DUPLEX;
     private Quality quality;
     private Node destinationode;
 
-    public SdwnLink(Node destinationNode)
+    public NodeLink(Node destinationNode)
     {
         this.destinationode = destinationNode;
     }
 
-    public SdwnLink(Node destinationNode, Quality linkQuality)
+    public NodeLink(Node destinationNode, Quality linkQuality)
     {
         this.destinationode = destinationNode;
         this.quality = linkQuality;

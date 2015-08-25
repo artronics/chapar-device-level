@@ -1,5 +1,6 @@
 package it.unibo.sdwn.node;
 
+import it.unibo.sdwn.node.sdwn.SdwnNode;
 import org.junit.Before;
 import org.junit.Test;
 
