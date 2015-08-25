@@ -65,15 +65,4 @@ public class Address implements Comparable<Address>, Serializable
         return new Integer(this.intValue()).hashCode();
     }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        return obj instanceof Address && ((Address) obj).intValue() == this.intValue();
-    }
-
-    @Override
-    public String toString()
-    {
-        return this.address[0].toString() + "." + this.address[1].toString();
-    }
 }
