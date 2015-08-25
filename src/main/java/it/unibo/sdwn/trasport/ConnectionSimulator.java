@@ -2,15 +2,15 @@ package it.unibo.sdwn.trasport;
 
 import it.unibo.sdwn.Packet.FakePacketFactory;
 import it.unibo.sdwn.Packet.Packet;
+import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 import sun.plugin.dom.exception.InvalidStateException;
 
-import java.util.ArrayList;
-
 public class ConnectionSimulator extends AbstractBaseConnection
 {
+    private static final long TRANSMITTER_PERION = Config.get().getLong("transmitterPeriod");
     private boolean isClosed = true;
 
     @Override
@@ -24,7 +24,7 @@ public class ConnectionSimulator extends AbstractBaseConnection
     {
         //Here you need to establish your connection
         //In this simulator there is no need for this
-        Log.main().info("Connection Simulator: Connection is established.");
+        Log.main().debug("Connection Simulator: Connection is established.");
     }
 
     @Override
@@ -34,6 +34,9 @@ public class ConnectionSimulator extends AbstractBaseConnection
         //this connection. In this simulator we'll execute both
         //transmitter and receiver.
         isClosed = false;
+        Thread transmitter = new Thread(new Transmitter(), "Transmitter");
+        Log.main().debug("Start Transmitter thread.");
+        transmitter.start();
 
     }
 
@@ -55,19 +58,22 @@ public class ConnectionSimulator extends AbstractBaseConnection
             }
             while (!isClosed) {
                 byte[] buff = new byte[255];
-
-                ArrayList receivedBytes = FakePacketFactory.buildGoodPacket(Packet.Type.DATA);
+                byte[] receivedBytes = FakePacketFactory.buildGoodByteArray(Packet.Type.DATA);
+                //Simulate inputStream.read
+                for (int i = 0; i < receivedBytes.length; i++) {
+                    buff[i] = receivedBytes[i];
+                }
+                int length = receivedBytes.length;
                 ConnectionDataAvailableEvent event =
-                        new ConnectionDataAvailableEvent(this, buff, buff.length);
+                        new ConnectionDataAvailableEvent(this, buff, length);
                 fireConnectionDataAvailable(event);
 
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(TRANSMITTER_PERION);
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
-
 }
