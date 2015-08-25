@@ -9,12 +9,12 @@ import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public abstract class AbstractBaseTransport implements Transport, Runnable
+public class SdwnTransport implements Transport, Runnable
 {
     protected Connection connection;
     private InOutQueue packetQueue;
 
-    public AbstractBaseTransport(InOutQueue packetQueue, Connection connection)
+    public SdwnTransport(InOutQueue packetQueue, Connection connection)
     {
         this.connection = connection;
         this.packetQueue = packetQueue;
@@ -46,5 +46,18 @@ public abstract class AbstractBaseTransport implements Transport, Runnable
         // PacketFactory to generate a packet for us.
         Packet packet = PacketFactory.build(receivedBytes, Packet.Direction.IN);
         packetQueue.putInput(packet);
+    }
+
+    @Override
+    public void run()
+    {
+
+    }
+
+    @Override
+    public void init()
+    {
+        connection.establishConnection();
+        connection.open();
     }
 }

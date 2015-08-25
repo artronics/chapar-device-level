@@ -14,29 +14,23 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="app" class="it.unibo.sdwn.app.App">
         <property name="controller" ref="Controller"></property>
     </bean>
-    <bean id="AbstractBaseTransport" abstract="true" class="it.unibo.sdwn.trasport.AbstractBaseTransport">
+
+    <bean id="PacketQueue" class="it.unibo.sdwn.trasport.InOutPacketQueue"/>
+
+    <bean id="Transport" class="it.unibo.sdwn.trasport.SdwnTransport">
         <constructor-arg name="packetQueue" ref="PacketQueue"></constructor-arg>
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
-
     </bean>
 
-    <bean id="PacketQueue" class="it.unibo.sdwn.trasport.InOutPacketQueue">
+    <!--<bean id="Connection"  class="it.unibo.sdwn.trasport.artronics.ComConnection"/>-->
+    <bean id="Connection" class="it.unibo.sdwn.trasport.ConnectionSimulator"/>
 
-    </bean>
-
-    <bean id="Transport" parent="AbstractBaseTransport" class="it.unibo.sdwn.trasport.artronics.ComTransport">
-
-    </bean>
-    <bean id="Connection"  class="it.unibo.sdwn.trasport.artronics.ComConnection">
-    </bean>
-    <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap">
-    </bean>
+    <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap"/>
 
     <bean id="Controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
         <constructor-arg name="transport" ref="Transport"></constructor-arg>
         <constructor-arg name="routing" ref="Routing"></constructor-arg>
     </bean>
 
-    <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting">
-    </bean>
+    <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting"/>
 </beans>
