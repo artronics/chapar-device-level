@@ -1,8 +1,8 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
 
-public final class DataPacket implements SdwnPacket//extends SdwnPacket
+public final class DataPacket //implements SdwnPacketType//extends SdwnPacketType
 {
     /*
     private Address destNodeAddress = new Address();

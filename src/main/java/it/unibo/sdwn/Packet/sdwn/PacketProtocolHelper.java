@@ -5,7 +5,7 @@ import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 
 import java.util.ArrayList;
 
-public interface PacketProtocolHelper extends SdwnPacket
+public interface PacketProtocolHelper extends SdwnPacketProtocol
 {
     /**
      * Validate incoming bytes. Put all your validation rules here. If Connection layer provides all packet bytes at
@@ -39,22 +39,14 @@ public interface PacketProtocolHelper extends SdwnPacket
         return receivedBytes.get(ByteMeaning.LENGTH.value);
     }
 
-    static Type getType(ArrayList<UnsignedByte> receviedBytes) throws MalformedPacketException
+    static SdwnPacketType getType(ArrayList<UnsignedByte> receviedBytes) throws MalformedPacketException
     {
         UnsignedByte typeByte = receviedBytes.get(ByteMeaning.TYPE.value);
-        for (Type type : Type.values()) {
+        for (SdwnPacketType type : SdwnPacketType.values()) {
             if (typeByte.equals(type.value))
                 return type;
         }
         //if type is not among the values we defined, it means packet is malformed.
         throw new MalformedPacketException("Type is not correct");
     }
-
-    void addByte(UnsignedByte receivedByte) throws MalformedPacketException;
-
-    boolean isReady();
-
-    ArrayList<UnsignedByte> getPacket() throws MalformedPacketException;
-
-    void validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes) throws MalformedPacketException;
 }

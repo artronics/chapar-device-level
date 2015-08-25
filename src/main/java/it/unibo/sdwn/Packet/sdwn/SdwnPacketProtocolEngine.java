@@ -1,5 +1,6 @@
 package it.unibo.sdwn.Packet.sdwn;
 
+import it.unibo.sdwn.Packet.PacketProtocol;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * byte. If you want to change SDWN protocol for the receiving packets this is where you should add new protocol
  * engine.
  */
-public final class SdwnPacketProtocolEngine implements PacketProtocolHelper
+public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
 {
     private ArrayList<UnsignedByte> byteArray = new ArrayList(0);
     private boolean isReady = false;
@@ -59,7 +60,7 @@ public final class SdwnPacketProtocolEngine implements PacketProtocolHelper
     }
 
     @Override
-    public ArrayList<UnsignedByte> getPacket() throws MalformedPacketException
+    public ArrayList<UnsignedByte> getReceivedBytes()  throws MalformedPacketException
     {
         if (isReady()) {
             //Clear this object before passing the byteArray
@@ -74,12 +75,18 @@ public final class SdwnPacketProtocolEngine implements PacketProtocolHelper
     }
 
     @Override
-    public void validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes) throws MalformedPacketException
+    public boolean validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes)
     {
-        for (UnsignedByte b : receivedBytes) {
-            addByte(b);
+        try {
+            for (UnsignedByte b : receivedBytes) {
+                addByte(b);
+            }
+            clear();
+        }catch (MalformedPacketException e) {
+            return false;
         }
-        clear();
+
+        return true;
     }
 
     private synchronized void clear()

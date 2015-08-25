@@ -19,10 +19,10 @@ public class FakeSdwnPacketFactory
 
     public static ArrayList buildGoodPacket()
     {
-        return buildGoodPacket(SdwnPacket.Type.DATA);
+        return buildGoodPacket(SdwnPacketType.DATA);
     }
 
-    public static ArrayList buildGoodPacket(SdwnPacket.Type type)
+    public static ArrayList buildGoodPacket(SdwnPacketType type)
     {
         byte[] b = buildGoodByteArray(type);
         goodPacket = UnsignedByte.toUnsignedByteArrayList(b, b.length);
@@ -32,7 +32,7 @@ public class FakeSdwnPacketFactory
         return tmp;
     }
 
-    public static byte[] buildGoodByteArray(SdwnPacket.Type type)
+    public static byte[] buildGoodByteArray(SdwnPacketType type)
     {
         receivedBytes[0] = startByte.byteValue();
         receivedBytes[1] = 7;

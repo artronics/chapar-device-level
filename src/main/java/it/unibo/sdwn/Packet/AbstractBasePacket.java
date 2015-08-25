@@ -1,31 +1,32 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
 
-//Todo it must have a minimum length
-public abstract class AbstractBasePacket implements SdwnPacket, Analysable
+public abstract class AbstractBasePacket<PT extends PacketType>implements Analysable
 {
     private static long packetSerialNumber = 0;
-    protected final Type packetType;
-    protected final Direction direction;
+    protected final PT packetType;
+    protected final Packet.Direction direction;
     private final ArrayList receivedBytes;
+    private final String csv; //We use this for analyzing packet(write as csv)
 
     /**
      * This id the minimum requirement for constructing a packet. We need Packet.Type and the Direction of packet and
      * also received bytes. Then logger will log the constructed packet which might be even malformed packet.
      */
-    protected AbstractBasePacket(Type packetType, Direction dir, ArrayList receivedBytes)
+    protected AbstractBasePacket(PT packetType, Packet.Direction dir, ArrayList receivedBytes)
     {
         this.packetType = packetType;
         this.direction = dir;
         this.receivedBytes = new ArrayList(receivedBytes);
         packetSerialNumber++;
-        this.logPacket();
+
+        this.csv = PacketSerializer.toCsv(this);
+        this.writeCsv();
     }
 
 
@@ -39,22 +40,21 @@ public abstract class AbstractBasePacket implements SdwnPacket, Analysable
         packetSerialNumber++;
     }
 
-    public Direction getDirection()
+    public Packet.Direction getDirection()
     {
         return direction;
     }
 
-    private void logPacket()
+    private void writeCsv()
     {
-        String s = this.toCsv();
-        Log.packet().info(s);
-        Log.main().info(s);
+        Log.packet().info(toCsv()); //write to file
+        Log.main().info(toCsv());// write to console
     }
 
     @Override
     public String toCsv()
     {
-        return PacketSerializer.toCsv(this);
+        return this.csv;
     }
 
     public ArrayList<UnsignedByte> getReceivedBytes()
@@ -62,7 +62,7 @@ public abstract class AbstractBasePacket implements SdwnPacket, Analysable
         return this.receivedBytes;
     }
 
-    public Type getType()
+    public PacketType getType()
     {
         return packetType;
     }

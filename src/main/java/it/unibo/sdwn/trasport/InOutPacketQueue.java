@@ -1,6 +1,6 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.event.Event;
 
 public class InOutPacketQueue implements InOutQueue
@@ -12,7 +12,7 @@ public class InOutPacketQueue implements InOutQueue
     }
 
     @Override
-    public void putInput(SdwnPacket packet)
+    public void putInput(SdwnPacketType packet)
     {
         try {
             inQueue.put(packet);

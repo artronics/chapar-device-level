@@ -2,7 +2,7 @@ package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
 import it.unibo.sdwn.Packet.sdwn.PacketProtocolHelper;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import org.junit.Before;
@@ -42,25 +42,25 @@ public class SdwnPacketProtocolHelperValidatorTest
         boolean thrown = false;
         goodPacket = FakeSdwnPacketFactory.buildGoodPacket();
 
-        SdwnPacket.Type actType = null;
+        SdwnPacketType.Type actType = null;
         try {
             actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(SdwnPacket.Type.DATA, actType);
+        assertEquals(SdwnPacketType.Type.DATA, actType);
 
         //another time for Rule request
         goodPacket.clear();
-        goodPacket = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacket.Type.RULE_REQUEST);
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.Type.RULE_REQUEST);
         try {
             actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(SdwnPacket.Type.RULE_REQUEST, actType);
+        assertEquals(SdwnPacketType.Type.RULE_REQUEST, actType);
     }
 
 }

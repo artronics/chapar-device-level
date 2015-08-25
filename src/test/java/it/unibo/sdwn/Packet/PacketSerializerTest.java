@@ -1,7 +1,7 @@
 package it.unibo.sdwn.Packet;
 
 import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -28,7 +28,7 @@ public class PacketSerializerTest
         pck = FakeSdwnPacketFactory.buildGoodPacket();
         expCsv = FakeSdwnPacketFactory.FakeCsv;
 
-        packet = SdwnPacketFactory.build(pck, SdwnPacket.Direction.IN);
+        packet = SdwnPacketFactory.build(pck, SdwnPacketType.Direction.IN);
         csv = packet.toCsv();
         //we delete PacketSerialNumber because there is no
         //way to test this static variable.
@@ -46,13 +46,13 @@ public class PacketSerializerTest
     public void Test_static_behaviour()
     {
         ArrayList p1 = FakeSdwnPacketFactory.buildGoodPacket();
-        SdwnPacket pk1 = SdwnPacketFactory.build(p1, SdwnPacket.Direction.IN);
+        SdwnPacketType pk1 = SdwnPacketFactory.build(p1, SdwnPacketType.Direction.IN);
         String actCsv = pk1.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         assertEquals(expCsv, actCsv);
 
-        ArrayList p2 = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacket.Type.BEACON);
-        SdwnPacket pk2 = SdwnPacketFactory.build(p2, SdwnPacket.Direction.IN);
+        ArrayList p2 = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.Type.BEACON);
+        SdwnPacketType pk2 = SdwnPacketFactory.build(p2, SdwnPacketType.Direction.IN);
         actCsv = pk2.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         expCsv = FakeSdwnPacketFactory.FakeCsvForBeacon;
