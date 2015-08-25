@@ -1,12 +1,12 @@
 package it.unibo.sdwn.node;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class AbstractBaseNode implements Node
 {
     private final AbstractBaseAddress address;
     private final Node.Type type;
-    private List<Link> links;
+    private ArrayList<Link> links;
 
     protected AbstractBaseNode(AbstractBaseAddress address)
     {
