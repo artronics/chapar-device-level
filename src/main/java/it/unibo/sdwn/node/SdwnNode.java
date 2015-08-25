@@ -22,13 +22,32 @@ public class SdwnNode implements Node
     }
 
     @Override
-    public boolean hasLinkTo(Node node)
+    public final List<Link> getLinks()
     {
-        for (int i = 0; i < this.links.size(); ++i) {
-            if (this.links.get(i).getDestinationNode() == node)
-                return true;
+        return this.links;
+    }
+
+    @Override
+    public final void addLinkTo(Node node, Quality linkQuality)
+    {
+        if (hasLinkTo(node)) {
+            Log.main().error("Tried to create a duplicated link");
+        }else {
+            Link link = new SdwnLink(node, linkQuality);
+            this.links.add(link);
+            //add link in opposite direction in case of
+            //HALF_DUPLEX OR FULL_DUPLEX
+            if ((link.getLinkType() == Link.LinkType.FULL_DUPLEX ||
+                    link.getLinkType() == Link.LinkType.HALF_DUPLEX) &&
+                    !node.hasLinkTo(this)) {
+                if (LinkQuality.RICIPROCAL_QUALITY)
+                    node.addLinkTo(this, linkQuality);
+                else {
+                    node.addLinkTo(this, null);
+                    Log.main().warn("Try to add a link with null value for Quality");
+                }
+            }
         }
-        return false;
     }
 
     @Override
@@ -44,38 +63,6 @@ public class SdwnNode implements Node
         return null;
     }
 
-
-    @Override
-    public final void addLinkTo(Node node, Quality linkQuality)
-    {
-        if (hasLinkTo(node)) {
-            Log.main().error("Tried to create a duplicated link");
-        }
-        else{
-            Link link = new CommunicationLink(node, linkQuality);
-            this.links.add(link);
-            //add link in opposite direction in case of
-            //HALF_DUPLEX OR FULL_DUPLEX
-            if ((link.getLinkType() == Link.LinkType.FULL_DUPLEX ||
-                    link.getLinkType() == Link.LinkType.HALF_DUPLEX) &&
-                    !node.hasLinkTo(this))
-            {
-                if (LinkQuality.RICIPROCAL_QUALITY)
-                    node.addLinkTo(this, linkQuality);
-                else {
-                    node.addLinkTo(this, null);
-                    Log.main().warn("Try to add a link with null value for Quality");
-                }
-            }
-        }
-    }
-
-    @Override
-    public final List<Link> getLinks()
-    {
-        return this.links;
-    }
-
     @Override
     public final Address getAddress()
     {
@@ -86,5 +73,15 @@ public class SdwnNode implements Node
     public final void setAddress(Address address)
     {
         this.address = address;
+    }
+
+    @Override
+    public boolean hasLinkTo(Node node)
+    {
+        for (int i = 0; i < this.links.size(); ++i) {
+            if (this.links.get(i).getDestinationNode() == node)
+                return true;
+        }
+        return false;
     }
 }
