@@ -1,30 +1,24 @@
 package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.helper.UnsignedByte;
-
 public class LinkQuality implements Quality
 {
-    private UnsignedByte value;
+    private int qualityValue;
 
     public LinkQuality(int qualityValue)
     {
-        this.value = UnsignedByte.of(qualityValue);
-    }
-
-    public LinkQuality(UnsignedByte value)
-    {
-        this.value = value;
+        this.qualityValue = qualityValue;
     }
 
     @Override
-    public UnsignedByte getValue()
+    public int getQualityValue()
     {
-        return this.value;
+        return this.qualityValue;
     }
 
     @Override
-    public void setValue(UnsignedByte value)
+    public void setQualityValue(int qualityValue)
     {
-        this.value = value;
+        this.qualityValue = qualityValue;
+
     }
 }
