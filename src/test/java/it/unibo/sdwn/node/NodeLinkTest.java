@@ -16,6 +16,7 @@ public class NodeLinkTest
     Node node2;
     Node node3;
     Node sameNode1;
+    Node sameNode2;
     NodeLink link12;
     NodeLink link23;
     NodeLink link31;
@@ -35,6 +36,7 @@ public class NodeLinkTest
         link31 = new NodeLink(node3, node1, new LinkQuality(3));
 
         sameNode1 = factory.createNode(new SdwnAddress(1));
+        sameNode2 = factory.createNode(new SdwnAddress(2));
         duplicatedLink12 = new NodeLink(node1, node2, new LinkQuality(1));
 
     }
@@ -77,17 +79,15 @@ public class NodeLinkTest
     }
 
     @Test
-    public void It_should_test_REFERENCE_to_source_and_dest_nodes()
+    public void It_should_test_just_for_addresses_even_when_two_ends_are_other_instances()
     {
-        Node newNode = factory.createNode(new SdwnAddress(1));
-        Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
-        assertNotEquals(link12, newDupLink12);
-        assertNotEquals(newDupLink12, link12);
-
+        Link dupLink = new NodeLink(sameNode1, sameNode2, new LinkQuality(1));
+        assertEquals(link12, dupLink);
+        assertEquals(dupLink, link12);
     }
 
     @Test
-    public void It_should_test_for_addresses()
+    public void It_should_test_for_addresses_for_one_end()
     {
         Node newNode = factory.createNode(new SdwnAddress(2));
         Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
@@ -138,12 +138,15 @@ public class NodeLinkTest
         assertTrue(link12.hasNode(node1));
         assertTrue(link12.hasNode(node2));
         assertFalse(link12.hasNode(node3));
+
     }
 
     @Test
-    public void HasNode_should_has_same_reference()
+    public void HasNode_should_check_for_adderess()
     {
-        Node sameAddrNode = factory.createNode(new BaseAddress(1));
-        assertFalse(link12.hasNode(sameAddrNode));
+        //we didn't add sameNode1 to link
+        //but since it has same address of
+        //node1 it should return true
+        assertTrue(link12.hasNode(sameNode1));
     }
 }

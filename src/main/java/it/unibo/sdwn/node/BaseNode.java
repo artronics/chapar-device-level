@@ -11,11 +11,4 @@ public class BaseNode extends AbstractBaseNode
     {
         super(address);
     }
-
-    @Override
-    public boolean hasLinkTo(Node node)
-    {
-//        return links.contains()
-        return false;
-    }
 }
