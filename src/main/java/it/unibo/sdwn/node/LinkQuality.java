@@ -27,6 +27,21 @@ public class LinkQuality implements Quality
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (o instanceof LinkQuality) {
+            return qualityValue == ((LinkQuality) o).getQualityValue();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Integer.hashCode(qualityValue);
+    }
+
+    @Override
     public int compareTo(Quality anotherQuality)
     {
         return compare(this.qualityValue, anotherQuality.getQualityValue());
