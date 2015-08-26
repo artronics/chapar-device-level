@@ -51,6 +51,16 @@ public abstract class AbstractBaseNode implements Node
     @Override
     public boolean hasLinkTo(Node node)
     {
+        for (Link link : links)
+            if (link.hasNode(node))
+                return true;
         return false;
+    }
+
+    @Override
+    public void addLinkTo(Node node, Quality quality)
+    {
+        Link link = NodeLinkFactory.create(this, node, quality);
+        links.add(link);
     }
 }
