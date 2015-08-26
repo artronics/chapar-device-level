@@ -11,6 +11,5 @@ public class Main
         app.initCommandLine(args);
         app.initEventBus();
         app.start();
-
     }
 }
