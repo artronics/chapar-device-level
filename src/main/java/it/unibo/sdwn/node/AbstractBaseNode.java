@@ -22,6 +22,28 @@ public abstract class AbstractBaseNode implements Node
         this.address = address;
     }
 
+
+    @Override
+    public boolean hasLinkTo(Node node)
+    {
+        for (Link link : links)
+            if (link.hasNode(node))
+                return true;
+        return false;
+    }
+
+    @Override
+    public void addLinkTo(Node node, Quality quality)
+    {
+        Link link = NodeLinkFactory.create(this, node, quality);
+        if (hasLinkTo(node)) {
+            Log.main().debug("Try to make a link which already exists.");
+            return;
+        }
+        links.add(link);
+        node.getLinks().add(link);
+    }
+
     @Override
     public AbstractBaseAddress getAddress()
     {
@@ -48,27 +70,6 @@ public abstract class AbstractBaseNode implements Node
     public int hashCode()
     {
         return ((Integer) address.intValue()).hashCode();
-    }
-
-    @Override
-    public boolean hasLinkTo(Node node)
-    {
-        for (Link link : links)
-            if (link.hasNode(node))
-                return true;
-        return false;
-    }
-
-    @Override
-    public void addLinkTo(Node node, Quality quality)
-    {
-        Link link = NodeLinkFactory.create(this, node, quality);
-        if(hasLinkTo(node)){
-            Log.main().debug("Try to make a link which already exists.");
-            return;
-        }
-        links.add(link);
-        node.getLinks().add(link);
     }
 
     @Override
