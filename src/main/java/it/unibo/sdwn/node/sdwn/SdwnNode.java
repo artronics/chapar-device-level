@@ -6,10 +6,11 @@ import it.unibo.sdwn.node.Node;
 
 public final class SdwnNode extends AbstractBaseNode
 {
-    public SdwnNode(AbstractBaseAddress address)
+    protected SdwnNode(AbstractBaseAddress address)
     {
         super(address);
     }
+
 
     protected SdwnNode(SdwnAddress address, Node.Type type)
     {
