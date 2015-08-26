@@ -4,6 +4,7 @@ public interface Node
 {
     void addLinkTo(Node node);
 
+    Address getAddress();
     Type getType();
 
     enum Type
