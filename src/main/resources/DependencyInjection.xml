@@ -27,7 +27,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap"/>
 
-    <bean id="Controller" class="it.unibo.sdwn.controller.artronics.SdwnController">
+    <bean id="Controller" class="it.unibo.sdwn.controller.sdwn.SdwnController">
         <constructor-arg name="transport" ref="Transport"></constructor-arg>
         <constructor-arg name="routing" ref="Routing"></constructor-arg>
     </bean>

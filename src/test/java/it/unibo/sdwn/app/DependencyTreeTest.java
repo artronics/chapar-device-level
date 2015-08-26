@@ -41,7 +41,7 @@ public class DependencyTreeTest
 ////        app.init(args);
 //
 //        //get dependency tree
-//        Controller controller = app.getController();
+//        ControllerService controller = app.getController();
 //        TransportService transport = controller.getTransport();
 //        Routing routing = controller.getRouting();
 //        NetworkMap networkMap = routing.getNetworkMap();
