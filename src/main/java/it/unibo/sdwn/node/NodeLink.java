@@ -54,13 +54,13 @@ public final class NodeLink implements Link
             return false;
 
         //there is no difference between source and dest
-        //nodes. they MUST be a REFERENCE to the other
+        //nodes. they must be equals one to another.
         Node s = sourceNode;
         Node d = destinationNode;
         Node od = otherLink.getDestinationNode();
         Node os = otherLink.getSourceNode();
         if (!(
-                (s == os && d == od) || (s == od && d == os)
+                (s.equals(os) && d.equals(od)) || (s.equals(od) && d.equals(os))
         ))
             return false;
         return true;

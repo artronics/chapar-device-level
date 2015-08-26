@@ -51,8 +51,9 @@ public class NodeLinkTest
     }
 
     @Test
-    public void Two_links_are_equal_if_has_equal_quality_and_has_same_REFRENCE_two_both_end_nodes()
+    public void Two_links_are_equal_if_has_equal_quality_and_has_equal_end_nodes()
     {
+
         //reflexsive
         assertTrue(link12.equals(link12));
         //equality
@@ -77,14 +78,14 @@ public class NodeLinkTest
     }
 
     @Test
-    public void It_should_test_REFRENCES_to_source_and_dest_nodes()
+    public void It_should_test_Addresses_to_source_and_dest_nodes()
     {
-        Node newNode1 = factory.createNode(new SdwnAddress(1));
-        Link newDupLink12 = new NodeLink(newNode1, node2, new LinkQuality(1));
+        Node newNode = factory.createNode(new SdwnAddress(2));
+        Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
         assertNotEquals(link12, newDupLink12);
         assertNotEquals(newDupLink12, link12);
         //lets exchange nodes
-        Link newDupLink21 = new NodeLink(node2, newNode1, new LinkQuality(1));
+        Link newDupLink21 = new NodeLink(node2, newNode, new LinkQuality(1));
         assertNotEquals(link12, newDupLink21);
         assertNotEquals(newDupLink21, link12);
     }
