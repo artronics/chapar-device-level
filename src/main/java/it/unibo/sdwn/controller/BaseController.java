@@ -1,14 +1,14 @@
 package it.unibo.sdwn.controller;
 
 import it.unibo.sdwn.routing.Routing;
-import it.unibo.sdwn.trasport.Transport;
+import it.unibo.sdwn.trasport.TransportService;
 
 public abstract class BaseController implements Controller, Runnable
 {
-    protected Transport transport;
+    protected TransportService transport;
     protected Routing routing;
 
-    public BaseController(Transport transport, Routing routing)
+    public BaseController(TransportService transport, Routing routing)
     {
         this.transport = transport;
         this.routing = routing;

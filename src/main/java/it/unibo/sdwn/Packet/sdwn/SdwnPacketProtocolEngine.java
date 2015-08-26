@@ -1,6 +1,5 @@
 package it.unibo.sdwn.Packet.sdwn;
 
-import it.unibo.sdwn.Packet.PacketProtocol;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
@@ -85,7 +84,6 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
         }catch (MalformedPacketException e) {
             return false;
         }
-
         return true;
     }
 

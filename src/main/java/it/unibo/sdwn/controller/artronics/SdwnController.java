@@ -2,11 +2,11 @@ package it.unibo.sdwn.controller.artronics;
 
 import it.unibo.sdwn.controller.BaseController;
 import it.unibo.sdwn.routing.Routing;
-import it.unibo.sdwn.trasport.Transport;
+import it.unibo.sdwn.trasport.TransportService;
 
 public class SdwnController extends BaseController
 {
-    public SdwnController(Transport transport, Routing routing)
+    public SdwnController(TransportService transport, Routing routing)
     {
         super(transport, routing);
     }

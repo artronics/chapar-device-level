@@ -1,6 +1,6 @@
 package it.unibo.sdwn.trasport;
 
-public interface Transport
+public interface TransportService
 {
     public void init();
 }

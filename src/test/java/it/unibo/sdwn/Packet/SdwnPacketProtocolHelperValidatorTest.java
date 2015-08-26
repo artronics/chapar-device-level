@@ -42,25 +42,25 @@ public class SdwnPacketProtocolHelperValidatorTest
         boolean thrown = false;
         goodPacket = FakeSdwnPacketFactory.buildGoodPacket();
 
-        SdwnPacketType.Type actType = null;
+        SdwnPacketType actType = null;
         try {
             actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(SdwnPacketType.Type.DATA, actType);
+        assertEquals(SdwnPacketType.DATA, actType);
 
         //another time for Rule request
         goodPacket.clear();
-        goodPacket = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.Type.RULE_REQUEST);
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.RULE_REQUEST);
         try {
             actType = PacketProtocolHelper.getType(goodPacket);
         }catch (MalformedPacketException e) {
             thrown = true;
         }
         assertFalse(thrown);
-        assertEquals(SdwnPacketType.Type.RULE_REQUEST, actType);
+        assertEquals(SdwnPacketType.RULE_REQUEST, actType);
     }
 
 }

@@ -6,7 +6,7 @@ import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
 
-public abstract class AbstractBasePacket<PT extends PacketType>implements Analysable
+public abstract class AbstractBasePacket<PT extends PacketType> implements Packet, Analysable
 {
     private static long packetSerialNumber = 0;
     protected final PT packetType;
@@ -62,6 +62,7 @@ public abstract class AbstractBasePacket<PT extends PacketType>implements Analys
         return this.receivedBytes;
     }
 
+    @Override
     public PacketType getType()
     {
         return packetType;
