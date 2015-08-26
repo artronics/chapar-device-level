@@ -2,7 +2,7 @@ package it.unibo.sdwn.node;
 
 public abstract class AbstractBaseAddress implements Address
 {
-    private final int addressValue;
+    protected final int addressValue;
 
     public AbstractBaseAddress(int addressValue)
     {

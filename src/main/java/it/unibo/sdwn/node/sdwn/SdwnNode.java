@@ -1,12 +1,11 @@
 package it.unibo.sdwn.node.sdwn;
 
-import it.unibo.sdwn.node.AbstractBaseAddress;
 import it.unibo.sdwn.node.AbstractBaseNode;
 import it.unibo.sdwn.node.Node;
 
 public final class SdwnNode extends AbstractBaseNode
 {
-    protected SdwnNode(AbstractBaseAddress address)
+    protected SdwnNode(SdwnAddress address)
     {
         super(address);
     }
