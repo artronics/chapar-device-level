@@ -2,7 +2,7 @@ package it.unibo.sdwn.app;
 
 import it.unibo.sdwn.app.commandLine.CommandLineOptionsManager;
 import it.unibo.sdwn.app.event.RegisterHandler;
-import it.unibo.sdwn.controller.Controller;
+import it.unibo.sdwn.controller.ControllerService;
 
 import java.io.Serializable;
 
@@ -12,18 +12,18 @@ public final class App implements Serializable
 
     //Resolving dependencies by Dependency Injection
     //See DependencyInjection.xml
-    private Controller controller;
+    private ControllerService controller;
 
-    public App()
+    private App()
     {
     }
 
-    public final synchronized Controller getController()
+    public final synchronized ControllerService getController()
     {
         return this.controller;
     }
 
-    public void setController(Controller controllerImpl)
+    public void setController(ControllerService controllerImpl)
     {
         this.controller = controllerImpl;
     }
