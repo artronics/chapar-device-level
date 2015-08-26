@@ -1,8 +1,11 @@
 package it.unibo.sdwn.node;
 
-public class NormalNodeTest
+public class AbstractBaseNodeTest
 {
-    /*
+
+}
+
+/*
     private Node[] nodes = new Node[4];
 
     @Before
@@ -68,5 +71,5 @@ public class NormalNodeTest
 
         assertEquals(nodes[0].getAddress(), actualAddr);
     }
-*/
 }
+*/

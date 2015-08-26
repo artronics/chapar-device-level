@@ -1,15 +1,18 @@
 package it.unibo.sdwn.node;
 
 import it.unibo.sdwn.node.sdwn.SdwnAddress;
-import it.unibo.sdwn.node.sdwn.SdwnNode;
+import it.unibo.sdwn.node.sdwn.SdwnNodeFactory;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class NodeLinkTest
 {
     //These nodes configure a graph
     //which is like a triangle with
     //duplicated link and node to test equality
+    NodeFactory factory = new SdwnNodeFactory();
     Node node1;
     Node node2;
     Node node3;
@@ -18,25 +21,79 @@ public class NodeLinkTest
     NodeLink link23;
     NodeLink link31;
     NodeLink duplicatedLink12;
+    NodeLink sameLink12 = link12;
 
     @Before
     public void setUp() throws Exception
     {
-        node1 = new SdwnNode(new SdwnAddress(1));
-        node2 = new SdwnNode(new SdwnAddress(2));
-        node3 = new SdwnNode(new SdwnAddress(3));
+
+        node1 = factory.createNode(new SdwnAddress(1));
+        node2 = factory.createNode(new SdwnAddress(2));
+        node3 = factory.createNode(new SdwnAddress(3));
 
         link12 = new NodeLink(node1, node2, new LinkQuality(1));
         link23 = new NodeLink(node2, node3, new LinkQuality(2));
         link31 = new NodeLink(node3, node1, new LinkQuality(3));
 
-        sameNode1 = new SdwnNode(new SdwnAddress(1));
+        sameNode1 = factory.createNode(new SdwnAddress(1));
         duplicatedLink12 = new NodeLink(node1, node2, new LinkQuality(1));
+
+    }
+
+    /****************
+     * TEST EQUALITY
+     ***************/
+
+    @Test
+    public void Test_not_null_equality()
+    {
+        assertNotEquals(link12, null);
     }
 
     @Test
-    public void Test_equality()
+    public void Two_links_are_equal_if_has_equal_quality_and_has_same_REFRENCE_two_both_end_nodes()
     {
+        //reflexsive
+        assertTrue(link12.equals(link12));
+        //equality
+        assertEquals(link12, duplicatedLink12);
+        //symmetric
+        assertEquals(duplicatedLink12, link12);
+    }
+
+    @Test
+    public void Two_links_are_unEqual_if_they_have_different_quality()
+    {
+        duplicatedLink12.setQuality(new LinkQuality(7));
+        assertNotEquals(link12, duplicatedLink12);
+    }
+
+    @Test
+    public void There_is_no_difference_between_source_and_dest_nodes()
+    {
+        //notice it is 21. it should be equal to 12
+        Link duplicatedLink21 = new NodeLink(node2, node1, new LinkQuality(1));
+        assertEquals(link12, duplicatedLink21);
+    }
+
+    @Test
+    public void It_should_test_REFRENCES_to_source_and_dest_nodes()
+    {
+        Node newNode1 = factory.createNode(new SdwnAddress(1));
+        Link newDupLink12 = new NodeLink(newNode1, node2, new LinkQuality(1));
+        assertNotEquals(link12, newDupLink12);
+        assertNotEquals(newDupLink12, link12);
+        //lets exchange nodes
+        Link newDupLink21 = new NodeLink(node2, newNode1, new LinkQuality(1));
+        assertNotEquals(link12, newDupLink21);
+        assertNotEquals(newDupLink21, link12);
+    }
+
+    /****************
+     * TEST HASH CODE
+     ***************/
+    @Test
+    public void Two_equal_link_must_return_same_hash_code(){
 
     }
 }

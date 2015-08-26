@@ -1,12 +1,12 @@
-package it.unibo.sdwn.node.sdwn;
+package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.node.Address;
+import it.unibo.sdwn.node.sdwn.SdwnAddress;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SdwnAddressTest
+public class AbstractBaseAddressTest
 {
     Address add1;
     Address add2;
