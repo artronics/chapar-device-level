@@ -10,6 +10,21 @@ public abstract class AbstractBaseAddress implements Address
     }
 
     @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Address) {
+            return addressValue == ((Address) obj).getAddress();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Integer.hashCode(addressValue);
+    }
+
+    @Override
     public int getAddress()
     {
         return addressValue;
