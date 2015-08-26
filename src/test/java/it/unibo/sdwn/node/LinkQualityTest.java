@@ -15,16 +15,17 @@ public class LinkQualityTest
     @Before
     public void setUp() throws Exception
     {
-
         eqQuality = new LinkQuality(10);
         eqQuality1 = new LinkQuality(10);
         notEqQuality = new LinkQuality(20);
-
     }
 
     @Test
     public void Test_equality()
     {
+        assertNotEquals(eqQuality, null);
+        //reflexive
+        assertEquals(eqQuality, eqQuality);
         assertEquals(eqQuality, eqQuality1);
         assertEquals(eqQuality.getQualityValue(), eqQuality1.getQualityValue());
         //Not equals

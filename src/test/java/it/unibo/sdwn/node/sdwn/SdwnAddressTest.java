@@ -4,8 +4,7 @@ import it.unibo.sdwn.node.Address;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class SdwnAddressTest
 {
@@ -24,7 +23,13 @@ public class SdwnAddressTest
     @Test
     public void Test_equality()
     {
-        assertEquals(add1, add2);
+        assertNotEquals(add1, null);
+        //reflexive
+        assertEquals(add1, add1);
+        //symmetry
+        assertTrue(add1.equals(add2));// AND
+        assertTrue(add2.equals(add1));
+
         assertNotEquals(add1, notEqAdd);
     }
 
