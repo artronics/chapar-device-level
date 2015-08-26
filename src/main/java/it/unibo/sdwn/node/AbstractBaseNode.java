@@ -49,12 +49,6 @@ public abstract class AbstractBaseNode implements Node
     }
 
     @Override
-    public void addLinkTo(Node node)
-    {
-
-    }
-
-    @Override
     public boolean hasLinkTo(Node node)
     {
         return false;
