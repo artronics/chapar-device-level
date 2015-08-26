@@ -2,7 +2,7 @@ package it.unibo.sdwn.node;
 
 public class BaseNode extends AbstractBaseNode
 {
-    public BaseNode(BaseAddress address, Type type)
+    protected BaseNode(BaseAddress address, Type type)
     {
         super(address, type);
     }
