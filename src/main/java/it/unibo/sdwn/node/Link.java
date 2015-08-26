@@ -4,4 +4,10 @@ public interface Link
 {
     Quality getQuality();
 
+    void setQuality(Quality quality);
+
+    Node getSourceNode();
+
+    Node getDestinationNode();
+
 }

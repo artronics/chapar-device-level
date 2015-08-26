@@ -26,6 +26,7 @@ public class LinkQualityTest
         assertNotEquals(eqQuality, null);
         //reflexive
         assertEquals(eqQuality, eqQuality);
+
         assertEquals(eqQuality, eqQuality1);
         assertEquals(eqQuality.getQualityValue(), eqQuality1.getQualityValue());
         //Not equals
