@@ -10,12 +10,12 @@ import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public final class SdwnTransport implements TransportService, Runnable
+public final class TransportServiceImpl implements TransportService, Runnable
 {
     private Connection connection;
     private InOutQueue packetQueue;
 
-    public SdwnTransport(InOutQueue packetQueue, Connection connection)
+    public TransportServiceImpl(InOutQueue packetQueue, Connection connection)
     {
         this.connection = connection;
         this.packetQueue = packetQueue;
