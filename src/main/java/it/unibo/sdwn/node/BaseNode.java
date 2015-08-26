@@ -13,8 +13,9 @@ public class BaseNode extends AbstractBaseNode
     }
 
     @Override
-    public void addLinkTo(Node node)
+    public boolean hasLinkTo(Node node)
     {
-
+//        return links.contains()
+        return false;
     }
 }

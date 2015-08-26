@@ -10,4 +10,5 @@ public interface Link
 
     Node getDestinationNode();
 
+    boolean hasNode(Node node);
 }

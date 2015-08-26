@@ -1,12 +1,11 @@
 package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.node.sdwn.SdwnAddress;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AbstractBaseAddressTest
+public class BaseAddressTest
 {
     Address add1;
     Address add2;
@@ -15,9 +14,9 @@ public class AbstractBaseAddressTest
     @Before
     public void setUp() throws Exception
     {
-        add1 = new SdwnAddress(10);
-        add2 = new SdwnAddress(10);
-        notEqAdd = new SdwnAddress(20);
+        add1 = new BaseAddress(10);
+        add2 = new BaseAddress(10);
+        notEqAdd = new BaseAddress(20);
     }
 
     @Test

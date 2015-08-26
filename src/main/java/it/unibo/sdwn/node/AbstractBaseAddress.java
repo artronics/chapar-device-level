@@ -13,7 +13,7 @@ public abstract class AbstractBaseAddress implements Address
     public boolean equals(Object obj)
     {
         if (obj instanceof Address) {
-            return addressValue == ((Address) obj).getAddress();
+            return addressValue == ((Address) obj).intValue();
         }
         return false;
     }
@@ -25,7 +25,7 @@ public abstract class AbstractBaseAddress implements Address
     }
 
     @Override
-    public int getAddress()
+    public int intValue()
     {
         return addressValue;
     }

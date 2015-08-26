@@ -4,6 +4,8 @@ public interface Node
 {
     void addLinkTo(Node node);
 
+    boolean hasLinkTo(Node node);
+
     Address getAddress();
     Type getType();
 

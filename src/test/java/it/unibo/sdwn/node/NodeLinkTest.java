@@ -78,7 +78,17 @@ public class NodeLinkTest
     }
 
     @Test
-    public void It_should_test_Addresses_to_source_and_dest_nodes()
+    public void It_should_test_REFERENCE_to_source_and_dest_nodes()
+    {
+        Node newNode = factory.createNode(new SdwnAddress(1));
+        Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
+        assertNotEquals(link12, newDupLink12);
+        assertNotEquals(newDupLink12, link12);
+
+    }
+
+    @Test
+    public void It_should_test_for_addresses()
     {
         Node newNode = factory.createNode(new SdwnAddress(2));
         Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
@@ -88,13 +98,53 @@ public class NodeLinkTest
         Link newDupLink21 = new NodeLink(node2, newNode, new LinkQuality(1));
         assertNotEquals(link12, newDupLink21);
         assertNotEquals(newDupLink21, link12);
+
     }
 
     /****************
      * TEST HASH CODE
      ***************/
     @Test
-    public void Two_equal_link_must_return_same_hash_code(){
+    public void Two_equal_link_must_return_same_hash_code()
+    {
+        assertEquals(link12.hashCode(), duplicatedLink12.hashCode());
+        assertNotEquals(link12.hashCode(), link23.hashCode());
+    }
 
+    @Test
+    public void If_source_and_dest_swaps_it_should_give_same_hash()
+    {
+        Link duplicatedLink21 = new NodeLink(node2, node1, new LinkQuality(1));
+        assertEquals(link12.hashCode(), duplicatedLink21.hashCode());
+    }
+
+    @Test
+    public void Test_for_not_equal_situation_hashcode()
+    {
+        //change the quality. hash code must change as well
+        duplicatedLink12.setQuality(new LinkQuality(7));
+        assertNotEquals(link12.hashCode(), duplicatedLink12.hashCode());
+
+        Node newNode = factory.createNode(new SdwnAddress(2));
+        Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
+        assertNotEquals(link12.hashCode(), newDupLink12.hashCode());
+    }
+
+    /************************
+     * LINK MANIPULATION
+     ********************/
+    @Test
+    public void Test_hasNode()
+    {
+        assertTrue(link12.hasNode(node1));
+        assertTrue(link12.hasNode(node2));
+        assertFalse(link12.hasNode(node3));
+    }
+
+    @Test
+    public void HasNode_should_test_both_address_and_reference()
+    {
+        Node sameAddrNode = factory.createNode(new BaseAddress(1));
+        assertFalse(link12.hasNode(sameAddrNode));
     }
 }

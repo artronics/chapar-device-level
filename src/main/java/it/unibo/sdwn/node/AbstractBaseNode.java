@@ -6,7 +6,7 @@ public abstract class AbstractBaseNode implements Node
 {
     private final AbstractBaseAddress address;
     private final Node.Type type;
-    private ArrayList<Link> links;
+    protected ArrayList<Link> links;
 
     protected AbstractBaseNode(AbstractBaseAddress address)
     {
@@ -21,8 +21,42 @@ public abstract class AbstractBaseNode implements Node
     }
 
     @Override
+    public AbstractBaseAddress getAddress()
+    {
+        return address;
+    }
+
+
+    @Override
     public Type getType()
     {
         return this.type;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Node) {
+            return address.equals(((Node) obj).getAddress());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return ((Integer) address.intValue()).hashCode();
+    }
+
+    @Override
+    public void addLinkTo(Node node)
+    {
+
+    }
+
+    @Override
+    public boolean hasLinkTo(Node node)
+    {
+        return false;
     }
 }

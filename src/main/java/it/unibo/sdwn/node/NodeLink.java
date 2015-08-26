@@ -20,6 +20,12 @@ public final class NodeLink implements Link
     }
 
     @Override
+    public boolean hasNode(Node node)
+    {
+        return node.equals(destinationNode) || node.equals(sourceNode);
+    }
+
+    @Override
     public Quality getQuality()
     {
         return this.quality;
@@ -60,7 +66,10 @@ public final class NodeLink implements Link
         Node od = otherLink.getDestinationNode();
         Node os = otherLink.getSourceNode();
         if (!(
-                (s.equals(os) && d.equals(od)) || (s.equals(od) && d.equals(os))
+                //It must hold the same reference. Same address
+                //is not sufficient.
+//                (s.equals(os) && d.equals(od)) || (s.equals(od) && d.equals(os))
+                (s == os && d == od) || (s == od && d == os)
         ))
             return false;
         return true;
@@ -70,8 +79,9 @@ public final class NodeLink implements Link
     public int hashCode()
     {
         int result = 21;
+        result = result * 31 + destinationNode.hashCode() + sourceNode.hashCode();
+        result = result * 31 + quality.hashCode();
 
         return result;
-
     }
 }
