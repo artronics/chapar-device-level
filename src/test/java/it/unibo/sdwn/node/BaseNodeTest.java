@@ -35,11 +35,18 @@ public class BaseNodeTest
         3<->1 ::value for Quality:100
         */
         Quality q30 = new LinkQuality(30);
+        Quality q40 = new LinkQuality(40);
+        Quality q200 = new LinkQuality(200);
+        Quality q100 = new LinkQuality(100);
         nodes[0] = factory.createNode(new BaseAddress(0));
         nodes[1] = factory.createNode(new BaseAddress(1));
         nodes[2] = factory.createNode(new BaseAddress(2));
         nodes[3] = factory.createNode(new BaseAddress(3));
+
         nodes[0].addLinkTo(nodes[1], q30);
+        nodes[1].addLinkTo(nodes[2], q40);
+        nodes[0].addLinkTo(nodes[2], q200);
+        nodes[3].addLinkTo(nodes[0], q100);
     }
 
     /**************************
@@ -91,5 +98,14 @@ public class BaseNodeTest
         //we didn't add sameNode1 to link but
         //hasLinkTo returns true
         assertTrue(nodes[0].hasLinkTo(sameNode1));
+    }
+
+    /**********************
+     * GRAPH
+     *******************/
+    @Test
+    public void Test_existance_of_links()
+    {
+
     }
 }
