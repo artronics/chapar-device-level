@@ -1,7 +1,6 @@
 package it.unibo.sdwn.node;
 
 import it.unibo.sdwn.node.sdwn.SdwnAddress;
-import it.unibo.sdwn.node.sdwn.SdwnNodeFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ public class NodeLinkTest
     //These nodes configure a graph
     //which is like a triangle with
     //duplicated link and node to test equality
-    NodeFactory factory = new SdwnNodeFactory();
+    NodeFactory factory = new BaseNodeFactory();
     Node node1;
     Node node2;
     Node node3;
@@ -27,9 +26,9 @@ public class NodeLinkTest
     public void setUp() throws Exception
     {
 
-        node1 = factory.createNode(new SdwnAddress(1));
-        node2 = factory.createNode(new SdwnAddress(2));
-        node3 = factory.createNode(new SdwnAddress(3));
+        node1 = factory.createNode(new BaseAddress(1));
+        node2 = factory.createNode(new BaseAddress(2));
+        node3 = factory.createNode(new BaseAddress(3));
 
         link12 = new NodeLink(node1, node2, new LinkQuality(1));
         link23 = new NodeLink(node2, node3, new LinkQuality(2));
@@ -142,7 +141,7 @@ public class NodeLinkTest
     }
 
     @Test
-    public void HasNode_should_test_both_address_and_reference()
+    public void HasNode_should_has_same_reference()
     {
         Node sameAddrNode = factory.createNode(new BaseAddress(1));
         assertFalse(link12.hasNode(sameAddrNode));

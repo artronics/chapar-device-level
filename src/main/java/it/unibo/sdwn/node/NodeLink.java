@@ -22,7 +22,7 @@ public final class NodeLink implements Link
     @Override
     public boolean hasNode(Node node)
     {
-        return node.equals(destinationNode) || node.equals(sourceNode);
+        return node == destinationNode || node == sourceNode;
     }
 
     @Override
