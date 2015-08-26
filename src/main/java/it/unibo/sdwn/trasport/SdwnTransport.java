@@ -61,4 +61,10 @@ public final class SdwnTransport implements TransportService, Runnable
         connection.establishConnection();
         connection.open();
     }
+
+    @Override
+    public void shutdown()
+    {
+        connection.close();
+    }
 }
