@@ -1,10 +1,10 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.AbstractBasePacket;
-import it.unibo.sdwn.Packet.PacketFactory;
-import it.unibo.sdwn.Packet.protocol.PacketProtocol;
-import it.unibo.sdwn.Packet.protocol.PacketType;
 import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.packet.AbstractBasePacket;
+import it.unibo.sdwn.packet.PacketFactory;
+import it.unibo.sdwn.packet.protocol.PacketProtocol;
+import it.unibo.sdwn.packet.protocol.PacketType;
 
 import java.util.concurrent.ArrayBlockingQueue;
 

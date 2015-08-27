@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.packet.Packet;
 
 public class InOutPacketQueue implements InOutQueue
 {

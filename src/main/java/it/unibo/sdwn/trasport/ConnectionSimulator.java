@@ -1,10 +1,10 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.protocol.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
+import it.unibo.sdwn.packet.protocol.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 import sun.plugin.dom.exception.InvalidStateException;

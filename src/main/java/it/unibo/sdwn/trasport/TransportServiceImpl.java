@@ -1,11 +1,11 @@
 package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
-import it.unibo.sdwn.Packet.PacketFactory;
-import it.unibo.sdwn.Packet.protocol.PacketProtocol;
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.packet.PacketFactory;
+import it.unibo.sdwn.packet.protocol.PacketProtocol;
+import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketType;
+import it.unibo.sdwn.packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public final class TransportServiceImpl extends AbstractBaseTransportService<Sdw
 
         //When you're done with creating an ArrayList of a packet we can ask
         // SdwnPacketFactory to generate a packet for us.
-//        SdwnPacket packet = SdwnPacketFactory.(Packet.Direction.IN,receivedBytes);
+//        SdwnPacket packet = SdwnPacketFactory.(packet.Direction.IN,receivedBytes);
         //TODO [Potential Bug] examine synchronization of next line.
         receivedPacket = packetFactory.createPacket(receivedBytes);
         packetQueue.putInput(receivedPacket);
