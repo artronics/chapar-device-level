@@ -33,7 +33,7 @@ public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
     @Override
     public void updateNetworkMap(SdwnNode node)
     {
-//        SdwnAddress address = node.getAddress();
-//        networkMap.put(address, node);
+        SdwnAddress address = node.getAddress();
+        networkMap.put(address, node);
     }
 }

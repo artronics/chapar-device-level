@@ -45,7 +45,7 @@ public abstract class AbstractBaseNode<A extends AbstractBaseAddress> implements
     }
 
     @Override
-    public AbstractBaseAddress getAddress()
+    public A getAddress()
     {
         return address;
     }
