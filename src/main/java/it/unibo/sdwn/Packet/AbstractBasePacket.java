@@ -1,5 +1,6 @@
 package it.unibo.sdwn.Packet;
 
+import it.unibo.sdwn.Packet.protocol.PacketType;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -25,7 +26,7 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
         this.receivedBytes = new ArrayList(receivedBytes);
         packetSerialNumber++;
 
-        this.csv = PacketSerializer.toCsv(this);
+        this.csv = PacketToCsv.toCsv(this);
         this.writeCsv();
     }
 

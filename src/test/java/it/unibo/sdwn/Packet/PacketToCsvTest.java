@@ -1,9 +1,9 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnBasePacket;
+import it.unibo.sdwn.Packet.protocol.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.node.Address;
@@ -14,7 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-public class PacketSerializerTest
+public class PacketToCsvTest
 {
     private static final String regex = "\\s*\\d++[;:]"; //See Test_regex() last method
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
@@ -47,13 +47,13 @@ public class PacketSerializerTest
     public void Test_static_behaviour()
     {
         ArrayList p1 = FakeSdwnPacketFactory.buildGoodPacket();
-        SdwnBasePacket pk1 = SdwnPacketFactory.build(Packet.Direction.IN, p1);
+        SdwnPacket pk1 = SdwnPacketFactory.build(Packet.Direction.IN, p1);
         String actCsv = pk1.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         assertEquals(expCsv, actCsv);
 
         ArrayList p2 = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.BEACON);
-        SdwnBasePacket pk2 = SdwnPacketFactory.build(Packet.Direction.IN, p2);
+        SdwnPacket pk2 = SdwnPacketFactory.build(Packet.Direction.IN, p2);
         actCsv = pk2.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         expCsv = FakeSdwnPacketFactory.FakeCsvForBeacon;

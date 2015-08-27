@@ -1,5 +1,7 @@
-package it.unibo.sdwn.Packet.sdwn;
+package it.unibo.sdwn.Packet.protocol.sdwn;
 
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketProtocol;
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 

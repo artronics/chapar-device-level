@@ -1,9 +1,8 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.node.AbstractBaseAddress;
+import it.unibo.sdwn.Packet.protocol.PacketType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface PacketFactory<P extends AbstractBasePacket,PT extends PacketType>
 {

@@ -1,7 +1,7 @@
 package it.unibo.sdwn.trasport;
 
-import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
+import it.unibo.sdwn.Packet.protocol.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;

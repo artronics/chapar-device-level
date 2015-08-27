@@ -3,7 +3,7 @@ package it.unibo.sdwn.trasport;
 import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.Packet.PacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnBasePacket;
+import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
@@ -50,7 +50,7 @@ public final class TransportServiceImpl implements TransportService, Runnable
 
         //When you're done with creating an ArrayList of a packet we can ask
         // SdwnPacketFactory to generate a packet for us.
-        SdwnBasePacket packet = SdwnPacketFactory.build(Packet.Direction.IN,receivedBytes);
+        SdwnPacket packet = SdwnPacketFactory.build(Packet.Direction.IN,receivedBytes);
         packetQueue.putInput(packet);
     }
 

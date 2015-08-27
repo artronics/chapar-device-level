@@ -1,8 +1,8 @@
 package it.unibo.sdwn.Packet;
 
-import it.unibo.sdwn.Packet.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.PacketProtocolHelper;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacketType;
+import it.unibo.sdwn.Packet.protocol.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.Packet.protocol.sdwn.PacketProtocolHelper;
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import org.junit.Before;

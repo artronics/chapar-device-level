@@ -4,7 +4,7 @@ import it.unibo.sdwn.helper.UnsignedByte;
 
 import java.util.ArrayList;
 
-public class PacketSerializer
+public class PacketToCsv
 {
     //TODO change this class to non static.
     //TODO each line must end with two csv deparators
