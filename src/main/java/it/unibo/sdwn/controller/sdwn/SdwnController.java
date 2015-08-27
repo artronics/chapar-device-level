@@ -2,6 +2,7 @@ package it.unibo.sdwn.controller.sdwn;
 
 import it.unibo.sdwn.Packet.PacketFactory;
 import it.unibo.sdwn.app.config.Config;
+import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.controller.BaseControllerService;
 import it.unibo.sdwn.node.NodeFactory;
 import it.unibo.sdwn.node.sdwn.SdwnAddress;
@@ -27,13 +28,15 @@ public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
     {
         SdwnAddress address = new SdwnAddress(SINK_ADDRESS);
         SdwnNode sink = nodeFactory.createSink(address);
-        updateNetworkMap(sink);
+        updateNetworkMap(sink, address);
+        Log.main().debug("Sink is added to Network Map Successfully.");
     }
 
     @Override
-    public void updateNetworkMap(SdwnNode node)
+    public void updateNetworkMap(SdwnNode node, SdwnAddress address)
     {
-        SdwnAddress address = node.getAddress();
         networkMap.put(address, node);
+        Log.main().debug("Network Map is updated.");
+
     }
 }

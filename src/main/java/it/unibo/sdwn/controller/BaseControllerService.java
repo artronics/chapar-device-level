@@ -33,7 +33,14 @@ public abstract class BaseControllerService<N extends AbstractBaseNode, A extend
         Event.mainBus().register(this);
     }
 
-    protected abstract void updateNetworkMap(N node);
+    /**
+     * An abstract contract which grantees updating network map. Although HashTable is a thread safe implementation,
+     * this is up to programmer to apply additional synchronization mechanism.
+     *
+     * @param node    the node
+     * @param address the address
+     */
+    protected abstract void updateNetworkMap(N node, A address);
 
 
     @Subscribe

@@ -2,6 +2,7 @@ package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.Packet.Packet;
+import it.unibo.sdwn.Packet.PacketFactory;
 import it.unibo.sdwn.Packet.sdwn.SdwnBasePacket;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
 import it.unibo.sdwn.app.event.Event;
@@ -14,11 +15,15 @@ public final class TransportServiceImpl implements TransportService, Runnable
 {
     private Connection connection;
     private InOutQueue packetQueue;
+    private PacketFactory packetFactory;
 
-    public TransportServiceImpl(InOutQueue packetQueue, Connection connection)
+    public TransportServiceImpl(InOutQueue packetQueue,
+                                Connection connection,
+                                PacketFactory packetFactory)
     {
-        this.connection = connection;
         this.packetQueue = packetQueue;
+        this.connection = connection;
+        this.packetFactory = packetFactory;
         Event.mainBus().register(this);
     }
 
