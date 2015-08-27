@@ -6,6 +6,7 @@ import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
+import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 import sun.plugin.dom.exception.InvalidStateException;
 
 public class ConnectionSimulator extends AbstractBaseConnection
@@ -28,12 +29,21 @@ public class ConnectionSimulator extends AbstractBaseConnection
     }
 
     @Override
+    public void fireSinkFoundEvent(SinkFoundEvent event)
+    {
+        Event.mainBus().post(event);
+    }
+
+    @Override
     public void open()
     {
         //When you establish your connection you need to open
         //this connection. In this simulator we'll execute both
         //transmitter and receiver.
         isClosed = false;
+        //before starting transmitter we have to fire
+        //SinkFoundEvent
+        fireSinkFoundEvent(new SinkFoundEvent(this));
         Thread transmitter = new Thread(new Transmitter(), "Transmitter");
         Log.main().debug("Start Transmitter thread.");
         transmitter.start();

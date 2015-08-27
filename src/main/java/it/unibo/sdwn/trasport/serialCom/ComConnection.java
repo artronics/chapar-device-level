@@ -6,6 +6,7 @@ import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.trasport.AbstractBaseConnection;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
+import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,6 +53,12 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
         this.selectedPortIdentifier = commInitializer.getSelectedCommPortIdentifier();
     }
 
+    @Override
+    public void fireSinkFoundEvent(SinkFoundEvent event)
+    {
+        Event.mainBus().post(event);
+    }
+
     //Open port and addByte initEventListener
     @Override
     public void open()
@@ -81,6 +88,7 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
         if (serialPort != null) {
             this.serialPort = serialPort;
             initEventListenersAndIO();
+            fireSinkFoundEvent(new SinkFoundEvent(this));
         }else
             throw new NullPointerException();
     }
