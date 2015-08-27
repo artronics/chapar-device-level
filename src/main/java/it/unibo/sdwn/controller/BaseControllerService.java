@@ -40,7 +40,7 @@ public abstract class BaseControllerService<N extends AbstractBaseNode, A extend
      * @param node    the node
      * @param address the address
      */
-    protected abstract void updateNetworkMap(N node, A address);
+    protected abstract void putNodeToNetworkMap(N node, A address);
 
 
     @Subscribe

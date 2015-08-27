@@ -28,15 +28,14 @@ public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
     {
         SdwnAddress address = new SdwnAddress(SINK_ADDRESS);
         SdwnNode sink = nodeFactory.createSink(address);
-        updateNetworkMap(sink, address);
+        putNodeToNetworkMap(sink, address);
         Log.main().debug("Sink is added to Network Map Successfully.");
     }
 
     @Override
-    public void updateNetworkMap(SdwnNode node, SdwnAddress address)
+    public void putNodeToNetworkMap(SdwnNode node, SdwnAddress address)
     {
         networkMap.put(address, node);
         Log.main().debug("Network Map is updated.");
-
     }
 }
