@@ -17,8 +17,10 @@ public class SdwnPacketFactory implements PacketFactory<SdwnPacket,SdwnPacketTyp
         return new SdwnPacket(type,direction,bytes);
     }
 
-    public static SdwnPacket build( Packet.Direction direction,ArrayList<UnsignedByte> receivedBytes)
+    @Override
+    public SdwnPacket createPacket(ArrayList receivedBytes)
     {
+        Packet.Direction direction = Packet.Direction.IN;
         SdwnPacket packet;
         try {
             //First Validate
@@ -33,8 +35,8 @@ public class SdwnPacketFactory implements PacketFactory<SdwnPacket,SdwnPacketTyp
         }
 
         return packet;
-    }
 
+    }
 //    public static DataPacket createDataFactoy(ArrayList<UnsignedByte> dataPayload,
 //                                              Address destNodeAddres)
 //    {

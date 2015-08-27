@@ -20,6 +20,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="Transport" class="it.unibo.sdwn.trasport.TransportServiceImpl">
         <constructor-arg name="packetQueue" ref="PacketQueue"></constructor-arg>
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
+        <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
 
     <bean id="Connection" class="it.unibo.sdwn.trasport.serialCom.ComConnection"/>

@@ -3,6 +3,7 @@ package it.unibo.sdwn.trasport;
 import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.Packet.PacketFactory;
+import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
 import it.unibo.sdwn.app.event.Event;
@@ -11,20 +12,13 @@ import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public final class TransportServiceImpl implements TransportService, Runnable
+public final class TransportServiceImpl  extends AbstractBaseTransportService<SdwnPacket,SdwnPacketType>
 {
-    private Connection connection;
-    private InOutQueue packetQueue;
-    private PacketFactory packetFactory;
 
-    public TransportServiceImpl(InOutQueue packetQueue,
-                                Connection connection,
+    public TransportServiceImpl(InOutQueue packetQueue, Connection connection,
                                 PacketFactory packetFactory)
     {
-        this.packetQueue = packetQueue;
-        this.connection = connection;
-        this.packetFactory = packetFactory;
-        Event.mainBus().register(this);
+        super(packetQueue, connection, packetFactory);
     }
 
     /**
@@ -50,8 +44,10 @@ public final class TransportServiceImpl implements TransportService, Runnable
 
         //When you're done with creating an ArrayList of a packet we can ask
         // SdwnPacketFactory to generate a packet for us.
-        SdwnPacket packet = SdwnPacketFactory.build(Packet.Direction.IN,receivedBytes);
-        packetQueue.putInput(packet);
+//        SdwnPacket packet = SdwnPacketFactory.(Packet.Direction.IN,receivedBytes);
+        //TODO [Potential Bug] examine synchronization of next line.
+        receivedPacket = packetFactory.createPacket(receivedBytes);
+        packetQueue.putInput(receivedPacket);
     }
 
     @Override

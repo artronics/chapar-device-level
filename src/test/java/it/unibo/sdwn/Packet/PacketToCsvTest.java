@@ -22,6 +22,7 @@ public class PacketToCsvTest
     private Analysable packet;
     private String csv = "";
     private String expCsv;
+    private PacketFactory<SdwnPacket,SdwnPacketType> factory = new SdwnPacketFactory();
 
     @Before
     public void setUp()
@@ -29,7 +30,7 @@ public class PacketToCsvTest
         pck = FakeSdwnPacketFactory.buildGoodPacket();
         expCsv = FakeSdwnPacketFactory.FakeCsv;
 
-        packet = SdwnPacketFactory.build(Packet.Direction.IN, pck);
+        packet = factory.createPacket(pck);
         csv = packet.toCsv();
         //we delete PacketSerialNumber because there is no
         //way to test this static variable.
@@ -47,13 +48,13 @@ public class PacketToCsvTest
     public void Test_static_behaviour()
     {
         ArrayList p1 = FakeSdwnPacketFactory.buildGoodPacket();
-        SdwnPacket pk1 = SdwnPacketFactory.build(Packet.Direction.IN, p1);
+        SdwnPacket pk1 = factory.createPacket(p1);
         String actCsv = pk1.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         assertEquals(expCsv, actCsv);
 
         ArrayList p2 = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.BEACON);
-        SdwnPacket pk2 = SdwnPacketFactory.build(Packet.Direction.IN, p2);
+        SdwnPacket pk2 = factory.createPacket(p2);
         actCsv = pk2.toCsv();
         actCsv = actCsv.replaceFirst(regex, "");
         expCsv = FakeSdwnPacketFactory.FakeCsvForBeacon;
