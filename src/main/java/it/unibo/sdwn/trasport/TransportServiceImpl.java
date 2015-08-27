@@ -1,24 +1,24 @@
 package it.unibo.sdwn.trasport;
 
 import com.google.common.eventbus.Subscribe;
-import it.unibo.sdwn.Packet.Packet;
 import it.unibo.sdwn.Packet.PacketFactory;
+import it.unibo.sdwn.Packet.protocol.PacketProtocol;
 import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
-import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public final class TransportServiceImpl  extends AbstractBaseTransportService<SdwnPacket,SdwnPacketType>
+public final class TransportServiceImpl extends AbstractBaseTransportService<SdwnPacket, SdwnPacketType, UnsignedByte>
 {
 
-    public TransportServiceImpl(InOutQueue packetQueue, Connection connection,
+    public TransportServiceImpl(InOutQueue packetQueue,
+                                Connection connection,
+                                PacketProtocol packetProtocol,
                                 PacketFactory packetFactory)
     {
-        super(packetQueue, connection, packetFactory);
+        super(packetQueue, connection, packetProtocol, packetFactory);
     }
 
     /**

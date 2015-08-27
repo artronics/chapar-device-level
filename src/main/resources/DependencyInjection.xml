@@ -20,6 +20,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <bean id="Transport" class="it.unibo.sdwn.trasport.TransportServiceImpl">
         <constructor-arg name="packetQueue" ref="PacketQueue"></constructor-arg>
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
+        <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
 
@@ -38,6 +39,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     </bean>
     <bean id="PacketFactory" class="it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory"/>
+    <bean id="PacketProtocol" class="it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketProtocolEngine"/>
     <bean id="NodeFactory" class="it.unibo.sdwn.node.sdwn.SdwnNodeFactory"/>
 
     <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting"/>
