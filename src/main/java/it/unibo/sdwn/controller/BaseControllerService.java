@@ -1,12 +1,21 @@
 package it.unibo.sdwn.controller;
 
+import com.google.common.eventbus.Subscribe;
 import it.unibo.sdwn.Packet.PacketFactory;
+import it.unibo.sdwn.app.event.Event;
+import it.unibo.sdwn.node.AbstractBaseAddress;
+import it.unibo.sdwn.node.AbstractBaseNode;
 import it.unibo.sdwn.node.NodeFactory;
 import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.trasport.TransportService;
+import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 
-public abstract class BaseControllerService implements ControllerService, Runnable
+import java.util.Hashtable;
+
+public abstract class BaseControllerService<A extends AbstractBaseAddress, N extends AbstractBaseNode>
+        implements ControllerService, Runnable
 {
+    protected Hashtable<A, N> networkMap = new Hashtable();
     protected TransportService transport;
     protected Routing routing;
     protected PacketFactory packetFactory;
@@ -21,7 +30,14 @@ public abstract class BaseControllerService implements ControllerService, Runnab
         this.routing = routing;
         this.packetFactory = packetFactory;
         this.nodeFactory = nodeFactory;
+        Event.mainBus().register(this);
     }
+
+    protected abstract void updateNetworkMap(A address, N node);
+
+
+    @Subscribe
+    abstract public void sinkFoundEventHandler(SinkFoundEvent event);
 
     public void init()
     {
