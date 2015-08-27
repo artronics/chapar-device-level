@@ -12,14 +12,14 @@ import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 
 import java.util.Hashtable;
 
-public abstract class BaseControllerService<A extends AbstractBaseAddress, N extends AbstractBaseNode>
+public abstract class BaseControllerService<N extends AbstractBaseNode, A extends AbstractBaseAddress>
         implements ControllerService, Runnable
 {
     protected Hashtable<A, N> networkMap = new Hashtable();
     protected TransportService transport;
     protected Routing routing;
     protected PacketFactory packetFactory;
-    protected NodeFactory nodeFactory;
+    protected NodeFactory<N, A> nodeFactory;
 
     public BaseControllerService(TransportService transport,
                                  Routing routing,
@@ -33,7 +33,7 @@ public abstract class BaseControllerService<A extends AbstractBaseAddress, N ext
         Event.mainBus().register(this);
     }
 
-    protected abstract void updateNetworkMap(A address, N node);
+    protected abstract void updateNetworkMap(N node);
 
 
     @Subscribe

@@ -4,19 +4,19 @@ import it.unibo.sdwn.app.logger.Log;
 
 import java.util.ArrayList;
 
-public abstract class AbstractBaseNode implements Node
+public abstract class AbstractBaseNode<A extends AbstractBaseAddress> implements Node
 {
-    private final AbstractBaseAddress address;
+    private final A address;
     private final Node.Type type;
     protected ArrayList<Link> links = new ArrayList<>();
 
-    protected AbstractBaseNode(AbstractBaseAddress address)
+    protected AbstractBaseNode(A address)
     {
         this.type = Type.NORMAL;
         this.address = address;
     }
 
-    protected AbstractBaseNode(AbstractBaseAddress address, Node.Type type)
+    protected AbstractBaseNode(A address, Node.Type type)
     {
         this.type = type;
         this.address = address;

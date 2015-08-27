@@ -10,7 +10,7 @@ import it.unibo.sdwn.routing.Routing;
 import it.unibo.sdwn.trasport.TransportService;
 import it.unibo.sdwn.trasport.events.SinkFoundEvent;
 
-public class SdwnController extends BaseControllerService<SdwnAddress, SdwnNode>
+public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
 {
     public static final int SINK_ADDRESS = Config.get().getInt("SINK_ADDRESS");
 
@@ -27,12 +27,13 @@ public class SdwnController extends BaseControllerService<SdwnAddress, SdwnNode>
     {
         SdwnAddress address = new SdwnAddress(SINK_ADDRESS);
         SdwnNode sink = nodeFactory.createSink(address);
-        updateNetworkMap(address, sink);
+        updateNetworkMap(sink);
     }
 
     @Override
-    public void updateNetworkMap(SdwnAddress address, SdwnNode node)
+    public void updateNetworkMap(SdwnNode node)
     {
-        networkMap.put(address, node);
+//        SdwnAddress address = node.getAddress();
+//        networkMap.put(address, node);
     }
 }

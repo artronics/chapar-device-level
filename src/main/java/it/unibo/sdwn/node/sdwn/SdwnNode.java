@@ -3,7 +3,7 @@ package it.unibo.sdwn.node.sdwn;
 import it.unibo.sdwn.node.AbstractBaseNode;
 import it.unibo.sdwn.node.Node;
 
-public final class SdwnNode extends AbstractBaseNode
+public final class SdwnNode extends AbstractBaseNode<SdwnAddress>
 {
     protected SdwnNode(SdwnAddress address)
     {
@@ -15,5 +15,4 @@ public final class SdwnNode extends AbstractBaseNode
     {
         super(address, type);
     }
-
 }

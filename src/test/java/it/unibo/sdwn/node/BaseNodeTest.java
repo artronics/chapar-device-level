@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class BaseNodeTest
 {
-    NodeFactory factory;
+    BaseNodeFactory factory;
     Node node1;
     Node sameNode1;
-    Address add1;
-    Address eqAdd1;
+    BaseAddress add1;
+    BaseAddress eqAdd1;
     Quality aQuality = new LinkQuality(45);
 
     //A graph of nodes
