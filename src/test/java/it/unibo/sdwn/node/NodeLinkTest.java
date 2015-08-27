@@ -1,6 +1,5 @@
 package it.unibo.sdwn.node;
 
-import it.unibo.sdwn.node.sdwn.SdwnAddress;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,12 +10,12 @@ public class NodeLinkTest
     //These nodes configure a graph
     //which is like a triangle with
     //duplicated link and node to test equality
-    NodeFactory factory = new BaseNodeFactory();
-    Node node1;
-    Node node2;
-    Node node3;
-    Node sameNode1;
-    Node sameNode2;
+    BaseNodeFactory factory = new BaseNodeFactory();
+    BaseNode node1;
+    BaseNode node2;
+    BaseNode node3;
+    BaseNode sameNode1;
+    BaseNode sameNode2;
     NodeLink link12;
     NodeLink link23;
     NodeLink link31;
@@ -35,8 +34,8 @@ public class NodeLinkTest
         link23 = new NodeLink(node2, node3, new LinkQuality(2));
         link31 = new NodeLink(node3, node1, new LinkQuality(3));
 
-        sameNode1 = factory.createNode(new SdwnAddress(1));
-        sameNode2 = factory.createNode(new SdwnAddress(2));
+        sameNode1 = factory.createNode(new BaseAddress(1));
+        sameNode2 = factory.createNode(new BaseAddress(2));
         duplicatedLink12 = new NodeLink(node1, node2, new LinkQuality(1));
 
     }
@@ -89,7 +88,7 @@ public class NodeLinkTest
     @Test
     public void It_should_test_for_addresses_for_one_end()
     {
-        Node newNode = factory.createNode(new SdwnAddress(2));
+        Node newNode = factory.createNode(new BaseAddress(2));
         Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
         assertNotEquals(link12, newDupLink12);
         assertNotEquals(newDupLink12, link12);
@@ -124,7 +123,7 @@ public class NodeLinkTest
         duplicatedLink12.setQuality(new LinkQuality(7));
         assertNotEquals(link12.hashCode(), duplicatedLink12.hashCode());
 
-        Node newNode = factory.createNode(new SdwnAddress(2));
+        Node newNode = factory.createNode(new BaseAddress(2));
         Link newDupLink12 = new NodeLink(newNode, node2, new LinkQuality(1));
         assertNotEquals(link12.hashCode(), newDupLink12.hashCode());
     }

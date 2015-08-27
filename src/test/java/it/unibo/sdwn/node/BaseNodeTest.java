@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 public class BaseNodeTest
 {
     BaseNodeFactory factory;
-    Node node1;
-    Node sameNode1;
+    BaseNode node1;
+    BaseNode sameNode1;
     BaseAddress add1;
     BaseAddress eqAdd1;
     Quality aQuality = new LinkQuality(45);
