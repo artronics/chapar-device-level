@@ -1,6 +1,5 @@
-package it.unibo.sdwn.Packet.protocol.sdwn;
+package it.unibo.sdwn.packet.protocol.sdwn;
 
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketProtocol;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
@@ -29,7 +28,7 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
     }
 
     @Override
-    public synchronized void addByte(UnsignedByte receivedByte) throws MalformedPacketException
+    public synchronized void addByte(UnsignedByte receivedByte)
     {
         final int size = byteArray.size();
         if (size == 0 && receivedByte.equals(START_BYTE)) {
@@ -48,7 +47,6 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
             }else {
                 clear();
                 Log.main().debug("Malformed packet received");
-                throw new MalformedPacketException("Malformed packet received");
             }
         }
     }
@@ -60,35 +58,25 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
     }
 
     @Override
-    public ArrayList<UnsignedByte> getReceivedBytes()  throws MalformedPacketException
+    public ArrayList<UnsignedByte> getReceivedBytes()
     {
-        if (isReady()) {
-            //Clear this object before passing the byteArray
-            ArrayList temp = new ArrayList(byteArray);
-            clear();
-            return temp;
-        }else {
-            clear();
-            Log.main().debug("Attempt to get not ready packet");
-            throw new MalformedPacketException("Attempt to get not ready packet");
-        }
+        ArrayList temp = new ArrayList(byteArray);
+        clear();
+        return temp;
     }
 
+    //TODO reimplement this method
     @Override
     public boolean validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes)
     {
-        try {
-            for (UnsignedByte b : receivedBytes) {
-                addByte(b);
-            }
-            clear();
-        }catch (MalformedPacketException e) {
-            return false;
-        }
+//            for (UnsignedByte b : receivedBytes) {
+//                addByte(b);
+//            }
         return true;
     }
 
-    private synchronized void clear()
+    @Override
+    public void clear()
     {
         byteArray.clear();
         isReady = false;

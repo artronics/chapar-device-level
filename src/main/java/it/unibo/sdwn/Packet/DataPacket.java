@@ -1,4 +1,4 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.packet;
 
 public final class DataPacket //implements SdwnPacketType//extends SdwnPacketType
 {

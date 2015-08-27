@@ -1,4 +1,4 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.packet;
 
 import org.junit.Before;
 

@@ -1,6 +1,6 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.packet;
 
-import it.unibo.sdwn.Packet.protocol.PacketType;
+import it.unibo.sdwn.packet.protocol.PacketType;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;

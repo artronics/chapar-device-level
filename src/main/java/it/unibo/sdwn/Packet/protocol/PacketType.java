@@ -1,4 +1,4 @@
-package it.unibo.sdwn.Packet.protocol;
+package it.unibo.sdwn.packet.protocol;
 
 public interface PacketType
 {

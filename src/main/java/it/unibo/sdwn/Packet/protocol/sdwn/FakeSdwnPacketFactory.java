@@ -1,6 +1,5 @@
-package it.unibo.sdwn.Packet.protocol.sdwn;
+package it.unibo.sdwn.packet.protocol.sdwn;
 
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 

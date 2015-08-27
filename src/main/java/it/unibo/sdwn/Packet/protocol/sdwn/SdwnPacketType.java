@@ -1,7 +1,7 @@
-package it.unibo.sdwn.Packet.protocol.sdwn;
+package it.unibo.sdwn.packet.protocol.sdwn;
 
-import it.unibo.sdwn.Packet.protocol.PacketType;
 import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.packet.protocol.PacketType;
 
 public enum SdwnPacketType implements PacketType
 {

@@ -1,13 +1,13 @@
-package it.unibo.sdwn.Packet;
+package it.unibo.sdwn.packet;
 
-import it.unibo.sdwn.Packet.protocol.sdwn.FakeSdwnPacketFactory;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacket;
-import it.unibo.sdwn.Packet.sdwn.SdwnPacketFactory;
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.app.analyser.Analysable;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.node.Address;
 import it.unibo.sdwn.node.sdwn.SdwnAddress;
+import it.unibo.sdwn.packet.protocol.sdwn.FakeSdwnPacketFactory;
+import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketType;
+import it.unibo.sdwn.packet.sdwn.SdwnPacket;
+import it.unibo.sdwn.packet.sdwn.SdwnPacketFactory;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -5,7 +5,9 @@ import it.unibo.sdwn.packet.AbstractBasePacket;
 import it.unibo.sdwn.packet.PacketFactory;
 import it.unibo.sdwn.packet.protocol.PacketProtocol;
 import it.unibo.sdwn.packet.protocol.PacketType;
+import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class AbstractBaseTransportService
@@ -17,6 +19,8 @@ public abstract class AbstractBaseTransportService
     protected P receivedPacket;
     protected ArrayBlockingQueue<T> receivedBytesQueue = new ArrayBlockingQueue<T>(1024);
     private PacketProtocol<T> packetProtocol;
+    protected boolean isClosed = true;
+    protected Object lock = new Object();
 
     public AbstractBaseTransportService(InOutQueue packetQueue,
                                         Connection connection,
@@ -28,11 +32,37 @@ public abstract class AbstractBaseTransportService
         this.packetProtocol = packetProtocol;
         this.packetFactory = packetFactory;
         Event.mainBus().register(this);
-
     }
 
-    protected class ProtocolEngine
+    protected class ProtocolEngine implements Runnable
     {
 
+        @Override
+        public void run()
+        {
+            while (!isClosed){
+                synchronized (lock) {
+                    while (!receivedBytesQueue.isEmpty()){
+
+
+
+                    }
+                }
+            }
+        }
+    }
+    @Override
+    public void init()
+    {
+        connection.establishConnection();
+        connection.open();
+        isClosed = false;
+    }
+
+    @Override
+    public void shutdown()
+    {
+        isClosed = true;
+        connection.close();
     }
 }

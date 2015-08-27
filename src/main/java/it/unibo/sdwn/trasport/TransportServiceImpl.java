@@ -39,15 +39,17 @@ public final class TransportServiceImpl extends AbstractBaseTransportService<Sdw
         //first we need to convert byte to unsignedByte
         final int length = e.getLength();
         final byte[] buff = e.getBuff();
-        ArrayList<UnsignedByte> unsignedBytes = UnsignedByte.toUnsignedByteArrayList(buff, length);
-        ArrayList<UnsignedByte> receivedBytes = new ArrayList<>(unsignedBytes);
+        ArrayList<UnsignedByte> receivedBytes = UnsignedByte.toUnsignedByteArrayList(buff, length);
 
+        synchronized (lock) {
+            receivedBytesQueue.addAll(receivedBytes);
+        }
         //When you're done with creating an ArrayList of a packet we can ask
         // SdwnPacketFactory to generate a packet for us.
 //        SdwnPacket packet = SdwnPacketFactory.(packet.Direction.IN,receivedBytes);
         //TODO [Potential Bug] examine synchronization of next line.
-        receivedPacket = packetFactory.createPacket(receivedBytes);
-        packetQueue.putInput(receivedPacket);
+//        receivedPacket = packetFactory.createPacket(receivedBytes);
+//        packetQueue.putInput(receivedPacket);
     }
 
     @Override
@@ -56,16 +58,4 @@ public final class TransportServiceImpl extends AbstractBaseTransportService<Sdw
 
     }
 
-    @Override
-    public void init()
-    {
-        connection.establishConnection();
-        connection.open();
-    }
-
-    @Override
-    public void shutdown()
-    {
-        connection.close();
-    }
 }

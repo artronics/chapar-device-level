@@ -1,10 +1,9 @@
-package it.unibo.sdwn.Packet.sdwn;
+package it.unibo.sdwn.packet.sdwn;
 
-import it.unibo.sdwn.Packet.Packet;
-import it.unibo.sdwn.Packet.PacketFactory;
-import it.unibo.sdwn.Packet.protocol.sdwn.PacketProtocolHelper;
-import it.unibo.sdwn.Packet.protocol.sdwn.SdwnPacketType;
-import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.packet.Packet;
+import it.unibo.sdwn.packet.PacketFactory;
+import it.unibo.sdwn.packet.protocol.sdwn.PacketProtocolHelper;
+import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketType;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 
 import java.util.ArrayList;
