@@ -1,5 +1,6 @@
 package artronics.chapar.controller.sdwn;
 
+import artronics.chapar.address.AddressFactory;
 import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.config.Config;
 import artronics.chapar.app.logger.Log;
@@ -18,15 +19,16 @@ public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
     public SdwnController(TransportService transport,
                           Routing routing,
                           PacketFactory packetFactory,
-                          NodeFactory nodeFactory)
+                          NodeFactory nodeFactory,
+                          AddressFactory addressFactory)
     {
-        super(transport, routing, packetFactory, nodeFactory);
+        super(transport, routing, packetFactory, nodeFactory, addressFactory);
     }
 
     @Override
     public void sinkFoundEventHandler(SinkFoundEvent event)
     {
-        SdwnAddress address = new SdwnAddress(SINK_ADDRESS);
+        SdwnAddress address = addressFactory.create(SINK_ADDRESS);
         SdwnNode sink = nodeFactory.createSink(address);
         putNodeToNetworkMap(sink, address);
         Log.main().debug("Sink is added to Network Map Successfully.");

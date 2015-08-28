@@ -36,13 +36,13 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <constructor-arg name="routing" ref="Routing"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
         <constructor-arg name="nodeFactory" ref="NodeFactory"></constructor-arg>
-
+        <constructor-arg name="addressFactory" ref="AddressFactory"></constructor-arg>
     </bean>
     <bean id="PacketFactory" class="artronics.chapar.packet.sdwn.SdwnPacketFactory">
         <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
     </bean>
     <bean id="PacketProtocol" class="artronics.chapar.packet.protocol.sdwn.SdwnPacketProtocolEngine"/>
     <bean id="NodeFactory" class="artronics.chapar.node.sdwn.SdwnNodeFactory"/>
-
+    <bean id="AddressFactory" class="artronics.chapar.address.sdwn.SdwnAddressFactory"/>
     <bean id="Routing" class="artronics.chapar.routing.artronics.SdwnRouting"/>
 </beans>

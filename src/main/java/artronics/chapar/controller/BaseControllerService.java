@@ -1,6 +1,7 @@
 package artronics.chapar.controller;
 
 import artronics.chapar.address.AbstractBaseAddress;
+import artronics.chapar.address.AddressFactory;
 import artronics.chapar.app.event.Event;
 import artronics.chapar.node.AbstractBaseNode;
 import artronics.chapar.node.NodeFactory;
@@ -15,6 +16,7 @@ import java.util.Hashtable;
 public abstract class BaseControllerService<N extends AbstractBaseNode, A extends AbstractBaseAddress>
         implements ControllerService, Runnable
 {
+    protected final AddressFactory<A> addressFactory;
     protected Hashtable<A, N> networkMap = new Hashtable();
     protected TransportService transport;
     protected Routing routing;
@@ -24,12 +26,14 @@ public abstract class BaseControllerService<N extends AbstractBaseNode, A extend
     public BaseControllerService(TransportService transport,
                                  Routing routing,
                                  PacketFactory packetFactory,
-                                 NodeFactory nodeFactory)
+                                 NodeFactory nodeFactory,
+                                 AddressFactory addressFactory)
     {
         this.transport = transport;
         this.routing = routing;
         this.packetFactory = packetFactory;
         this.nodeFactory = nodeFactory;
+        this.addressFactory = addressFactory;
         Event.mainBus().register(this);
     }
 
