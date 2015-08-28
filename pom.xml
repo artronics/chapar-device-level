@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.unibo.sdwn</groupId>
-  <artifactId>SDWN</artifactId>
+  <groupId>artronics.chapar</groupId>
+  <artifactId>Chapar</artifactId>
   <version>0.0</version>
   <packaging>jar</packaging>
 
-  <name>SDWN</name>
+  <name>Chapar</name>
     <url>https://bitbucket.org/artronics/sdwn</url>
 
   <properties>
@@ -73,8 +73,8 @@
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
-        <artifactId>junit-dep</artifactId>
-        <version>4.9</version>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
     </dependency>
       <dependency>
           <groupId>org.springframework</groupId>
