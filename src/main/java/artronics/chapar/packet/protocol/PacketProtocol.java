@@ -1,6 +1,7 @@
 package artronics.chapar.packet.protocol;
 
 import artronics.chapar.helper.UnsignedByte;
+import artronics.chapar.packet.PacketType;
 
 import java.util.ArrayList;
 

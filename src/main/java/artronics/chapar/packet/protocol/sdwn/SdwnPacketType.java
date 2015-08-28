@@ -1,7 +1,7 @@
 package artronics.chapar.packet.protocol.sdwn;
 
 import artronics.chapar.helper.UnsignedByte;
-import artronics.chapar.packet.protocol.PacketType;
+import artronics.chapar.packet.PacketType;
 
 public enum  SdwnPacketType implements PacketType
 {

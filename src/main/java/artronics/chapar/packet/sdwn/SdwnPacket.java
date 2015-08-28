@@ -1,6 +1,7 @@
 package artronics.chapar.packet.sdwn;
 
 import artronics.chapar.packet.AbstractBasePacket;
+import artronics.chapar.packet.PacketType;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class SdwnPacket extends AbstractBasePacket<SdwnPacketType>
      * @param dir
      * @param receivedBytes
      */
-    protected SdwnPacket(SdwnPacketType packetType, Direction dir, ArrayList receivedBytes)
+    protected SdwnPacket(SdwnPacketType packetType, PacketType.Direction dir, ArrayList receivedBytes)
     {
         super(packetType, dir, receivedBytes);
     }

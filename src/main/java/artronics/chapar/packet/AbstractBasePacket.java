@@ -1,6 +1,5 @@
 package artronics.chapar.packet;
 
-import artronics.chapar.packet.protocol.PacketType;
 import artronics.chapar.app.analyser.Analysable;
 import artronics.chapar.app.logger.Log;
 import artronics.chapar.helper.UnsignedByte;
@@ -11,7 +10,7 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
 {
     private static long packetSerialNumber = 0;
     protected final PT packetType;
-    protected final Packet.Direction direction;
+    protected final PacketType.Direction direction;
     private final ArrayList receivedBytes;
     private final String csv; //We use this for analyzing packet(write as csv)
 
@@ -19,7 +18,7 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
      * This id the minimum requirement for constructing a packet. We need Packet.Type and the Direction of packet and
      * also received bytes. Then logger will log the constructed packet which might be even malformed packet.
      */
-    protected AbstractBasePacket(PT packetType, Packet.Direction dir, ArrayList receivedBytes)
+    protected AbstractBasePacket(PT packetType, PacketType.Direction dir, ArrayList receivedBytes)
     {
         this.packetType = packetType;
         this.direction = dir;
@@ -41,7 +40,7 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
         packetSerialNumber++;
     }
 
-    public Packet.Direction getDirection()
+    public PacketType.Direction getDirection()
     {
         return direction;
     }

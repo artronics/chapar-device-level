@@ -4,8 +4,8 @@ import artronics.chapar.app.event.Event;
 import artronics.chapar.helper.UnsignedByte;
 import artronics.chapar.packet.AbstractBasePacket;
 import artronics.chapar.packet.PacketFactory;
+import artronics.chapar.packet.PacketType;
 import artronics.chapar.packet.protocol.PacketProtocol;
-import artronics.chapar.packet.protocol.PacketType;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
