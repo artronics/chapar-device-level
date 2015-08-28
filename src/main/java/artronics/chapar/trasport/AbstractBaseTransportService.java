@@ -77,6 +77,11 @@ public abstract class AbstractBaseTransportService
                         //clear packetProtocol so it gonna be ready for next packet
                         packetProtocol.clear();
                     }
+                    try {
+                        Thread.sleep(30000);
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

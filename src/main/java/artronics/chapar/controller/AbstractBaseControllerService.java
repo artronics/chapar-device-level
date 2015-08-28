@@ -15,7 +15,7 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.Hashtable;
 
-public abstract class BaseControllerService
+public abstract class AbstractBaseControllerService
         <P extends AbstractBasePacket,
         N extends AbstractBaseNode,
         A extends AbstractBaseAddress>
@@ -29,12 +29,12 @@ public abstract class BaseControllerService
     protected PacketQueue<P> packetQueue;
     protected NodeFactory<N, A> nodeFactory;
 
-    public BaseControllerService(TransportService transport,
-                                 Routing routing,
-                                 PacketFactory packetFactory,
-                                 PacketQueue packetQueue,
-                                 NodeFactory nodeFactory,
-                                 AddressFactory addressFactory)
+    public AbstractBaseControllerService(TransportService transport,
+                                         Routing routing,
+                                         PacketFactory packetFactory,
+                                         PacketQueue packetQueue,
+                                         NodeFactory nodeFactory,
+                                         AddressFactory addressFactory)
     {
         this.transport = transport;
         this.routing = routing;

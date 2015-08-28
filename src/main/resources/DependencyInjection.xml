@@ -29,7 +29,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
     <bean id="Controller" parent="baseControllerService" class="artronics.chapar.controller.sdwn.SdwnController">
     </bean>
-    <bean id="baseControllerService" abstract="true" class="artronics.chapar.controller.BaseControllerService">
+    <bean id="baseControllerService" abstract="true" class="artronics.chapar.controller.AbstractBaseControllerService">
         <constructor-arg name="transport" ref="Transport"></constructor-arg>
         <constructor-arg name="routing" ref="Routing"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
