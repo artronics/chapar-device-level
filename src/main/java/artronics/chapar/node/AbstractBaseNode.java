@@ -1,5 +1,6 @@
 package artronics.chapar.node;
 
+import artronics.chapar.address.AbstractBaseAddress;
 import artronics.chapar.app.logger.Log;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package artronics.chapar.node.sdwn;
+package artronics.chapar.address.sdwn;
 
-import artronics.chapar.node.AbstractBaseAddress;
+import artronics.chapar.address.AbstractBaseAddress;
 
 public final class SdwnAddress extends AbstractBaseAddress
 {

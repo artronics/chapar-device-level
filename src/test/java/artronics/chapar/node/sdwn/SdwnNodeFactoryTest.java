@@ -1,5 +1,6 @@
 package artronics.chapar.node.sdwn;
 
+import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.node.Node;
 import org.junit.Before;
 import org.junit.Test;

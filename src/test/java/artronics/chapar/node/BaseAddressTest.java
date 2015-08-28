@@ -1,5 +1,7 @@
 package artronics.chapar.node;
 
+import artronics.chapar.address.Address;
+import artronics.chapar.address.BaseAddress;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,12 +1,12 @@
 package artronics.chapar.packet;
 
-import artronics.chapar.packet.sdwn.SdwnPacket;
+import artronics.chapar.address.Address;
+import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.analyser.Analysable;
 import artronics.chapar.helper.UnsignedByte;
-import artronics.chapar.node.Address;
-import artronics.chapar.node.sdwn.SdwnAddress;
 import artronics.chapar.packet.protocol.sdwn.FakeSdwnPacketFactory;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
+import artronics.chapar.packet.sdwn.SdwnPacket;
 import artronics.chapar.packet.sdwn.SdwnPacketFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +18,12 @@ import static org.junit.Assert.assertEquals;
 public class PacketToCsvTest
 {
     private static final String regex = "\\s*\\d++[;:]"; //See Test_regex() last method
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("DependencyInjection.xml");
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
     private Address add = new SdwnAddress(10);
     private Analysable packet;
     private String csv = "";
     private String expCsv;
-
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("DependencyInjection.xml");
     private PacketFactory<SdwnPacket,SdwnPacketType> factory = context.getBean(SdwnPacketFactory.class);
 
     @Before
