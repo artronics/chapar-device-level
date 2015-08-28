@@ -1,6 +1,5 @@
 package artronics.chapar.packet;
 
-import artronics.chapar.address.Address;
 import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.analyser.Analysable;
 import artronics.chapar.helper.UnsignedByte;
@@ -20,7 +19,7 @@ public class PacketToCsvTest
     private static final String regex = "\\s*\\d++[;:]"; //See Test_regex() last method
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("DependencyInjection.xml");
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
-    private Address add = new SdwnAddress(10);
+    private SdwnAddress add = new SdwnAddress(10);
     private Analysable packet;
     private String csv = "";
     private String expCsv;

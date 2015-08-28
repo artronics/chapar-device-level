@@ -1,7 +1,7 @@
 package artronics.chapar.node.sdwn;
 
 import artronics.chapar.address.sdwn.SdwnAddress;
-import artronics.chapar.node.Node;
+import artronics.chapar.node.NodeType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,19 +20,19 @@ public class SdwnNodeFactoryTest
     @Test
     public void It_should_create_normal_node()
     {
-        Node n = factory.createNode(new SdwnAddress(10));
+        SdwnNode n = factory.createNode(new SdwnAddress(10));
 
-        assertEquals(n.getType(), Node.Type.NORMAL);
-        assertNotEquals(n.getType(), Node.Type.END_NODE);
+        assertEquals(n.getType(), NodeType.NORMAL);
+        assertNotEquals(n.getType(), NodeType.END_NODE);
     }
 
     @Test
     public void It_should_create_sink_node()
     {
-        Node n = factory.createSink(new SdwnAddress(0));
+        SdwnNode n = factory.createSink(new SdwnAddress(0));
 
-        assertEquals(n.getType(), Node.Type.SINK);
-        assertNotEquals(n.getType(), Node.Type.END_NODE);
+        assertEquals(n.getType(), NodeType.SINK);
+        assertNotEquals(n.getType(), NodeType.END_NODE);
     }
 
 }

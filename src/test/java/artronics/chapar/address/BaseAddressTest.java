@@ -1,7 +1,5 @@
-package artronics.chapar.node;
+package artronics.chapar.address;
 
-import artronics.chapar.address.Address;
-import artronics.chapar.address.BaseAddress;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,9 +7,9 @@ import static org.junit.Assert.*;
 
 public class BaseAddressTest
 {
-    Address add1;
-    Address add2;
-    Address notEqAdd;
+    BaseAddress add1;
+    BaseAddress add2;
+    BaseAddress notEqAdd;
 
     @Before
     public void setUp() throws Exception
