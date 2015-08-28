@@ -8,16 +8,16 @@ import java.util.ArrayList;
 public abstract class AbstractBaseNode<A extends AbstractBaseAddress> implements Node
 {
     private final A address;
-    private final Node.Type type;
+    private final NodeType type;
     protected ArrayList<Link> links = new ArrayList<>();
 
     protected AbstractBaseNode(A address)
     {
-        this.type = Type.NORMAL;
+        this.type = NodeType.NORMAL;
         this.address = address;
     }
 
-    protected AbstractBaseNode(A address, Node.Type type)
+    protected AbstractBaseNode(A address, NodeType type)
     {
         this.type = type;
         this.address = address;
@@ -53,7 +53,7 @@ public abstract class AbstractBaseNode<A extends AbstractBaseAddress> implements
 
 
     @Override
-    public Type getType()
+    public NodeType getType()
     {
         return this.type;
     }

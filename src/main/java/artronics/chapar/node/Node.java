@@ -1,10 +1,10 @@
 package artronics.chapar.node;
 
-import artronics.chapar.address.Address;
+import artronics.chapar.address.AbstractBaseAddress;
 
 import java.util.ArrayList;
 
-public interface Node
+interface Node<A extends AbstractBaseAddress>
 {
     void addLinkTo(Node node, Quality quality);
 
@@ -12,14 +12,7 @@ public interface Node
 
     boolean hasLinkTo(Node node);
 
-    Address getAddress();
-    Type getType();
+    A getAddress();
 
-    enum Type
-    {
-        SINK,
-        NORMAL,
-        ROUTER,
-        END_NODE
-    }
+    NodeType getType();
 }

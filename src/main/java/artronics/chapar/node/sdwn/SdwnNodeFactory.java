@@ -1,20 +1,20 @@
 package artronics.chapar.node.sdwn;
 
 import artronics.chapar.address.sdwn.SdwnAddress;
-import artronics.chapar.node.Node;
 import artronics.chapar.node.NodeFactory;
+import artronics.chapar.node.NodeType;
 
 public class SdwnNodeFactory implements NodeFactory<SdwnNode, SdwnAddress>
 {
     @Override
     public SdwnNode createNode(SdwnAddress address)
     {
-        return new SdwnNode(address, Node.Type.NORMAL);
+        return new SdwnNode(address, NodeType.NORMAL);
     }
 
     @Override
     public SdwnNode createSink(SdwnAddress address)
     {
-        return new SdwnNode(address, Node.Type.SINK);
+        return new SdwnNode(address, NodeType.SINK);
     }
 }

@@ -2,7 +2,7 @@ package artronics.chapar.node;
 
 import com.sun.istack.internal.NotNull;
 
-public final class NodeLink implements Link
+class NodeLink implements Link
 {
     //Since the link is reciprocal there
     //is no difference between sourceNode and

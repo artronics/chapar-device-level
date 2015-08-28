@@ -4,7 +4,7 @@ import artronics.chapar.address.BaseAddress;
 
 public class BaseNode extends AbstractBaseNode
 {
-    protected BaseNode(BaseAddress address, Type type)
+    protected BaseNode(BaseAddress address, NodeType type)
     {
         super(address, type);
     }

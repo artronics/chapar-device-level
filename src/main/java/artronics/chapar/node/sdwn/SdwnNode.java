@@ -2,7 +2,7 @@ package artronics.chapar.node.sdwn;
 
 import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.node.AbstractBaseNode;
-import artronics.chapar.node.Node;
+import artronics.chapar.node.NodeType;
 
 public final class SdwnNode extends AbstractBaseNode<SdwnAddress>
 {
@@ -12,7 +12,7 @@ public final class SdwnNode extends AbstractBaseNode<SdwnAddress>
     }
 
 
-    protected SdwnNode(SdwnAddress address, Node.Type type)
+    protected SdwnNode(SdwnAddress address, NodeType type)
     {
         super(address, type);
     }
