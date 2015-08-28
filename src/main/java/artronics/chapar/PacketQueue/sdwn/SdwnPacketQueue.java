@@ -19,4 +19,17 @@ public class SdwnPacketQueue extends AbstractBasePacketQueue<SdwnPacket>
             e.printStackTrace();
         }
     }
+
+    @Override
+    public SdwnPacket takeInput()
+    {
+        try {
+            return inQueue.take();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //TODO [Don't Forget] check for null value
+        return null;
+    }
 }

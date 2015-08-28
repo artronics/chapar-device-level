@@ -14,13 +14,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 public abstract class AbstractBaseTransportService
         <P extends AbstractBasePacket, PT extends PacketType> implements TransportService, Runnable
 {
-    protected Connection connection;
-    protected PacketQueue<P> packetQueue;
-    protected PacketFactory<P, PT> packetFactory;
-    protected ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(256);
+    protected final Connection connection;
+    protected final PacketQueue<P> packetQueue;
+    protected final PacketFactory<P, PT> packetFactory;
+    protected final ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(256);
+    protected final Object lock = new Object();
+    private final PacketProtocol<PT> packetProtocol;
     protected boolean isClosed = true;
-    protected Object lock = new Object();
-    private PacketProtocol<PT> packetProtocol;
 
     public AbstractBaseTransportService(PacketQueue<P> packetQueue,
                                         Connection connection,
@@ -70,7 +70,11 @@ public abstract class AbstractBaseTransportService
                         }
                     }
                     if (packetProtocol.isPacketReady()) {
-                        packetFactory.createPacket(packetProtocol.getReceivedBytes());
+                        P packet = packetFactory.createPacket(packetProtocol.getReceivedBytes());
+                        //put this packet to PacketQueue's input
+                        //TODO Do I need to synch this call?
+                        packetQueue.putInput(packet);
+                        //clear packetProtocol so it gonna be ready for next packet
                         packetProtocol.clear();
                     }
                 }

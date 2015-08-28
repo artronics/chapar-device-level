@@ -6,5 +6,7 @@ public interface PacketQueue<P extends AbstractBasePacket>
 {
 
     void putInput(P packet);
+
+    P takeInput();
 }
 
