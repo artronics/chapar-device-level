@@ -4,7 +4,7 @@ import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.node.AbstractBaseNode;
 import artronics.chapar.node.NodeType;
 
-public final class SdwnNode extends AbstractBaseNode<SdwnAddress>
+public class SdwnNode extends AbstractBaseNode<SdwnAddress>
 {
     protected SdwnNode(SdwnAddress address)
     {

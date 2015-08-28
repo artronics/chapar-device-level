@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public abstract class AbstractBaseNode<A extends AbstractBaseAddress> implements Node
 {
+    protected final ArrayList<Link> links = new ArrayList<>();
     private final A address;
     private final NodeType type;
-    protected ArrayList<Link> links = new ArrayList<>();
 
     protected AbstractBaseNode(A address)
     {

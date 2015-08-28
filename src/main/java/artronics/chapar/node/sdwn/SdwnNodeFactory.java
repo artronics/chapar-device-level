@@ -4,7 +4,7 @@ import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.node.NodeFactory;
 import artronics.chapar.node.NodeType;
 
-public class SdwnNodeFactory implements NodeFactory<SdwnNode, SdwnAddress>
+public final class SdwnNodeFactory implements NodeFactory<SdwnNode, SdwnAddress>
 {
     @Override
     public SdwnNode createNode(SdwnAddress address)
