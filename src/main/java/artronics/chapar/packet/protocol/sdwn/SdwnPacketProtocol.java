@@ -15,10 +15,11 @@ public interface SdwnPacketProtocol extends PacketProtocol<SdwnPacketType>
         START_BYTE(0),
         LENGTH(1),
         NET_ID(2),
-        SOURCE_L(3),
-        SOURCE_H(4),
-        DESTINATION_L(5),
-        DESTINATION_H(6),
+        //TODO Which one is Low and which one is high?
+        SOURCE_H(3),
+        SOURCE_L(4),
+        DESTINATION_H(5),
+        DESTINATION_L(6),
         TYPE(7),
         TTL(8),
         NEXT_HOP_L(9),
@@ -36,6 +37,11 @@ public interface SdwnPacketProtocol extends PacketProtocol<SdwnPacketType>
         ByteMeaning(int value)
         {
             this.value = value;
+        }
+
+        public int getValue()
+        {
+            return value;
         }
     }
 }
