@@ -4,7 +4,7 @@ import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.packet.protocol.PacketProtocol;
 
-public interface SdwnPacketProtocol extends PacketProtocol<UnsignedByte>
+public interface SdwnPacketProtocol extends PacketProtocol<SdwnPacketType>
 {
     UnsignedByte START_BYTE = UnsignedByte.of(Config.get().getByte("startByte"));
     UnsignedByte STOP_BYTE = UnsignedByte.of(Config.get().getByte("stopByte"));

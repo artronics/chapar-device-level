@@ -10,6 +10,7 @@ import it.unibo.sdwn.packet.sdwn.SdwnPacket;
 import it.unibo.sdwn.packet.sdwn.SdwnPacketFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,9 @@ public class PacketToCsvTest
     private Analysable packet;
     private String csv = "";
     private String expCsv;
-    private PacketFactory<SdwnPacket,SdwnPacketType> factory = new SdwnPacketFactory();
+
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("DependencyInjection.xml");
+    private PacketFactory<SdwnPacket,SdwnPacketType> factory = context.getBean(SdwnPacketFactory.class);
 
     @Before
     public void setUp()

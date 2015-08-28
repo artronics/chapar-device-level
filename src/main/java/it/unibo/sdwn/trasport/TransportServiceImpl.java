@@ -10,7 +10,7 @@ import it.unibo.sdwn.trasport.events.ConnectionDataAvailableEvent;
 
 import java.util.ArrayList;
 
-public final class TransportServiceImpl extends AbstractBaseTransportService<SdwnPacket, SdwnPacketType, UnsignedByte>
+public final class TransportServiceImpl extends AbstractBaseTransportService<SdwnPacket, SdwnPacketType>
 {
 
     public TransportServiceImpl(InOutQueue packetQueue,

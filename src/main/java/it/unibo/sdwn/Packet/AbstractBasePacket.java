@@ -68,5 +68,4 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
     {
         return packetType;
     }
-
 }

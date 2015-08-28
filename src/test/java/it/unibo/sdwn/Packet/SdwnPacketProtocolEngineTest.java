@@ -117,16 +117,11 @@ public class SdwnPacketProtocolEngineTest
     {
         //if packet is not ready it should throw packetNotReady
         boolean thrown = false;
-        try {
             packetProtocol.getReceivedBytes();
-        }catch (MalformedPacketException e) {
-            thrown = true;
-            e.printStackTrace();
-        }
 
         assertTrue(thrown);
-        //isReady also should return false
-        assertFalse(packetProtocol.isReady());
+        //isPacketReady also should return false
+        assertFalse(packetProtocol.isPacketReady());
 
     }
 
@@ -143,22 +138,15 @@ public class SdwnPacketProtocolEngineTest
     @Test
     public void It_shoud_be_clear_after_throwing_exceptions()
     {
-        try {
 
             packetProtocol.getReceivedBytes();
-        }catch (MalformedPacketException e) {
-            assertFalse(packetProtocol.isReady());
-            e.printStackTrace();
-        }
-        try {
+            assertFalse(packetProtocol.isPacketReady());
             packetProtocol.addByte(malformedPacket.get(0));
             packetProtocol.addByte(malformedPacket.get(1));
             packetProtocol.addByte(malformedPacket.get(2));
             packetProtocol.addByte(malformedPacket.get(3));
+
             ArrayList<UnsignedByte> actualPacket = packetProtocol.getReceivedBytes();
-        }catch (MalformedPacketException malformedPacket1) {
-            assertFalse(packetProtocol.isReady());
-        }
     }
 
     @Test
@@ -171,7 +159,7 @@ public class SdwnPacketProtocolEngineTest
         good.add(UnsignedByte.of(2));
         good.add(stopByte);
         boolean isvalid = false;
-        isvalid = packetProtocol.validateReceivedBytes(good);
+        isvalid = packetProtocol.isValid(good);
         assertTrue(isvalid);
 
         //Assert false situation
@@ -183,7 +171,7 @@ public class SdwnPacketProtocolEngineTest
         bad.add(UnsignedByte.of(2));//add extra byte
         bad.add(stopByte);
         isvalid = true;
-        isvalid = packetProtocol.validateReceivedBytes(bad);
+        isvalid = packetProtocol.isValid(bad);
         assertFalse(isvalid);
     }
 }

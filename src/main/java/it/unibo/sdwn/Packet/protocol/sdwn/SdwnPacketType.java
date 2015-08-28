@@ -3,7 +3,7 @@ package it.unibo.sdwn.packet.protocol.sdwn;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.packet.protocol.PacketType;
 
-public enum SdwnPacketType implements PacketType
+public enum  SdwnPacketType implements PacketType
 {
     MALFORMED(UnsignedByte.of(0)),
     DATA(UnsignedByte.of(1)),

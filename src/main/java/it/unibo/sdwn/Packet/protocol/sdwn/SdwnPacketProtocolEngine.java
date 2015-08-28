@@ -2,7 +2,9 @@ package it.unibo.sdwn.packet.protocol.sdwn;
 
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.packet.protocol.PacketType;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
+import org.codehaus.groovy.tools.shell.util.PackageHelper;
 
 import java.util.ArrayList;
 
@@ -52,7 +54,7 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
     }
 
     @Override
-    public synchronized boolean isReady()
+    public synchronized boolean isPacketReady()
     {
         return isReady;
     }
@@ -60,19 +62,20 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
     @Override
     public ArrayList<UnsignedByte> getReceivedBytes()
     {
-        ArrayList temp = new ArrayList(byteArray);
-        clear();
-        return temp;
+        return getReceivedBytes();
     }
 
     //TODO reimplement this method
     @Override
-    public boolean validateReceivedBytes(ArrayList<UnsignedByte> receivedBytes)
+    public boolean isValid(ArrayList<UnsignedByte> receivedBytes)
     {
-//            for (UnsignedByte b : receivedBytes) {
-//                addByte(b);
-//            }
-        return true;
+        return PacketProtocolHelper.validate(receivedBytes);
+    }
+
+    @Override
+    public SdwnPacketType getType(ArrayList<UnsignedByte> receivedBytes)
+    {
+        return PacketProtocolHelper.getType(receivedBytes);
     }
 
     @Override
@@ -82,5 +85,53 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
         isReady = false;
         isStarted = false;
         expetedSize = 0;
+    }
+    public interface PacketProtocolHelper
+    {
+        /**
+         * Validate incoming bytes. Put all your validation rules here.
+         * If Connection layer provides all packet bytes at
+         * once, there is no need to invoke other methods in this interface.
+         * For example in case of Serial Com all data is
+         * available in InputStream at once.
+         *
+         * @param receivedBytes
+         * @return
+         */
+        static boolean validate(ArrayList<UnsignedByte> receivedBytes)
+        {
+            //first lets get all bytes that we need for validation
+            final UnsignedByte startByte = receivedBytes.get(0);//0 is always start byte
+            final UnsignedByte length = getLength(receivedBytes);
+            // +1 length value inside packet doesn't consider startByte
+            final UnsignedByte stopByte = receivedBytes.get(length.intValue() + 1);
+
+            //Now place your validation rules here.
+            if (startByte.equals(START_BYTE) &&
+                    // -2: length value inside packet
+                    //doesn't consider startByte and stopByte
+                    length.equals(UnsignedByte.of(receivedBytes.size() - 2)) &&
+                    stopByte.equals(STOP_BYTE)) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        static UnsignedByte getLength(ArrayList<UnsignedByte> receivedBytes)
+        {
+            return receivedBytes.get(ByteMeaning.LENGTH.value);
+        }
+
+        static SdwnPacketType getType(ArrayList<UnsignedByte> receviedBytes)
+        {
+            UnsignedByte typeByte = receviedBytes.get(ByteMeaning.TYPE.value);
+            for (SdwnPacketType type : SdwnPacketType.values()) {
+                if (typeByte.equals(type.value))
+                    return type;
+            }
+
+            return SdwnPacketType.MALFORMED;
+        }
     }
 }

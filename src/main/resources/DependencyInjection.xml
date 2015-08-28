@@ -38,7 +38,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <constructor-arg name="nodeFactory" ref="NodeFactory"></constructor-arg>
 
     </bean>
-    <bean id="PacketFactory" class="it.unibo.sdwn.packet.sdwn.SdwnPacketFactory"/>
+    <bean id="PacketFactory" class="it.unibo.sdwn.packet.sdwn.SdwnPacketFactory">
+        <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
+    </bean>
     <bean id="PacketProtocol" class="it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketProtocolEngine"/>
     <bean id="NodeFactory" class="it.unibo.sdwn.node.sdwn.SdwnNodeFactory"/>
 
