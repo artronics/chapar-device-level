@@ -7,42 +7,42 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <!-- ids which strats with Capital letters are Interface-->
 
     <!-- Static Factory Methods-->
-    <bean id="config" class="it.unibo.sdwn.app.config.Config" factory-method="get"/>
-    <bean id="event" class="it.unibo.sdwn.app.event.Event" factory-method="mainBus"/>
+    <bean id="config" class="artronics.chapar.app.config.Config" factory-method="get"/>
+    <bean id="event" class="artronics.chapar.app.event.Event" factory-method="mainBus"/>
 
 
-    <bean id="app" class="it.unibo.sdwn.app.App">
+    <bean id="app" class="artronics.chapar.app.App">
         <property name="controller" ref="Controller"></property>
     </bean>
 
-    <bean id="PacketQueue" class="it.unibo.sdwn.trasport.InOutPacketQueue"/>
+    <bean id="PacketQueue" class="artronics.chapar.trasport.InOutPacketQueue"/>
 
-    <bean id="Transport" class="it.unibo.sdwn.trasport.TransportServiceImpl">
+    <bean id="Transport" class="artronics.chapar.trasport.TransportServiceImpl">
         <constructor-arg name="packetQueue" ref="PacketQueue"></constructor-arg>
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
         <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
 
-    <bean id="Connection" class="it.unibo.sdwn.trasport.serialCom.ComConnection"/>
-    <!--<bean id="Connection" class="it.unibo.sdwn.trasport.ConnectionSimulator"/>-->
+    <bean id="Connection" class="artronics.chapar.trasport.serialCom.ComConnection"/>
+    <!--<bean id="Connection" class="ConnectionSimulator"/>-->
 
-    <bean id="NetworkMap" class="it.unibo.sdwn.map.artronics.SdwnMap"/>
+    <bean id="NetworkMap" class="artronics.chapar.map.artronics.SdwnMap"/>
 
-    <bean id="Controller" parent="baseControllerService" class="it.unibo.sdwn.controller.sdwn.SdwnController">
+    <bean id="Controller" parent="baseControllerService" class="artronics.chapar.controller.sdwn.SdwnController">
     </bean>
-    <bean id="baseControllerService" abstract="true" class="it.unibo.sdwn.controller.BaseControllerService">
+    <bean id="baseControllerService" abstract="true" class="artronics.chapar.controller.BaseControllerService">
         <constructor-arg name="transport" ref="Transport"></constructor-arg>
         <constructor-arg name="routing" ref="Routing"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
         <constructor-arg name="nodeFactory" ref="NodeFactory"></constructor-arg>
 
     </bean>
-    <bean id="PacketFactory" class="it.unibo.sdwn.packet.sdwn.SdwnPacketFactory">
+    <bean id="PacketFactory" class="artronics.chapar.packet.sdwn.SdwnPacketFactory">
         <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
     </bean>
-    <bean id="PacketProtocol" class="it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketProtocolEngine"/>
-    <bean id="NodeFactory" class="it.unibo.sdwn.node.sdwn.SdwnNodeFactory"/>
+    <bean id="PacketProtocol" class="artronics.chapar.packet.protocol.sdwn.SdwnPacketProtocolEngine"/>
+    <bean id="NodeFactory" class="artronics.chapar.node.sdwn.SdwnNodeFactory"/>
 
-    <bean id="Routing" class="it.unibo.sdwn.routing.artronics.SdwnRouting"/>
+    <bean id="Routing" class="artronics.chapar.routing.artronics.SdwnRouting"/>
 </beans>
