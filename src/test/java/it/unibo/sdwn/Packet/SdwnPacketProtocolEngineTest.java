@@ -35,7 +35,7 @@ public class SdwnPacketProtocolEngineTest
         malformedPacket.add(UnsignedByte.of(3));
     }
 
-    private void setBytes() throws MalformedPacketException, PacketNotReadyException
+    private void setBytes()
     {
         packetProtocol.addByte(UnsignedByte.of(startByte));
         packetProtocol.addByte(UnsignedByte.of(7));//length
@@ -46,11 +46,10 @@ public class SdwnPacketProtocolEngineTest
         packetProtocol.addByte(UnsignedByte.of(2));
         packetProtocol.addByte(UnsignedByte.of(1));//Data
         packetProtocol.addByte(UnsignedByte.of(stopByte));
-
     }
 
     @Test
-    public void It_should_construct_packet() throws PacketNotReadyException, MalformedPacketException
+    public void It_should_construct_packet()
     {
         setBytes();
         ArrayList<UnsignedByte> actualPacket = packetProtocol.getReceivedBytes();
@@ -59,22 +58,7 @@ public class SdwnPacketProtocolEngineTest
     }
 
     @Test
-    public void It_should_construct_a_new_packet_after_finishig_previous_one() throws PacketNotReadyException,
-            MalformedPacketException
-    {
-        //now lets send two sequence of good packets
-        It_should_construct_packet();
-        It_should_construct_packet();
-
-        //now lets mixed above methods
-        If_packet_is_ready_and_we_send_unapproprited_bytes_it_should_give_last_packet();
-        It_should_ignore_non_sense_bytes_BEFORE_getting_start_byte();
-    }
-
-
-    @Test
-    public void If_packet_is_ready_and_we_send_unapproprited_bytes_it_should_give_last_packet() throws
-            PacketNotReadyException, MalformedPacketException
+    public void If_packet_is_ready_and_we_send_unapproprited_bytes_it_should_give_last_packet()
     {
         //first send appropriate bytes
         setBytes();
@@ -88,8 +72,21 @@ public class SdwnPacketProtocolEngineTest
     }
 
     @Test
-    public void It_should_ignore_non_sense_bytes_BEFORE_getting_start_byte() throws MalformedPacketException,
-            PacketNotReadyException
+    public void It_should_construct_a_new_packet_after_finishig_previous_one()
+    {
+        //now lets send two sequence of good packets
+        It_should_construct_packet();
+        It_should_construct_packet();
+
+        //now lets mixed above methods
+        If_packet_is_ready_and_we_send_unapproprited_bytes_it_should_give_last_packet();
+        It_should_ignore_non_sense_bytes_BEFORE_getting_start_byte();
+    }
+
+
+
+    @Test
+    public void It_should_ignore_non_sense_bytes_BEFORE_getting_start_byte()
     {
         //lets addByte some in appropriate bytes
         packetProtocol.addByte(UnsignedByte.of(7));
@@ -101,57 +98,22 @@ public class SdwnPacketProtocolEngineTest
     }
 
     @Test
-    public void It_should_be_clear_after_geting_the_packet()
+    public void It_should_be_clear_when_instantiated()
     {
-        try {
+        assertFalse(packetProtocol.isPacketReady());
+    }
+    @Test
+    public void It_should_be_clear_after_geting_the_packet_and_invoking_clear()
+    {
             setBytes();
             ArrayList<UnsignedByte> getThePacket = packetProtocol.getReceivedBytes();
-        }catch (PacketNotReadyException packetNotReady) {
-        }catch (MalformedPacketException malformedPacket1) {
-        }
+        packetProtocol.clear();
         //then
         It_should_be_clear_when_instantiated();
     }
 
     @Test
-    public void It_should_be_clear_when_instantiated()
-    {
-        //if packet is not ready it should throw packetNotReady
-        boolean thrown = false;
-            packetProtocol.getReceivedBytes();
-
-        assertTrue(thrown);
-        //isPacketReady also should return false
-        assertFalse(packetProtocol.isPacketReady());
-
-    }
-
-    @Test(expected = MalformedPacketException.class)
-    public void It_should_throw_exp_for_malformed_packet() throws PacketNotReadyException, MalformedPacketException
-    {
-        packetProtocol.addByte(malformedPacket.get(0));
-        packetProtocol.addByte(malformedPacket.get(1));
-        packetProtocol.addByte(malformedPacket.get(2));
-        packetProtocol.addByte(malformedPacket.get(3));
-        ArrayList<UnsignedByte> actualPacket = packetProtocol.getReceivedBytes();
-    }
-
-    @Test
-    public void It_shoud_be_clear_after_throwing_exceptions()
-    {
-
-            packetProtocol.getReceivedBytes();
-            assertFalse(packetProtocol.isPacketReady());
-            packetProtocol.addByte(malformedPacket.get(0));
-            packetProtocol.addByte(malformedPacket.get(1));
-            packetProtocol.addByte(malformedPacket.get(2));
-            packetProtocol.addByte(malformedPacket.get(3));
-
-            ArrayList<UnsignedByte> actualPacket = packetProtocol.getReceivedBytes();
-    }
-
-    @Test
-    public void It_should_validate_a_receive_bytes() throws MalformedPacketException
+    public void It_should_validate_received_bytes()
     {
         //lets create a array of good packet
         ArrayList<UnsignedByte> good = new ArrayList<>(4);
