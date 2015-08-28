@@ -1,6 +1,6 @@
 package artronics.chapar.node;
 
-public interface Link
+interface Link
 {
     Quality getQuality();
 
