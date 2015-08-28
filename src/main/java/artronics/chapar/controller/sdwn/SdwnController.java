@@ -1,5 +1,7 @@
 package artronics.chapar.controller.sdwn;
 
+import artronics.chapar.PacketQueue.PacketQueue;
+import artronics.chapar.PacketQueue.sdwn.SdwnPacketQueue;
 import artronics.chapar.address.AddressFactory;
 import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.config.Config;
@@ -8,21 +10,23 @@ import artronics.chapar.controller.BaseControllerService;
 import artronics.chapar.node.NodeFactory;
 import artronics.chapar.node.sdwn.SdwnNode;
 import artronics.chapar.packet.PacketFactory;
+import artronics.chapar.packet.sdwn.SdwnPacket;
 import artronics.chapar.routing.Routing;
 import artronics.chapar.trasport.TransportService;
 import artronics.chapar.trasport.events.SinkFoundEvent;
 
-public class SdwnController extends BaseControllerService<SdwnNode, SdwnAddress>
+public class SdwnController extends BaseControllerService<SdwnPacket, SdwnNode, SdwnAddress>
 {
     public static final int SINK_ADDRESS = Config.get().getInt("SINK_ADDRESS");
 
     public SdwnController(TransportService transport,
                           Routing routing,
                           PacketFactory packetFactory,
+                          PacketQueue packetQueue,
                           NodeFactory nodeFactory,
                           AddressFactory addressFactory)
     {
-        super(transport, routing, packetFactory, nodeFactory, addressFactory);
+        super(transport, routing, packetFactory,packetQueue, nodeFactory, addressFactory);
     }
 
     @Override

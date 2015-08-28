@@ -1,4 +1,4 @@
-package artronics.chapar.trasport.serialCom;
+package artronics.chapar.trasport.connection.serialCom;
 
 import gnu.io.CommPortIdentifier;
 import artronics.chapar.app.config.Config;
@@ -7,7 +7,7 @@ import artronics.chapar.app.logger.Log;
 import java.util.Enumeration;
 import java.util.HashMap;
 
-public final class CommInitializer
+final class CommInitializer
 {
     final static int TIMEOUT = 2000;
     private HashMap ports = new HashMap();

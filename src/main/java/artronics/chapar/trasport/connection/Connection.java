@@ -1,4 +1,4 @@
-package artronics.chapar.trasport;
+package artronics.chapar.trasport.connection;
 
 import artronics.chapar.app.config.Config;
 import artronics.chapar.trasport.events.SinkFoundEvent;

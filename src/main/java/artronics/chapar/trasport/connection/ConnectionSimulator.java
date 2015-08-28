@@ -1,4 +1,4 @@
-package artronics.chapar.trasport;
+package artronics.chapar.trasport.connection;
 
 import artronics.chapar.packet.protocol.sdwn.FakeSdwnPacketFactory;
 import artronics.chapar.trasport.events.SinkFoundEvent;

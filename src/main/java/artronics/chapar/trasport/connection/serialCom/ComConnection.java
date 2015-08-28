@@ -1,8 +1,8 @@
-package artronics.chapar.trasport.serialCom;
+package artronics.chapar.trasport.connection.serialCom;
 
 import artronics.chapar.app.event.Event;
 import artronics.chapar.app.logger.Log;
-import artronics.chapar.trasport.AbstractBaseConnection;
+import artronics.chapar.trasport.connection.AbstractBaseConnection;
 import artronics.chapar.trasport.events.SinkFoundEvent;
 import gnu.io.*;
 import artronics.chapar.app.config.Config;

@@ -7,6 +7,7 @@ import artronics.chapar.packet.AbstractBasePacket;
 import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.packet.PacketType;
 import artronics.chapar.packet.protocol.PacketProtocol;
+import artronics.chapar.trasport.connection.Connection;
 
 import java.util.concurrent.ArrayBlockingQueue;
 

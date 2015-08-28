@@ -3,6 +3,7 @@ package artronics.chapar.trasport;
 import artronics.chapar.PacketQueue.PacketQueue;
 import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.packet.sdwn.SdwnPacket;
+import artronics.chapar.trasport.connection.Connection;
 import com.google.common.eventbus.Subscribe;
 import artronics.chapar.helper.UnsignedByte;
 import artronics.chapar.packet.protocol.PacketProtocol;
