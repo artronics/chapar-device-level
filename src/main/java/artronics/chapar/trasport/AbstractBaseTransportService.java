@@ -1,5 +1,6 @@
 package artronics.chapar.trasport;
 
+import artronics.chapar.PacketQueue.PacketQueue;
 import artronics.chapar.app.event.Event;
 import artronics.chapar.helper.UnsignedByte;
 import artronics.chapar.packet.AbstractBasePacket;
@@ -13,14 +14,14 @@ public abstract class AbstractBaseTransportService
         <P extends AbstractBasePacket, PT extends PacketType> implements TransportService, Runnable
 {
     protected Connection connection;
-    protected InOutQueue packetQueue;
+    protected PacketQueue<P> packetQueue;
     protected PacketFactory<P, PT> packetFactory;
     protected ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(256);
     protected boolean isClosed = true;
     protected Object lock = new Object();
     private PacketProtocol<PT> packetProtocol;
 
-    public AbstractBaseTransportService(InOutQueue packetQueue,
+    public AbstractBaseTransportService(PacketQueue<P> packetQueue,
                                         Connection connection,
                                         PacketProtocol<PT> packetProtocol,
                                         PacketFactory packetFactory)

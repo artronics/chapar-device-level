@@ -1,6 +1,6 @@
 package artronics.chapar.packet;
 
-public interface Packet
+interface Packet
 {
     PacketType getType();
 }

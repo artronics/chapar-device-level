@@ -1,5 +1,6 @@
 package artronics.chapar.trasport;
 
+import artronics.chapar.PacketQueue.PacketQueue;
 import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.packet.sdwn.SdwnPacket;
 import com.google.common.eventbus.Subscribe;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public final class TransportServiceImpl extends AbstractBaseTransportService<SdwnPacket, SdwnPacketType>
 {
 
-    public TransportServiceImpl(InOutQueue packetQueue,
+    public TransportServiceImpl(PacketQueue packetQueue,
                                 Connection connection,
                                 PacketProtocol packetProtocol,
                                 PacketFactory packetFactory)

@@ -1,10 +1,11 @@
 package artronics.chapar.packet;
 
 import artronics.chapar.helper.UnsignedByte;
+import artronics.chapar.packet.AbstractBasePacket;
 
 import java.util.ArrayList;
 
-public class PacketToCsv
+class PacketToCsv
 {
     //TODO change this class to non static.
     //TODO each line must end with two csv deparators
