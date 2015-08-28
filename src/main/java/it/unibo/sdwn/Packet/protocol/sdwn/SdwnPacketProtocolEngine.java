@@ -2,9 +2,6 @@ package it.unibo.sdwn.packet.protocol.sdwn;
 
 import it.unibo.sdwn.app.logger.Log;
 import it.unibo.sdwn.helper.UnsignedByte;
-import it.unibo.sdwn.packet.protocol.PacketType;
-import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
-import org.codehaus.groovy.tools.shell.util.PackageHelper;
 
 import java.util.ArrayList;
 
@@ -44,6 +41,11 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
             }else if (size < expetedSize) {
                 byteArray.add(receivedByte);
             }else if (size == expetedSize && receivedByte.equals(STOP_BYTE)) {
+                //Since in protocol definition we difine STOP and START
+                //bytes, we add to them to beginning and end of packet to
+                //match every thing as is defined in protocol.
+                byteArray.add(0,START_BYTE);
+                byteArray.add(STOP_BYTE);
                 isReady = true;
                 isStarted = false;
             }else {
@@ -62,7 +64,7 @@ public final class SdwnPacketProtocolEngine implements SdwnPacketProtocol
     @Override
     public ArrayList<UnsignedByte> getReceivedBytes()
     {
-        return getReceivedBytes();
+        return byteArray;
     }
 
     //TODO reimplement this method

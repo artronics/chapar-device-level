@@ -3,13 +3,10 @@ package it.unibo.sdwn.trasport;
 import it.unibo.sdwn.app.event.Event;
 import it.unibo.sdwn.helper.UnsignedByte;
 import it.unibo.sdwn.packet.AbstractBasePacket;
-import it.unibo.sdwn.packet.Packet;
 import it.unibo.sdwn.packet.PacketFactory;
 import it.unibo.sdwn.packet.protocol.PacketProtocol;
 import it.unibo.sdwn.packet.protocol.PacketType;
-import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketType;
 
-import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class AbstractBaseTransportService
@@ -18,8 +15,7 @@ public abstract class AbstractBaseTransportService
     protected Connection connection;
     protected InOutQueue packetQueue;
     protected PacketFactory<P, PT> packetFactory;
-    protected P receivedPacket;
-    protected ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(1024);
+    protected ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(256);
     protected boolean isClosed = true;
     protected Object lock = new Object();
     private PacketProtocol<PT> packetProtocol;
@@ -42,10 +38,12 @@ public abstract class AbstractBaseTransportService
         connection.establishConnection();
         connection.open();
         isClosed = false;
+        Thread protocolEngine = new Thread(new ProtocolEngine(), "ProtocolEngine");
+        protocolEngine.start();
     }
 
     @Override
-    public void shutdown()
+    public void close()
     {
         isClosed = true;
         connection.close();
@@ -56,26 +54,25 @@ public abstract class AbstractBaseTransportService
         @Override
         public void run()
         {
-            ArrayList<UnsignedByte> receivedBytes = new ArrayList<>();
-            receivedBytesQueue.drainTo(receivedBytes);
-            for (UnsignedByte b:receivedBytes){
-                System.out.print(b);
+            while (!isClosed) {
+                while (!receivedBytesQueue.isEmpty()) {
+                    synchronized (lock) {
+                        while (!packetProtocol.isPacketReady()) {
+                            try {
+                                packetProtocol.addByte(receivedBytesQueue.take());
+                                if (receivedBytesQueue.isEmpty())
+                                    break;
+                            }catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    if (packetProtocol.isPacketReady()) {
+                        packetFactory.createPacket(packetProtocol.getReceivedBytes());
+                        packetProtocol.clear();
+                    }
+                }
             }
-            System.out.println();
-//            while (!isClosed) {
-//                synchronized (lock) {
-//                    while (!receivedBytesQueue.isEmpty()) {
-//                        while (!packetProtocol.isPacketReady()) {
-//                            try {
-//                                packetProtocol.addByte(receivedBytesQueue.take());
-//                                if(receivedBytesQueue.isEmpty()) break;
-//                            }catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 }

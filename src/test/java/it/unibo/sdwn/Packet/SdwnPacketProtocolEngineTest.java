@@ -2,6 +2,7 @@ package it.unibo.sdwn.packet;
 
 import it.unibo.sdwn.app.config.Config;
 import it.unibo.sdwn.helper.UnsignedByte;
+import it.unibo.sdwn.packet.protocol.sdwn.FakeSdwnPacketFactory;
 import it.unibo.sdwn.packet.protocol.sdwn.SdwnPacketProtocolEngine;
 import it.unibo.sdwn.trasport.exceptions.MalformedPacketException;
 import it.unibo.sdwn.trasport.exceptions.PacketNotReadyException;
@@ -26,10 +27,7 @@ public class SdwnPacketProtocolEngineTest
         packetProtocol = new SdwnPacketProtocolEngine();
         //lets say the packet is something like this
         //startByte lengthOfPacket someDate stopByte
-        goodPacket.add(UnsignedByte.of(4)); //packet length
-        goodPacket.add(UnsignedByte.of(1));
-        goodPacket.add(UnsignedByte.of(2));
-        goodPacket.add(UnsignedByte.of(3));
+        goodPacket = FakeSdwnPacketFactory.buildGoodPacket();
 
         malformedPacket.add(UnsignedByte.of(startByte));
         malformedPacket.add(UnsignedByte.of(2)); //packet length
@@ -40,10 +38,13 @@ public class SdwnPacketProtocolEngineTest
     private void setBytes() throws MalformedPacketException, PacketNotReadyException
     {
         packetProtocol.addByte(UnsignedByte.of(startByte));
-        packetProtocol.addByte(UnsignedByte.of(4));
+        packetProtocol.addByte(UnsignedByte.of(7));//length
         packetProtocol.addByte(UnsignedByte.of(1));
         packetProtocol.addByte(UnsignedByte.of(2));
         packetProtocol.addByte(UnsignedByte.of(3));
+        packetProtocol.addByte(UnsignedByte.of(2));
+        packetProtocol.addByte(UnsignedByte.of(2));
+        packetProtocol.addByte(UnsignedByte.of(1));//Data
         packetProtocol.addByte(UnsignedByte.of(stopByte));
 
     }

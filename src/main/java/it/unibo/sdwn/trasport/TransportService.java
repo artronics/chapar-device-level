@@ -4,5 +4,5 @@ public interface TransportService
 {
     void init();
 
-    void shutdown();
+    void close();
 }
