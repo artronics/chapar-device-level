@@ -1,6 +1,6 @@
 package artronics.chapar.address;
 
-public interface Address
+interface Address
 {
     int intValue();
 }
