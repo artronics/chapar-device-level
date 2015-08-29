@@ -5,13 +5,20 @@ import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.config.Config;
 import artronics.chapar.app.logger.Log;
 import artronics.chapar.controller.AbstractBaseControllerService;
+import artronics.chapar.helper.UnsignedByte;
 import artronics.chapar.node.NodeFactory;
 import artronics.chapar.node.sdwn.SdwnNode;
+import artronics.chapar.packet.AbstractBasePacket;
 import artronics.chapar.packet.PacketFactory;
+import artronics.chapar.packet.PacketType;
+import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
 import artronics.chapar.packet.sdwn.SdwnPacket;
+import artronics.chapar.packet.sdwn.SdwnPacketFactory;
 import artronics.chapar.routing.Routing;
 import artronics.chapar.trasport.TransportService;
 import artronics.chapar.trasport.events.SinkFoundEvent;
+
+import java.util.ArrayList;
 
 public class SdwnController extends AbstractBaseControllerService<SdwnPacket, SdwnNode, SdwnAddress>
 {
@@ -36,6 +43,16 @@ public class SdwnController extends AbstractBaseControllerService<SdwnPacket, Sd
 
         Thread controllerReceiver = new Thread(new ControllerReceiver(inPacketQueue), "Receiver");
         controllerReceiver.start();
+        //clean up this shit
+        ArrayList<UnsignedByte> bytes = SdwnPacketFactory.dummyData();
+        PacketType.Direction out = PacketType.Direction.OUT;
+        SdwnPacketType data2 = SdwnPacketType.DATA2;
+        AbstractBasePacket packet = packetFactory.createPacket(data2, out, bytes);
+        try {
+            outPacketQueue.put(packet);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package artronics.chapar.PacketQueue;
 
 import artronics.chapar.app.config.Config;
 import artronics.chapar.packet.AbstractBasePacket;
+import artronics.chapar.packet.sdwn.SdwnPacket;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -16,11 +17,11 @@ import java.util.concurrent.ArrayBlockingQueue;
  *
  * @param <P>
  */
-public class PacketQueue<P extends AbstractBasePacket>
+public class PacketQueue
 {
     private static final int MAX_QUEUE_CAPACITY = Config.get().getInt("MAX_QUEUE_CAPACITY");
-    private static final ArrayBlockingQueue inPacketQueue = new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
-    private static final ArrayBlockingQueue outPacketQueue = new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
+    private static final ArrayBlockingQueue<SdwnPacket> inPacketQueue = new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
+    private static final ArrayBlockingQueue<SdwnPacket> outPacketQueue = new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
 
     public static ArrayBlockingQueue getInPacketQueue()
     {

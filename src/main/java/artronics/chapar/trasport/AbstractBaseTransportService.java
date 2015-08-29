@@ -8,7 +8,9 @@ import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.packet.PacketType;
 import artronics.chapar.packet.protocol.PacketProtocol;
 import artronics.chapar.trasport.connection.Connection;
+import artronics.chapar.trasport.events.ConnectionDataOutAvailableEvent;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class AbstractBaseTransportService
@@ -32,7 +34,7 @@ public abstract class AbstractBaseTransportService
         this.packetProtocol = packetProtocol;
         this.packetFactory = packetFactory;
 
-        PacketQueue<P> packetQueue = new PacketQueue<>();
+        PacketQueue packetQueue = new PacketQueue();
         this.inPacketQueue = packetQueue.getInPacketQueue();
         this.outPacketQueue = packetQueue.getOutPacketQueue();
 
@@ -45,8 +47,12 @@ public abstract class AbstractBaseTransportService
         connection.establishConnection();
         connection.open();
         isClosed = false;
-        Thread protocolEngine = new Thread(new ProtocolEngine(), "ProtocolEngine");
-        protocolEngine.start();
+        //this receives bytes from connection layer
+        Thread receiver = new Thread(new receiver(), "Receiver");
+        receiver.start();
+
+        Thread transmitter = new Thread(new transmitter(),"Transmitter");
+        transmitter.start();
     }
 
     @Override
@@ -56,7 +62,35 @@ public abstract class AbstractBaseTransportService
         connection.close();
     }
 
-    protected class ProtocolEngine implements Runnable
+
+    private class transmitter implements Runnable{
+        @Override
+        public void run()
+        {
+            while (!isClosed){
+                while (!outPacketQueue.isEmpty()){
+                    P packet= null;
+                    try {
+                        packet = outPacketQueue.take();
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        //in case of exp:
+                        //TODO put sth to uBytes and send to sink
+                        //who cares! ;-)
+                    }
+                    ArrayList<UnsignedByte> uBytes= new ArrayList<>(packet.getPacketBytes());
+                    byte[] bytes = UnsignedByte.toByteArray(uBytes);
+                    int length = bytes.length;
+                    ConnectionDataOutAvailableEvent event= new
+                            ConnectionDataOutAvailableEvent(this,bytes,length);
+                    Event.mainBus().post(event);
+                }
+            }
+        }
+    }
+    private class receiver implements Runnable
     {
         @Override
         public void run()

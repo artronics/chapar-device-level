@@ -1,12 +1,13 @@
 package artronics.chapar.trasport.connection;
 
-import artronics.chapar.packet.protocol.sdwn.FakeSdwnPacketFactory;
-import artronics.chapar.trasport.events.SinkFoundEvent;
 import artronics.chapar.app.config.Config;
 import artronics.chapar.app.event.Event;
 import artronics.chapar.app.logger.Log;
+import artronics.chapar.packet.protocol.sdwn.FakeSdwnPacketFactory;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
-import artronics.chapar.trasport.events.ConnectionDataAvailableEvent;
+import artronics.chapar.trasport.events.ConnectionDataInAvailableEvent;
+import artronics.chapar.trasport.events.ConnectionDataOutAvailableEvent;
+import artronics.chapar.trasport.events.SinkFoundEvent;
 import sun.plugin.dom.exception.InvalidStateException;
 
 public class ConnectionSimulator extends AbstractBaseConnection
@@ -15,9 +16,15 @@ public class ConnectionSimulator extends AbstractBaseConnection
     private boolean isClosed = true;
 
     @Override
-    protected void fireConnectionDataAvailable(ConnectionDataAvailableEvent event)
+    protected void fireConnectionDataInAvailableEvent(ConnectionDataInAvailableEvent event)
     {
         Event.mainBus().post(event);
+    }
+
+    @Override
+    public void connectionDataOutAvailableEventHandler(ConnectionDataOutAvailableEvent event)
+    {
+
     }
 
     @Override
@@ -74,9 +81,9 @@ public class ConnectionSimulator extends AbstractBaseConnection
                     buff[i] = receivedBytes[i];
                 }
                 int length = receivedBytes.length;
-                ConnectionDataAvailableEvent event =
-                        new ConnectionDataAvailableEvent(this, buff, length);
-                fireConnectionDataAvailable(event);
+                ConnectionDataInAvailableEvent event =
+                        new ConnectionDataInAvailableEvent(this, buff, length);
+                fireConnectionDataInAvailableEvent(event);
 
                 try {
                     Thread.sleep(TRANSMITTER_PERION);

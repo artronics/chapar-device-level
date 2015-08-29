@@ -5,7 +5,9 @@ import artronics.chapar.packet.PacketType;
 
 public enum  SdwnPacketType implements PacketType
 {
-    MALFORMED(UnsignedByte.of(0)),
+    MALFORMED(UnsignedByte.of(255)),
+    //TODO ??? wtf
+    DATA2(UnsignedByte.of(0)),
     DATA(UnsignedByte.of(1)),
     BEACON(UnsignedByte.of(2)),
     REPORT(UnsignedByte.of(3)),

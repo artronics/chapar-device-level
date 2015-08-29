@@ -3,7 +3,6 @@ package artronics.chapar.packet;
 import artronics.chapar.app.analyser.Analysable;
 import artronics.chapar.app.logger.Log;
 import artronics.chapar.helper.UnsignedByte;
-import artronics.chapar.packet.PacketToCsv;
 
 import java.util.ArrayList;
 
@@ -12,18 +11,18 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
     private static long packetSerialNumber = 0;
     protected final PT packetType;
     protected final PacketType.Direction direction;
-    private final ArrayList receivedBytes;
+    private final ArrayList packetBytes;
     private final String csv; //We use this for analyzing packet(write as csv)
 
     /**
      * This id the minimum requirement for constructing a packet. We need Packet.Type and the Direction of packet and
      * also received bytes. Then logger will log the constructed packet which might be even malformed packet.
      */
-    protected AbstractBasePacket(PT packetType, PacketType.Direction dir, ArrayList receivedBytes)
+    protected AbstractBasePacket(PT packetType, PacketType.Direction dir, ArrayList packetBytes)
     {
         this.packetType = packetType;
         this.direction = dir;
-        this.receivedBytes = new ArrayList(receivedBytes);
+        this.packetBytes = new ArrayList(packetBytes);
         packetSerialNumber++;
 
         this.csv = PacketToCsv.toCsv(this);
@@ -58,9 +57,9 @@ public abstract class AbstractBasePacket<PT extends PacketType> implements Packe
         return this.csv;
     }
 
-    public ArrayList<UnsignedByte> getReceivedBytes()
+    public ArrayList<UnsignedByte> getPacketBytes()
     {
-        return this.receivedBytes;
+        return this.packetBytes;
     }
 
     @Override

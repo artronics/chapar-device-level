@@ -22,6 +22,15 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte>, Se
         }
         return b;
     }
+    //TODO write test for it
+    public static byte[] toByteArray(ArrayList<UnsignedByte> uBytes)
+    {
+        byte[] b = new byte[uBytes.size()];
+        for (int i = 0; i < uBytes.size(); i++) {
+            b[i] = uBytes.get(i).byteValue();
+        }
+        return b;
+    }
 
     public static ArrayList<UnsignedByte> toUnsignedByteArrayList(byte[] buff, int length)
     {

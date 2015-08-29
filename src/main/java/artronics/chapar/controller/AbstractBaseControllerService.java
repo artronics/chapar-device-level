@@ -8,6 +8,7 @@ import artronics.chapar.node.AbstractBaseNode;
 import artronics.chapar.node.NodeFactory;
 import artronics.chapar.packet.AbstractBasePacket;
 import artronics.chapar.packet.PacketFactory;
+import artronics.chapar.packet.sdwn.SdwnPacket;
 import artronics.chapar.routing.Routing;
 import artronics.chapar.trasport.TransportService;
 import artronics.chapar.trasport.events.SinkFoundEvent;
@@ -25,7 +26,7 @@ public abstract class AbstractBaseControllerService
 
     protected final AddressFactory<A> addressFactory;
     protected final ArrayBlockingQueue<P> inPacketQueue;
-    protected final ArrayBlockingQueue<P> outPacketQueue;
+    protected final ArrayBlockingQueue outPacketQueue;
     protected final Hashtable<A, N> networkMap = new Hashtable();
     protected final TransportService transport;
     protected final Routing routing;
@@ -44,7 +45,7 @@ public abstract class AbstractBaseControllerService
         this.nodeFactory = nodeFactory;
         this.addressFactory = addressFactory;
 
-        PacketQueue<P> packetQueue = new PacketQueue<>();
+        PacketQueue packetQueue = new PacketQueue();
         this.inPacketQueue = packetQueue.getInPacketQueue();
         this.outPacketQueue = packetQueue.getOutPacketQueue();
 

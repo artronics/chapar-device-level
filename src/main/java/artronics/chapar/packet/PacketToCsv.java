@@ -1,7 +1,6 @@
 package artronics.chapar.packet;
 
 import artronics.chapar.helper.UnsignedByte;
-import artronics.chapar.packet.AbstractBasePacket;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ class PacketToCsv
         csvAppend();
         csv += packet.getPacketSerialNumber();
         csvAppend();
-        addPacketBytes(packet.getReceivedBytes());
+        addPacketBytes(packet.getPacketBytes());
         return csv;
     }
 

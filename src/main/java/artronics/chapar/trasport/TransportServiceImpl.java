@@ -6,7 +6,7 @@ import artronics.chapar.packet.protocol.PacketProtocol;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
 import artronics.chapar.packet.sdwn.SdwnPacket;
 import artronics.chapar.trasport.connection.Connection;
-import artronics.chapar.trasport.events.ConnectionDataAvailableEvent;
+import artronics.chapar.trasport.events.ConnectionDataInAvailableEvent;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public final class TransportServiceImpl extends AbstractBaseTransportService<Sdw
      * @param e
      */
     @Subscribe
-    public void connectionDataAvailableEventHandler(ConnectionDataAvailableEvent e)
+    public void connectionDataAvailableEventHandler(ConnectionDataInAvailableEvent e)
     {
         final int length = e.getLength();
         final byte[] buff = e.getBuff();

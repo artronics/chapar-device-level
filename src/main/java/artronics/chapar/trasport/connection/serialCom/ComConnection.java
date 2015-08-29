@@ -1,12 +1,13 @@
 package artronics.chapar.trasport.connection.serialCom;
 
+import artronics.chapar.app.config.Config;
 import artronics.chapar.app.event.Event;
 import artronics.chapar.app.logger.Log;
 import artronics.chapar.trasport.connection.AbstractBaseConnection;
+import artronics.chapar.trasport.events.ConnectionDataInAvailableEvent;
+import artronics.chapar.trasport.events.ConnectionDataOutAvailableEvent;
 import artronics.chapar.trasport.events.SinkFoundEvent;
 import gnu.io.*;
-import artronics.chapar.app.config.Config;
-import artronics.chapar.trasport.events.ConnectionDataAvailableEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,8 +29,8 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
             try {
                 final byte[] buff = new byte[MAX_PACKET_BUFF];
                 final int a = input.read(buff, 0, MAX_PACKET_BUFF);
-                ConnectionDataAvailableEvent event = new ConnectionDataAvailableEvent(this, buff, a);
-                fireConnectionDataAvailable(event);
+                ConnectionDataInAvailableEvent event = new ConnectionDataInAvailableEvent(this, buff, a);
+                fireConnectionDataInAvailableEvent(event);
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
@@ -40,7 +41,17 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
     }
 
     @Override
-    protected void fireConnectionDataAvailable(ConnectionDataAvailableEvent event)
+    public void connectionDataOutAvailableEventHandler(ConnectionDataOutAvailableEvent event)
+    {
+        final byte[] buff = event.getBuff();
+        final int length = event.getLength();
+        for (int i = 0; i < buff.length; i++) {
+            System.out.println(buff[i]);
+        }
+    }
+
+    @Override
+    protected void fireConnectionDataInAvailableEvent(ConnectionDataInAvailableEvent event)
     {
         Event.mainBus().post(event);
     }
