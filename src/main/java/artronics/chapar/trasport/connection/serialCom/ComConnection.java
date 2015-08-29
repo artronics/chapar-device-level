@@ -46,7 +46,11 @@ public class ComConnection extends AbstractBaseConnection implements SerialPortE
         final byte[] buff = event.getBuff();
         final int length = event.getLength();
         for (int i = 0; i < buff.length; i++) {
-            System.out.println(buff[i]);
+            try {
+                output.write(buff);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
