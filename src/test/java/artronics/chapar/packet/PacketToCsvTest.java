@@ -1,7 +1,6 @@
 package artronics.chapar.packet;
 
 import artronics.chapar.address.sdwn.SdwnAddress;
-import artronics.chapar.app.analyser.Analysable;
 import artronics.chapar.helper.UnsignedByte;
 import artronics.chapar.packet.protocol.sdwn.FakeSdwnPacketFactory;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
@@ -20,7 +19,7 @@ public class PacketToCsvTest
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("DependencyInjection.xml");
     private ArrayList<UnsignedByte> pck = new ArrayList<>();
     private SdwnAddress add = new SdwnAddress(10);
-    private Analysable packet;
+    private SdwnPacket packet;
     private String csv = "";
     private String expCsv;
     private PacketFactory<SdwnPacket,SdwnPacketType> factory = context.getBean(SdwnPacketFactory.class);
@@ -28,7 +27,7 @@ public class PacketToCsvTest
     @Before
     public void setUp()
     {
-        pck = FakeSdwnPacketFactory.buildGoodPacket();
+        pck = FakeSdwnPacketFactory.buildGoodPacket(SdwnPacketType.MALFORMED);
         expCsv = FakeSdwnPacketFactory.FakeCsv;
 
         packet = factory.createPacket(pck);

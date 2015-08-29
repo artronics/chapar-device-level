@@ -10,27 +10,35 @@ class PacketToCsv
     //TODO each line must end with two csv deparators
     //European countries use ";" as
     //CSV separator because "," is their digit separator
-    public static final String CSV_SEPARATOR = "; ";
+    public static final String CSV_SEPARATOR = ";";
     private static String csv;
 
 
     public static String toCsv(AbstractBasePacket packet)
     {
         csv = "";
-        csv += packet.getType();
+
+        csv += String.format("%-15s", packet.getType());
         csvAppend();
-        csv += packet.getDirection();
+
+        csv += String.format("%-5d", packet.getPacketSerialNumber());
         csvAppend();
-        csv += packet.getPacketSerialNumber();
+
+        csv += String.format("%-3s ", packet.getDirection());
         csvAppend();
+
         addPacketBytes(packet.getPacketBytes());
+
+        //Put an extra separator at the end
+        csvAppend();
+
         return csv;
     }
 
     private static void addPacketBytes(ArrayList<UnsignedByte> receivedBytes)
     {
         for (UnsignedByte ub : receivedBytes) {
-            csv += ub.toString();
+            csv += String.format("%-3d ", ub.intValue());
             csvAppend();
         }
     }
