@@ -1,13 +1,16 @@
 package unibo.it;
 
+
+import artronics.chapar.core.Chapar;
+
 /**
  * Hello world!
  *
  */
-public class App 
+public class Sdwn
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Chapar.start();
     }
 }

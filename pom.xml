@@ -15,10 +15,11 @@
 
 
     <dependencies>
+        <!-- Configuration-->
         <dependency>
-            <groupId>artronics.chapar</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
