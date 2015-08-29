@@ -17,7 +17,6 @@ public class ControllerReceiver implements Runnable
     @Override
     public void run()
     {
-        System.out.println("kir tush");
         while (true) {
             while (!inPacketQueu.isEmpty()) {
                 try {

@@ -40,11 +40,4 @@ public final class TransportServiceImpl extends AbstractBaseTransportService<Sdw
             receivedBytesQueue.addAll(receivedBytes);
         }
     }
-
-    @Override
-    public void run()
-    {
-
-    }
-
 }

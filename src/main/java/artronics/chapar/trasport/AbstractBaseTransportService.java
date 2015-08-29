@@ -12,7 +12,8 @@ import artronics.chapar.trasport.connection.Connection;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public abstract class AbstractBaseTransportService
-        <P extends AbstractBasePacket, PT extends PacketType> implements TransportService, Runnable
+        <P extends AbstractBasePacket, PT extends PacketType>
+        implements TransportService
 {
     protected final Connection connection;
     protected final PacketFactory<P, PT> packetFactory;
@@ -30,12 +31,12 @@ public abstract class AbstractBaseTransportService
         this.connection = connection;
         this.packetProtocol = packetProtocol;
         this.packetFactory = packetFactory;
-        Event.mainBus().register(this);
 
         PacketQueue<P> packetQueue = new PacketQueue<>();
         this.inPacketQueue = packetQueue.getInPacketQueue();
         this.outPacketQueue = packetQueue.getOutPacketQueue();
 
+        Event.mainBus().register(this);
     }
 
     @Override
@@ -82,7 +83,7 @@ public abstract class AbstractBaseTransportService
                         }catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        //clear packetProtocol so it gonna be ready for next packet
+                        //clear packetProtocol so be ready for next packet
                         packetProtocol.clear();
                     }
                 }

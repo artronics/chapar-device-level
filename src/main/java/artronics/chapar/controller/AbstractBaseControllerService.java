@@ -3,7 +3,6 @@ package artronics.chapar.controller;
 import artronics.chapar.PacketQueue.PacketQueue;
 import artronics.chapar.address.AbstractBaseAddress;
 import artronics.chapar.address.AddressFactory;
-import artronics.chapar.app.config.Config;
 import artronics.chapar.app.event.Event;
 import artronics.chapar.node.AbstractBaseNode;
 import artronics.chapar.node.NodeFactory;
@@ -21,30 +20,17 @@ public abstract class AbstractBaseControllerService
         <P extends AbstractBasePacket,
         N extends AbstractBaseNode,
         A extends AbstractBaseAddress>
-        implements ControllerService, Runnable
+        implements ControllerService
 {
-    protected static final int MAX_QUEUE_CAPACITY = Config.get().getInt("MAX_QUEUE_CAPACITY");
+
     protected final AddressFactory<A> addressFactory;
     protected final ArrayBlockingQueue<P> inPacketQueue;
     protected final ArrayBlockingQueue<P> outPacketQueue;
-    protected Hashtable<A, N> networkMap = new Hashtable();
-    protected TransportService transport;
-    protected Routing routing;
-    protected PacketFactory packetFactory;
-    protected NodeFactory<N, A> nodeFactory;
-
-//    @Override
-//    public ArrayBlockingQueue<P> getInPacketQueue()
-//    {
-//        return inPacketQueue;
-//    }
-//    @Override
-//    public ArrayBlockingQueue<P> getOutPacketQueue()
-//    {
-//        return outPacketQueue;
-//    }
-
-
+    protected final Hashtable<A, N> networkMap = new Hashtable();
+    protected final TransportService transport;
+    protected final Routing routing;
+    protected final PacketFactory packetFactory;
+    protected final NodeFactory<N, A> nodeFactory;
 
     public AbstractBaseControllerService(TransportService transport,
                                          Routing routing,
@@ -57,9 +43,11 @@ public abstract class AbstractBaseControllerService
         this.packetFactory = packetFactory;
         this.nodeFactory = nodeFactory;
         this.addressFactory = addressFactory;
+
         PacketQueue<P> packetQueue = new PacketQueue<>();
         this.inPacketQueue = packetQueue.getInPacketQueue();
         this.outPacketQueue = packetQueue.getOutPacketQueue();
+
         Event.mainBus().register(this);
     }
 
@@ -82,8 +70,4 @@ public abstract class AbstractBaseControllerService
         routing.init();
     }
 
-    @Override
-    public void run()
-    {
-    }
 }
