@@ -1,22 +1,36 @@
 package artronics.chapar.controller.sdwn;
 
-import artronics.chapar.PacketQueue.PacketQueue;
+
+import artronics.chapar.packet.sdwn.SdwnPacket;
+
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class ControllerReceiver implements Runnable
 {
-    private final PacketQueue packetQueue;
+    private final ArrayBlockingQueue<SdwnPacket> inPacketQueu;
 
-    public ControllerReceiver(PacketQueue packetQueue)
+    public ControllerReceiver(ArrayBlockingQueue<SdwnPacket> inPacketQueu)
     {
-        this.packetQueue = packetQueue;
+        this.inPacketQueu = inPacketQueu;
     }
 
     @Override
     public void run()
     {
         System.out.println("kir tush");
+        while (true) {
+            while (!inPacketQueu.isEmpty()) {
+                try {
+                    processInput(inPacketQueu.take());
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-
+    private void processInput(SdwnPacket packet)
+    {
 
     }
 }

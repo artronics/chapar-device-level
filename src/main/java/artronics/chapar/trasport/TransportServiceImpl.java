@@ -1,26 +1,24 @@
 package artronics.chapar.trasport;
 
-import artronics.chapar.PacketQueue.PacketQueue;
-import artronics.chapar.packet.PacketFactory;
-import artronics.chapar.packet.sdwn.SdwnPacket;
-import artronics.chapar.trasport.connection.Connection;
-import com.google.common.eventbus.Subscribe;
 import artronics.chapar.helper.UnsignedByte;
+import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.packet.protocol.PacketProtocol;
 import artronics.chapar.packet.protocol.sdwn.SdwnPacketType;
+import artronics.chapar.packet.sdwn.SdwnPacket;
+import artronics.chapar.trasport.connection.Connection;
 import artronics.chapar.trasport.events.ConnectionDataAvailableEvent;
+import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
 public final class TransportServiceImpl extends AbstractBaseTransportService<SdwnPacket, SdwnPacketType>
 {
 
-    public TransportServiceImpl(PacketQueue packetQueue,
-                                Connection connection,
+    public TransportServiceImpl(Connection connection,
                                 PacketProtocol packetProtocol,
                                 PacketFactory packetFactory)
     {
-        super(packetQueue, connection, packetProtocol, packetFactory);
+        super(connection, packetProtocol, packetFactory);
     }
 
     /**

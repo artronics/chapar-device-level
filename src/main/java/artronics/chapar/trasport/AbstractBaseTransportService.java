@@ -15,23 +15,27 @@ public abstract class AbstractBaseTransportService
         <P extends AbstractBasePacket, PT extends PacketType> implements TransportService, Runnable
 {
     protected final Connection connection;
-    protected final PacketQueue<P> packetQueue;
     protected final PacketFactory<P, PT> packetFactory;
     protected final ArrayBlockingQueue<UnsignedByte> receivedBytesQueue = new ArrayBlockingQueue(256);
     protected final Object lock = new Object();
+    protected final ArrayBlockingQueue<P> inPacketQueue;
+    protected final ArrayBlockingQueue<P> outPacketQueue;
     private final PacketProtocol<PT> packetProtocol;
     protected boolean isClosed = true;
 
-    public AbstractBaseTransportService(PacketQueue<P> packetQueue,
-                                        Connection connection,
+    public AbstractBaseTransportService(Connection connection,
                                         PacketProtocol<PT> packetProtocol,
                                         PacketFactory packetFactory)
     {
-        this.packetQueue = packetQueue;
         this.connection = connection;
         this.packetProtocol = packetProtocol;
         this.packetFactory = packetFactory;
         Event.mainBus().register(this);
+
+        PacketQueue<P> packetQueue = new PacketQueue<>();
+        this.inPacketQueue = packetQueue.getInPacketQueue();
+        this.outPacketQueue = packetQueue.getOutPacketQueue();
+
     }
 
     @Override
@@ -73,14 +77,13 @@ public abstract class AbstractBaseTransportService
                         P packet = packetFactory.createPacket(packetProtocol.getReceivedBytes());
                         //put this packet to PacketQueue's input
                         //TODO Do I need to synch this call?
-                        packetQueue.putInput(packet);
+                        try {
+                            inPacketQueue.put(packet);
+                        }catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         //clear packetProtocol so it gonna be ready for next packet
                         packetProtocol.clear();
-                    }
-                    try {
-                        Thread.sleep(30000);
-                    }catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
             }

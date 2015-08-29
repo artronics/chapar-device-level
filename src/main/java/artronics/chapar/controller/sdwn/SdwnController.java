@@ -1,6 +1,5 @@
 package artronics.chapar.controller.sdwn;
 
-import artronics.chapar.PacketQueue.PacketQueue;
 import artronics.chapar.address.AddressFactory;
 import artronics.chapar.address.sdwn.SdwnAddress;
 import artronics.chapar.app.config.Config;
@@ -21,11 +20,10 @@ public class SdwnController extends AbstractBaseControllerService<SdwnPacket, Sd
     public SdwnController(TransportService transport,
                           Routing routing,
                           PacketFactory packetFactory,
-                          PacketQueue packetQueue,
                           NodeFactory nodeFactory,
                           AddressFactory addressFactory)
     {
-        super(transport, routing, packetFactory,packetQueue, nodeFactory, addressFactory);
+        super(transport, routing, packetFactory, nodeFactory, addressFactory);
     }
 
     @Override
@@ -36,7 +34,7 @@ public class SdwnController extends AbstractBaseControllerService<SdwnPacket, Sd
         putNodeToNetworkMap(sink, address);
         Log.main().debug("Sink is added to Network Map Successfully.");
 
-        Thread controllerReceiver = new Thread(new ControllerReceiver(packetQueue),"Receiver");
+        Thread controllerReceiver = new Thread(new ControllerReceiver(inPacketQueue), "Receiver");
         controllerReceiver.start();
     }
 
