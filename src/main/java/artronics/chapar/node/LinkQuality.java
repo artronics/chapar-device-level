@@ -1,10 +1,10 @@
 package artronics.chapar.node;
 
-class LinkQuality implements Quality
+final class LinkQuality implements Quality
 {
     private int qualityValue;
 
-    public LinkQuality(int qualityValue)
+    protected LinkQuality(int qualityValue)
     {
         this.qualityValue = qualityValue;
     }
