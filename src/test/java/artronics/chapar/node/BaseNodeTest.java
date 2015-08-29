@@ -50,6 +50,7 @@ public class BaseNodeTest
     /**************************
      * EQUALS and HASH CODE
      ****************************/
+
     @Test
     public void Test_not_equal_to_null()
     {
@@ -92,5 +93,24 @@ public class BaseNodeTest
     {
         assertThat(nodes[0].hasLinkTo(nodes[1]), equalTo(true));
         assertThat(nodes[1].hasLinkTo(nodes[0]), equalTo(true));
+    }
+
+    @Test
+    public void If_we_create_another_node_with_same_address_it_should_NOT_add_link_to_that()
+    {
+        Node sameNode1 = factory.createNode(1);
+        //we didn't add sameNode1 to link but
+        //hasLinkTo returns true
+        assertTrue(nodes[0].hasLinkTo(sameNode1));
+    }
+
+    /**********************
+     * GRAPH
+     *******************/
+
+    @Test
+    public void Test_existance_of_links()
+    {
+
     }
 }

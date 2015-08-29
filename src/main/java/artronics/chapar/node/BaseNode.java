@@ -3,6 +3,7 @@ package artronics.chapar.node;
 import javax.lang.model.type.NoType;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BaseNode implements Node
 {
@@ -25,13 +26,18 @@ public class BaseNode implements Node
     @Override
     public void addLinkTo(Node node, Quality quality)
     {
-        links.add(new NodeLink(this,node,quality));
+        if (hasLinkTo(node))
+            return;
+
+        Link link = new NodeLink(this, node, quality);
+        links.add(link);
+        node.getLinks().add(link);
     }
 
     @Override
-    public List<? super Link> getLinks()
+    public Set<Link> getLinks()
     {
-        return null;
+        return links;
     }
 
     @Override

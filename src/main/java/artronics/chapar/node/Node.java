@@ -2,12 +2,13 @@ package artronics.chapar.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 interface Node
 {
     void addLinkTo(Node node, Quality quality);
 
-    List<? super Link> getLinks();
+    Set<Link> getLinks();
 
     boolean hasLinkTo(Node node);
 
