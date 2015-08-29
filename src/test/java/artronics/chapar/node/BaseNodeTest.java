@@ -1,17 +1,27 @@
 package artronics.chapar.node;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
+import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 public class BaseNodeTest
 {
     private BaseNodeFactory factory = new BaseNodeFactory();
+    private Node aNode;
+    private Node sameNode;
+    private Node notEqNode;
     private Node[] nodes = new Node[4];
 
     @Before
     public void setUp() throws Exception
     {
+        aNode = factory.createNode(13);
+        sameNode = factory.createNode(13);
+        notEqNode = factory.createNode(17);
         /*
         we are going to test a simple network consists of four NormalNodes
         These nodes are stores in a node array and network graph is
@@ -31,5 +41,56 @@ public class BaseNodeTest
         nodes[2] = factory.createNode(2);
         nodes[3] = factory.createNode(3);
 
+        nodes[0].addLinkTo(nodes[1], q30);
+        nodes[1].addLinkTo(nodes[2], q40);
+        nodes[0].addLinkTo(nodes[2], q200);
+        nodes[3].addLinkTo(nodes[0], q100);
+    }
+
+    /**************************
+     * EQUALS and HASH CODE
+     ****************************/
+    @Test
+    public void Test_not_equal_to_null()
+    {
+        assertFalse(aNode.equals(null));
+    }
+
+    @Test
+    public void It_should_be_an_instance_of_BaseNode()
+    {
+        assertThat(aNode.getClass(), equalTo(BaseNode.class));
+    }
+
+    @Test
+    public void Equals_general_laws()
+    {
+        //reflexivity
+        assertEquals(aNode, aNode);
+        //Symmetry
+        assertThat(aNode, equalTo(sameNode));//an then
+        assertThat(sameNode, equalTo(aNode));
+
+        assertFalse(aNode.equals(notEqNode));
+        assertFalse(notEqNode.equals(aNode));
+    }
+
+    @Test
+    public void For_equal_nodes_hashCode_must_be_the_same()
+    {
+        assertThat(aNode.hashCode(), equalTo(sameNode.hashCode()));
+        //it is not mandatory for two diff nodes to return diff hash but lets test it
+        assertNotEquals(aNode.hashCode(), notEqNode.hashCode());
+    }
+
+    /************************
+     * LINK MANIPULATION
+     ********************/
+
+    @Test
+    public void test_hasLinkTo()
+    {
+        assertThat(nodes[0].hasLinkTo(nodes[1]), equalTo(true));
+        assertThat(nodes[1].hasLinkTo(nodes[0]), equalTo(true));
     }
 }

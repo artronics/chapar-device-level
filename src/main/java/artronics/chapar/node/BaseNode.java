@@ -37,6 +37,11 @@ public class BaseNode implements Node
     @Override
     public boolean hasLinkTo(Node node)
     {
+        for (Link link : links) {
+            if (link.hasNode(node))
+                return true;
+        }
+
         return false;
     }
 
