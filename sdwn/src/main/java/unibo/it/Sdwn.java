@@ -13,6 +13,7 @@ public class Sdwn
     public static void main( String[] args )
     {
         System.out.println("chaghal");
-        Chapar.start();
+        Chapar sdwn = new Chapar();
+        sdwn.start();
     }
 }

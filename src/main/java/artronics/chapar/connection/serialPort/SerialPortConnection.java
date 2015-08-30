@@ -9,12 +9,13 @@ import gnu.io.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.TooManyListenersException;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class SerialPortConnection implements ConnectionService, SerialPortEventListener
 {
-    private final ArrayBlockingQueue<int[]> inQueue;
+    private final ArrayBlockingQueue<ArrayList> inQueue;
     private final ArrayBlockingQueue<int[]> outQueue;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
@@ -41,12 +42,12 @@ public class SerialPortConnection implements ConnectionService, SerialPortEventL
     {
         if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
-                final byte[] buff = new byte[MAX_DATA_QUEUE_CAPACITY];
-                final int length = input.read(buff, 0, MAX_DATA_QUEUE_CAPACITY);
-                int[] intBuff = new int[length];
+                final byte[] buff = new byte[MAX_DATA_LENGTH];
+                final int length = input.read(buff, 0, MAX_DATA_LENGTH);
+                ArrayList<Integer> intBuff = new ArrayList<>(MAX_DATA_LENGTH);
                 for (int i = 0; i < length; i++) {
                     //convert signed value to unsigned
-                    intBuff[i] = buff[i] & 0xFF;
+                    intBuff.add(buff[i] & 0xFF);
                 }
                 inQueue.put(intBuff);
 

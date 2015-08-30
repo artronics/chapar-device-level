@@ -9,4 +9,5 @@ public class BasePacketFactory implements PacketFactory
     {
         return new BasePacket(type, direction, packetBytes);
     }
+
 }

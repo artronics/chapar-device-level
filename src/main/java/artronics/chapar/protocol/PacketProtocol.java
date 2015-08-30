@@ -16,5 +16,6 @@ public interface PacketProtocol
 
     ArrayList getReceivedBytes();
 
-    boolean isValid(ArrayList<Integer> receivedBytes);
+    Packet.Direction getDirection(ArrayList receivedBytes);
+
 }

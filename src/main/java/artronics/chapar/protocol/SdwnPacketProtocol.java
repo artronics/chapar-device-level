@@ -58,9 +58,9 @@ public class SdwnPacketProtocol implements PacketProtocol
     }
 
     @Override
-    public boolean isValid(ArrayList<Integer> receivedBytes)
+    public Packet.Direction getDirection(ArrayList receivedBytes)
     {
-        return false;
+        return Packet.Direction.IN;
     }
 
     @Override
@@ -77,5 +77,6 @@ public class SdwnPacketProtocol implements PacketProtocol
         isStarted = false;
         expetedSize = 0;
     }
+
 
 }

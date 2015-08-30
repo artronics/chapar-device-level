@@ -5,6 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config />
     <context:component-scan base-package="artronics.chapar"/>
+    <bean id="PacketProtocol" class="artronics.chapar.protocol.SdwnPacketProtocol"/>
     <bean id="controller" class="artronics.chapar.controller.AbstractBaseController">
     </bean>
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
@@ -12,12 +13,15 @@
 
 
     <bean id="ProtocolEngineService" class="artronics.chapar.protocol.ProtocolEngineImpl">
-        <constructor-arg name="connection" ref="Connection"></constructor-arg>
         <constructor-arg name="dataQueue" ref="DataInOutQueueContract"></constructor-arg>
-
+        <constructor-arg name="packetQueue" ref="PacketInOutQueueContract"></constructor-arg>
+        <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
+        <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
+
     <bean id="DataInOutQueueContract" class="artronics.chapar.queue.DataInOutQueue"/>
-    <bean id="Connection" class="artronics.chapar.connection.serialPort.SerialPortConnection">
+    <bean id="PacketInOutQueueContract" class="artronics.chapar.queue.PacketInOutQueue"/>
+    <bean id="ConnectionService" class="artronics.chapar.connection.serialPort.SerialPortConnection">
         <constructor-arg name="dataInOutQueue" ref="DataInOutQueueContract"></constructor-arg>
     </bean>
 
