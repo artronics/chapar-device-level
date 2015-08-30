@@ -5,7 +5,7 @@ import artronics.chapar.core.configuration.Config;
 public interface Connection
 {
     int TIMEOUT = 2000;
-    int MAX_PACKET_BUFF = Config.get().getInt("MAX_PACKET_BUFF");
+    int MAX_DATA_QUEUE_CAPACITY = Config.get().getInt("MAX_DATA_QUEUE_CAPACITY");
 
     void establishConnection();
 

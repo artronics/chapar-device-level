@@ -8,7 +8,7 @@ import gnu.io.CommPortIdentifier;
 import java.util.Enumeration;
 import java.util.HashMap;
 
-public class SerialPortInitializer
+class SerialPortInitializer
 {
     private HashMap ports = new HashMap();
     private CommPortIdentifier selectedCommPortIdentifier;

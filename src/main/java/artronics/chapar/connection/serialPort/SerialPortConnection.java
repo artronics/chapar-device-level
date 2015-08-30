@@ -3,21 +3,30 @@ package artronics.chapar.connection.serialPort;
 import artronics.chapar.connection.Connection;
 import artronics.chapar.core.configuration.Config;
 import artronics.chapar.core.logger.Log;
+import artronics.chapar.queue.DataInOutQueueContract;
 import gnu.io.*;
 
-import javax.sql.StatementEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.TooManyListenersException;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class SerialPortConnection implements Connection, SerialPortEventListener
 {
+    private final ArrayBlockingQueue<byte[]> inQueue;
+    private final ArrayBlockingQueue<byte[]> outQueue;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
     private SerialPort serialPort = null;
     private InputStream input = null;
     private OutputStream output = null;
+
+    public SerialPortConnection(DataInOutQueueContract dataInOutQueue)
+    {
+        this.inQueue = dataInOutQueue.getDataInQueue();
+        this.outQueue = dataInOutQueue.getDataOutQueue();
+    }
 
     @Override
     public void establishConnection()
@@ -30,6 +39,19 @@ public class SerialPortConnection implements Connection, SerialPortEventListener
     @Override
     public void serialEvent(SerialPortEvent serialPortEvent)
     {
+        if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            try {
+                final byte[] buff = new byte[MAX_DATA_QUEUE_CAPACITY];
+                final int a = input.read(buff, 0, MAX_DATA_QUEUE_CAPACITY);
+                inQueue.put(buff);
+
+            }catch (IOException e) {
+                Log.main().error("Can not open IO in ComConnection.");
+                e.printStackTrace();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
