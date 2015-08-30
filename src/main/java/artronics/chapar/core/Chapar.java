@@ -19,7 +19,7 @@ public class Chapar
         connection.establishConnection();
         connection.open();
 
-        protocolEngine.start();
+//        protocolEngine.start();
 
 
     }

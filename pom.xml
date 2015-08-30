@@ -27,6 +27,12 @@
             <artifactId>rxtx</artifactId>
             <version>2.1.7</version>
         </dependency>
+        <!-- Event Library-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>

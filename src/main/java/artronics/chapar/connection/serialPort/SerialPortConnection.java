@@ -2,6 +2,8 @@ package artronics.chapar.connection.serialPort;
 
 import artronics.chapar.connection.ConnectionService;
 import artronics.chapar.core.configuration.Config;
+import artronics.chapar.core.events.DataInEvent;
+import artronics.chapar.core.events.Event;
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.queue.DataInOutQueueContract;
 import gnu.io.*;
@@ -27,6 +29,8 @@ public class SerialPortConnection implements ConnectionService, SerialPortEventL
     {
         this.inQueue = dataInOutQueue.getDataInQueue();
         this.outQueue = dataInOutQueue.getDataOutQueue();
+
+        Event.mainBus().register(this);
     }
 
     @Override
@@ -50,6 +54,7 @@ public class SerialPortConnection implements ConnectionService, SerialPortEventL
                     intBuff.add(buff[i] & 0xFF);
                 }
                 inQueue.put(intBuff);
+                Event.mainBus().post(new DataInEvent());
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");

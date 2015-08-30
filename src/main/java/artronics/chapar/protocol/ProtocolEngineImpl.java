@@ -1,13 +1,14 @@
 package artronics.chapar.protocol;
 
 import artronics.chapar.connection.ConnectionService;
-import artronics.chapar.packet.BasePacket;
+import artronics.chapar.core.events.DataInEvent;
+import artronics.chapar.core.events.Event;
 import artronics.chapar.packet.Packet;
 import artronics.chapar.packet.PacketContract;
 import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.queue.DataInOutQueueContract;
 import artronics.chapar.queue.PacketInOutQueueContract;
-import com.sun.tools.javac.code.Type;
+import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class ProtocolEngineImpl implements ProtocolEngineService
     private final ArrayBlockingQueue<PacketContract> packetOutQueue;
 
     private volatile boolean isClosed = true;
+    //we use this dequeue to put all integers from DataInQueue inside it
+    //then packetProtocol process these stream of integers one by one.
+    private final ArrayDeque<Integer> intStreamQ = new ArrayDeque<>(1024);
 
     public ProtocolEngineImpl(PacketProtocol packetProtocol,
                               PacketFactory packetFactory,
@@ -38,6 +42,42 @@ public class ProtocolEngineImpl implements ProtocolEngineService
         this.dataOutQueue = dataQueue.getDataOutQueue();
         this.packetInQueue = packetQueue.getPacketInQueue();
         this.packetOutQueue = packetQueue.getPacketOutQueue();
+
+        Event.mainBus().register(this);
+    }
+
+    @Subscribe
+    public void dataInEventHandler(DataInEvent event)
+    {
+        System.out.println("kir tush");
+        while (!dataInQueue.isEmpty()) {//There is a collection of ints from connection
+            try {
+                ArrayList take = dataInQueue.take();
+                intStreamQ.addAll(take);//Put that stream in new queue for processing by PacketProtocol
+                while (!intStreamQ.isEmpty()) {//Apply protocol engine
+                    while (!packetProtocol.isPacketReady()) {
+                        packetProtocol.addByte(intStreamQ.pollFirst());
+                        if (intStreamQ.isEmpty())
+                            break;
+                    }
+                }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (packetProtocol.isPacketReady()) {
+                ArrayList receivedBytes = packetProtocol.getReceivedBytes();
+                Packet.Type type = packetProtocol.getType(receivedBytes);
+                Packet.Direction direction = packetProtocol.getDirection(receivedBytes);
+                PacketContract packet = packetFactory.create(type, direction, receivedBytes);
+                try {
+                    packetInQueue.put(packet);
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                packetProtocol.clear();
+            }
+        }
     }
 
     @Override
@@ -45,8 +85,8 @@ public class ProtocolEngineImpl implements ProtocolEngineService
     {
         isClosed = false;
 
-        Thread dataReceiverThread = new Thread(new dataReceiver());
-        dataReceiverThread.start();
+//        Thread dataReceiverThread = new Thread(new dataReceiver());
+//        dataReceiverThread.start();
     }
 
     @Override
@@ -62,34 +102,6 @@ public class ProtocolEngineImpl implements ProtocolEngineService
         public void run()
         {
             while (!isClosed) {
-                final ArrayDeque<Integer> intStreamQ = new ArrayDeque<>(1024);
-                while (!dataInQueue.isEmpty()) {//There is a collection of ints from connection
-                    try {
-                        intStreamQ.addAll(dataInQueue.take());//Put that stream in another local queue
-                        while (intStreamQ.isEmpty()) {//Apply protocol engine
-                            while (!packetProtocol.isPacketReady()) {
-                                packetProtocol.addByte(intStreamQ.pollFirst());
-                                if (intStreamQ.isEmpty())
-                                    break;
-                            }
-                        }
-                    }catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (packetProtocol.isPacketReady()) {
-                    ArrayList receivedBytes = packetProtocol.getReceivedBytes();
-                    Packet.Type type = packetProtocol.getType(receivedBytes);
-                    Packet.Direction direction = packetProtocol.getDirection(receivedBytes);
-                    PacketContract packet = packetFactory.create(type, direction, receivedBytes);
-                    try {
-                        packetInQueue.put(packet);
-                    }catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    packetProtocol.clear();
-                }
             }
         }
     }
