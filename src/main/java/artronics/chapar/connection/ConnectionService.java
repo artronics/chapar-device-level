@@ -2,7 +2,7 @@ package artronics.chapar.connection;
 
 import artronics.chapar.core.configuration.Config;
 
-public interface Connection
+public interface ConnectionService
 {
     int TIMEOUT = 2000;
     int MAX_DATA_QUEUE_CAPACITY = Config.get().getInt("MAX_DATA_QUEUE_CAPACITY");

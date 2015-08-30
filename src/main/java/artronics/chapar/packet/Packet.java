@@ -12,7 +12,7 @@ public interface Packet
         RULE_RESPONSE(5),
         OPEN_PATH(6);
 
-        protected int value;
+        private int value;
 
         Type(int value)
         {
@@ -20,6 +20,11 @@ public interface Packet
                 this.value = 6;
             else
                 this.value = value;
+        }
+
+        public int getValue()
+        {
+            return value;
         }
     }
 
@@ -44,7 +49,7 @@ public interface Packet
         STOP_TIME_L(14),
         STOP_TIME_H(15),;
 
-        protected int value;
+        private int value;
 
         ByteMeaning(int value)
         {

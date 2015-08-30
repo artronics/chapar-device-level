@@ -6,15 +6,15 @@
     <context:annotation-config />
     <context:component-scan base-package="artronics.chapar"/>
     <bean id="controller" class="artronics.chapar.controller.AbstractBaseController">
-        <property name="transport" ref="Transport"></property>
     </bean>
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
     <bean id="NodeFactory" class="artronics.chapar.node.BaseNodeFactory"/>
 
 
-    <bean id="Transport" class="artronics.chapar.transport.TransportImpl">
+    <bean id="ProtocolEngineService" class="artronics.chapar.protocol.ProtocolEngineImpl">
         <constructor-arg name="connection" ref="Connection"></constructor-arg>
-        <constructor-arg name="inOutQueue" ref="DataInOutQueueContract"></constructor-arg>
+        <constructor-arg name="dataQueue" ref="DataInOutQueueContract"></constructor-arg>
+
     </bean>
     <bean id="DataInOutQueueContract" class="artronics.chapar.queue.DataInOutQueue"/>
     <bean id="Connection" class="artronics.chapar.connection.serialPort.SerialPortConnection">

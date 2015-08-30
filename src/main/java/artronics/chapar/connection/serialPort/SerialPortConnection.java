@@ -1,6 +1,6 @@
 package artronics.chapar.connection.serialPort;
 
-import artronics.chapar.connection.Connection;
+import artronics.chapar.connection.ConnectionService;
 import artronics.chapar.core.configuration.Config;
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.queue.DataInOutQueueContract;
@@ -12,10 +12,10 @@ import java.io.OutputStream;
 import java.util.TooManyListenersException;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class SerialPortConnection implements Connection, SerialPortEventListener
+public class SerialPortConnection implements ConnectionService, SerialPortEventListener
 {
-    private final ArrayBlockingQueue<byte[]> inQueue;
-    private final ArrayBlockingQueue<byte[]> outQueue;
+    private final ArrayBlockingQueue<int[]> inQueue;
+    private final ArrayBlockingQueue<int[]> outQueue;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
     private SerialPort serialPort = null;
@@ -42,8 +42,13 @@ public class SerialPortConnection implements Connection, SerialPortEventListener
         if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
                 final byte[] buff = new byte[MAX_DATA_QUEUE_CAPACITY];
-                final int a = input.read(buff, 0, MAX_DATA_QUEUE_CAPACITY);
-                inQueue.put(buff);
+                final int length = input.read(buff, 0, MAX_DATA_QUEUE_CAPACITY);
+                int[] intBuff = new int[length];
+                for (int i = 0; i < length; i++) {
+                    //convert signed value to unsigned
+                    intBuff[i] = buff[i] & 0xFF;
+                }
+                inQueue.put(intBuff);
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
