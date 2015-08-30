@@ -5,7 +5,7 @@ import artronics.chapar.core.logger.Log;
 
 import java.util.List;
 
-public class BasePacket implements Analysable
+public class BasePacket implements PacketContract, Analysable
 {
     private static long packetSerialNumber = 0;
     protected final Packet.Type packetType;
