@@ -2,6 +2,7 @@ package artronics.chapar.packet;
 
 public interface Packet
 {
+
     enum Type
     {
         DATA(0),

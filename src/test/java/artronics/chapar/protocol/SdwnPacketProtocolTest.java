@@ -1,6 +1,5 @@
 package artronics.chapar.protocol;
 
-import artronics.chapar.core.configuration.Config;
 import artronics.chapar.packet.Packet;
 import org.junit.Before;
 import org.junit.Test;

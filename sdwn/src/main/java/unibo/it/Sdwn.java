@@ -2,7 +2,7 @@ package unibo.it;
 
 
 import artronics.chapar.core.Chapar;
-import artronics.chapar.core.logger.Log;
+import unibo.it.controller.SdwnController;
 
 /**
  * Hello world!
@@ -12,7 +12,7 @@ public class Sdwn
 {
     public static void main( String[] args )
     {
-        Chapar sdwn = new Chapar();
-        sdwn.start();
+        Chapar.setController(SdwnController.class);
+        Chapar.start();
     }
 }

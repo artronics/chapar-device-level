@@ -5,7 +5,6 @@ import artronics.chapar.core.events.DataInEvent;
 import artronics.chapar.core.events.Event;
 import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.packet.Packet;
-import artronics.chapar.packet.PacketContract;
 import artronics.chapar.packet.PacketFactory;
 import artronics.chapar.queue.DataInOutQueueContract;
 import artronics.chapar.queue.PacketInOutQueueContract;
@@ -15,7 +14,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class ProtocolEngineImpl implements ProtocolEngineService
+final class ProtocolEngineImpl implements ProtocolEngineService
 {
     private static final int MAX_DATA_LENGTH = ConnectionService.MAX_DATA_LENGTH;
 
@@ -24,8 +23,8 @@ public class ProtocolEngineImpl implements ProtocolEngineService
 
     private final ArrayBlockingQueue<ArrayList> dataInQueue;
     private final ArrayBlockingQueue<ArrayList> dataOutQueue;
-    private final ArrayBlockingQueue<PacketContract> packetInQueue;
-    private final ArrayBlockingQueue<PacketContract> packetOutQueue;
+    private final ArrayBlockingQueue<Packet> packetInQueue;
+    private final ArrayBlockingQueue<Packet> packetOutQueue;
 
     private volatile boolean isClosed = true;
     //we use this dequeue to put all integers from DataInQueue inside it
@@ -69,7 +68,7 @@ public class ProtocolEngineImpl implements ProtocolEngineService
                 ArrayList receivedBytes = packetProtocol.getReceivedBytes();
                 Packet.Type type = packetProtocol.getType(receivedBytes);
                 Packet.Direction direction = packetProtocol.getDirection(receivedBytes);
-                PacketContract packet = packetFactory.create(type, direction, receivedBytes);
+                Packet packet = packetFactory.create(type, direction, receivedBytes);
                 try {
                     packetInQueue.put(packet);
                 }catch (InterruptedException e) {

@@ -1,12 +1,11 @@
 package artronics.chapar.protocol;
 
-import artronics.chapar.core.configuration.Config;
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
 
 import java.util.ArrayList;
 
-public class SdwnPacketProtocol implements PacketProtocol
+final class SdwnPacketProtocol implements PacketProtocol
 {
     private static final int START_BYTE = 122;
     private static final int STOP_BYTE = 126;

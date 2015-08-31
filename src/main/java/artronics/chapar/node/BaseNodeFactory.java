@@ -2,11 +2,11 @@ package artronics.chapar.node;
 
 import artronics.chapar.core.configuration.Config;
 
-public class BaseNodeFactory implements NodeFactory
+final class BaseNodeFactory implements NodeFactory
 {
     public static final int SINK_ADDRESS = Config.get().getInt("SINK_ADDRESS");
 
-    public Node create(int address, NodeType type)
+    public Node create(int address, Node.NodeType type)
     {
         return new BaseNode(address,type);
     }

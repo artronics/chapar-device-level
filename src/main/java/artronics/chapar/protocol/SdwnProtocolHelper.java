@@ -5,7 +5,7 @@ import artronics.chapar.packet.Packet;
 
 import java.util.ArrayList;
 
-public class SdwnProtocolHelper
+final class SdwnProtocolHelper
 {
     private static final int SINK_ADDRESS = Config.get().getInt("SINK_ADDRESS");
 

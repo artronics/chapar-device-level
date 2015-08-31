@@ -1,10 +1,8 @@
 package artronics.chapar.protocol;
 
-import artronics.chapar.core.configuration.Config;
 import artronics.chapar.packet.Packet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FakePacketFactory
 {

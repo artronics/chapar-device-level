@@ -1,11 +1,9 @@
 package artronics.chapar.node;
 
-import javax.lang.model.type.NoType;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class BaseNode implements Node
+final class BaseNode implements Node
 {
     private final int address;
     private final HashSet<Link> links = new HashSet<>();

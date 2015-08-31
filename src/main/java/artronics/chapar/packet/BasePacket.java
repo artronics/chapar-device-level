@@ -5,14 +5,14 @@ import artronics.chapar.core.logger.Log;
 
 import java.util.List;
 
-public class BasePacket implements PacketContract, Analysable
+final class BasePacket implements Packet, Analysable
 {
     private static long packetSerialNumber = 0;
-    protected final Packet.Type packetType;
-    protected final Packet.Direction direction;
+    protected final Type packetType;
+    protected final Direction direction;
     private final List packetBytes;
 
-    public BasePacket(Packet.Type packetType, Packet.Direction direction, List packetBytes)
+    public BasePacket(Type packetType, Direction direction, List packetBytes)
     {
         this.packetType = packetType;
         this.direction = direction;
@@ -31,7 +31,7 @@ public class BasePacket implements PacketContract, Analysable
         packetSerialNumber++;
     }
 
-    public Packet.Direction getDirection()
+    public Direction getDirection()
     {
         return direction;
     }
@@ -41,7 +41,7 @@ public class BasePacket implements PacketContract, Analysable
         return this.packetBytes;
     }
 
-    public Packet.Type getType()
+    public Type getType()
     {
         return packetType;
     }

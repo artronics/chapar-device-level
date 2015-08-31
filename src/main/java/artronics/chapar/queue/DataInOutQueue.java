@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class DataInOutQueue implements DataInOutQueueContract
+final class DataInOutQueue implements DataInOutQueueContract
 {
 
     private static final ArrayBlockingQueue<ArrayList> dataInQueue =

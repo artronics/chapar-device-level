@@ -8,7 +8,13 @@
     <bean id="PacketProtocol" class="artronics.chapar.protocol.SdwnPacketProtocol"/>
 
 
-    <bean id="controller" class="artronics.chapar.controller.AbstractBaseController">
+    <bean id="AbstractBaseController" class="artronics.chapar.controller.AbstractBaseController">
+        <property name="nodeFactory" ref="NodeFactory"></property>
+    </bean>
+
+    <bean id="ChaparServiceInitializer" class="artronics.chapar.core.ChaparServiceInitializer">
+        <property name="connection" ref="ConnectionService"></property>
+        <property name="protocolEngine" ref="ProtocolEngineService"></property>
 
     </bean>
 

@@ -2,7 +2,7 @@ package artronics.chapar.packet;
 
 import java.util.List;
 
-public class PacketToCsv
+final class PacketToCsv
 {
     //European countries use ";" as
     //CSV separator because "," is their digit separator

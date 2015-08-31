@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ChaparConfiguration
+final class ChaparConfiguration
 {
     private static final PropertiesConfiguration config = new PropertiesConfiguration();
 

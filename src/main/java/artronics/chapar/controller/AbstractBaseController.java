@@ -1,43 +1,35 @@
 package artronics.chapar.controller;
 
 
-import artronics.chapar.core.events.Event;
 import artronics.chapar.node.LinkQualityFactory;
 import artronics.chapar.node.NodeFactory;
-import artronics.chapar.packet.PacketContract;
 import artronics.chapar.packet.PacketFactory;
-import artronics.chapar.queue.DataInOutQueueContract;
-import artronics.chapar.queue.PacketInOutQueueContract;
 import artronics.chapar.routing.RoutingService;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
-class AbstractBaseController
+class AbstractBaseController implements ControllerService
 {
-    private final PacketFactory packetFactory;
-    private final NodeFactory nodeFactory;
-    private final LinkQualityFactory linkQualityFactory;
-    private final RoutingService router;
-    private final PacketInOutQueueContract packetQueue;
+    public  PacketFactory packetFactory;
+    public  NodeFactory nodeFactory;
+    public  LinkQualityFactory linkQualityFactory;
+    public  RoutingService router;
 
-    private final ArrayBlockingQueue<PacketContract> packetInQueue;
-    private final ArrayBlockingQueue<PacketContract> packetOutQueue;
-
-    public AbstractBaseController(PacketFactory packetFactory,
-                                  NodeFactory nodeFactory,
-                                  LinkQualityFactory linkQualityFactory,
-                                  RoutingService router,
-                                  PacketInOutQueueContract packetQueue)
+    public void setPacketFactory(PacketFactory packetFactory)
     {
         this.packetFactory = packetFactory;
+    }
+
+    public void setNodeFactory(NodeFactory nodeFactory)
+    {
         this.nodeFactory = nodeFactory;
+    }
+
+    public void setLinkQualityFactory(LinkQualityFactory linkQualityFactory)
+    {
         this.linkQualityFactory = linkQualityFactory;
+    }
+
+    public void setRouter(RoutingService router)
+    {
         this.router = router;
-        this.packetQueue = packetQueue;
-
-        this.packetInQueue = packetQueue.getPacketInQueue();
-        this.packetOutQueue = packetQueue.getPacketOutQueue();
-
-        Event.mainBus().register(this);
     }
 }

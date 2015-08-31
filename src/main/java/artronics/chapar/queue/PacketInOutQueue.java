@@ -1,15 +1,15 @@
 package artronics.chapar.queue;
 
-import artronics.chapar.packet.PacketContract;
+import artronics.chapar.packet.Packet;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class PacketInOutQueue implements PacketInOutQueueContract
+final class PacketInOutQueue implements PacketInOutQueueContract
 {
-    private static final ArrayBlockingQueue<PacketContract> packetInQueue =
+    private static final ArrayBlockingQueue<Packet> packetInQueue =
             new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
 
-    private static final ArrayBlockingQueue<PacketContract> packetOutQueue =
+    private static final ArrayBlockingQueue<Packet> packetOutQueue =
             new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
 
     @Override
