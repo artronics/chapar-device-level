@@ -6,6 +6,8 @@ import artronics.chapar.core.events.Event;
 import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.packet.Packet;
 import artronics.chapar.packet.PacketFactory;
+import artronics.chapar.protocol.PacketProtocol;
+import artronics.chapar.protocol.ProtocolEngineService;
 import artronics.chapar.queue.DataInOutQueueContract;
 import artronics.chapar.queue.PacketInOutQueueContract;
 import com.google.common.eventbus.Subscribe;
@@ -29,7 +31,7 @@ final class ProtocolEngineImpl implements ProtocolEngineService
     private volatile boolean isClosed = true;
     //we use this dequeue to put all integers from DataInQueue inside it
     //then packetProtocol process these stream of integers one by one.
-    private final ArrayDeque<Integer> intStreamQ = new ArrayDeque<>(1024);
+    private final ArrayDeque<Integer> intStreamQ = new ArrayDeque(1024);
 
     public ProtocolEngineImpl(PacketProtocol packetProtocol,
                               PacketFactory packetFactory,

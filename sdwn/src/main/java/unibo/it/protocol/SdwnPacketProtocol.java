@@ -1,7 +1,8 @@
-package artronics.chapar.protocol;
+package unibo.it.protocol;
 
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
+import artronics.chapar.protocol.PacketProtocol;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,6 @@ final class SdwnPacketProtocol implements PacketProtocol
                 isStarted = false;
             }else {
                 clear();
-                Log.main().debug("Malformed packet received");
             }
         }
     }

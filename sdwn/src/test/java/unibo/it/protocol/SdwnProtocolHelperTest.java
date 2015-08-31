@@ -1,4 +1,4 @@
-package artronics.chapar.protocol;
+package unibo.it.protocol;
 
 import artronics.chapar.packet.Packet;
 import org.junit.Before;
@@ -6,8 +6,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class SdwnProtocolHelperTest
 {

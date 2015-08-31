@@ -1,13 +1,16 @@
-package artronics.chapar.protocol;
+package unibo.it.protocol;
 
 import artronics.chapar.packet.Packet;
+import artronics.chapar.protocol.PacketProtocol;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.*;
+import static org.junit.Assert.assertThat;
 
 public class SdwnPacketProtocolTest
 {
@@ -16,7 +19,7 @@ public class SdwnPacketProtocolTest
     private static final int stopByte = FakePacketFactory.stopByte;
 
     PacketProtocol sdwnProtocol;
-    ArrayList<Integer> goodPacket = new ArrayList<>();
+    ArrayList<Integer> goodPacket = new ArrayList();
 
     @Before
     public void setUp() throws Exception

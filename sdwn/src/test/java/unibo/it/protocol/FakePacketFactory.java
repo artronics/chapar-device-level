@@ -1,4 +1,4 @@
-package artronics.chapar.protocol;
+package unibo.it.protocol;
 
 import artronics.chapar.packet.Packet;
 
@@ -12,7 +12,7 @@ public class FakePacketFactory
     public static final String FakeCsvForBeacon = "BEACON; IN; 122; 7; 1; 2; 3; 2; 2; 2; 126; ";
     protected static final int startByte = 122;
     protected static final int stopByte = 126;
-    private static ArrayList<Integer> goodPacket = new ArrayList<>();
+    private static ArrayList<Integer> goodPacket = new ArrayList();
     private static int[] receivedInts = new int[9];
 
     public static ArrayList buildGoodPacket()
