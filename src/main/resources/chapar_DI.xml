@@ -6,11 +6,16 @@
     <context:annotation-config />
     <context:component-scan base-package="artronics.chapar"/>
     <bean id="PacketProtocol" class="artronics.chapar.protocol.SdwnPacketProtocol"/>
+
+
     <bean id="controller" class="artronics.chapar.controller.AbstractBaseController">
+
     </bean>
+
+    <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
     <bean id="NodeFactory" class="artronics.chapar.node.BaseNodeFactory"/>
-
+    <bean id="LinkQualityFactory" class="artronics.chapar.node.LinkQualityFactory"/>
 
     <bean id="ProtocolEngineService" class="artronics.chapar.protocol.ProtocolEngineImpl">
         <constructor-arg name="dataQueue" ref="DataInOutQueueContract"></constructor-arg>

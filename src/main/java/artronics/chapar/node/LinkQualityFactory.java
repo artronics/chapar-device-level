@@ -1,9 +1,9 @@
 package artronics.chapar.node;
 
-public interface LinkQualityFactory
+public class LinkQualityFactory
 {
-    int MAX_VALUE = 255;
-    LinkQuality MAX_QUALITY = new LinkQuality(MAX_VALUE);
+    public static final int MAX_VALUE = 255;
+    public static final LinkQuality MAX_QUALITY = new LinkQuality(MAX_VALUE);
 
     static Quality create(int qualityValue)
     {

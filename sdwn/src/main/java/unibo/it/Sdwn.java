@@ -12,8 +12,6 @@ public class Sdwn
 {
     public static void main( String[] args )
     {
-        Log.PACKET.error("kjk");
-        System.out.println("chaghal");
         Chapar sdwn = new Chapar();
         sdwn.start();
     }
