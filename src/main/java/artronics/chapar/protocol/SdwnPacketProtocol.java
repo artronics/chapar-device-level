@@ -60,13 +60,13 @@ public class SdwnPacketProtocol implements PacketProtocol
     @Override
     public Packet.Direction getDirection(ArrayList receivedBytes)
     {
-        return Packet.Direction.IN;
+        return SdwnProtocolHelper.chooseDirection(receivedBytes);
     }
 
     @Override
     public Packet.Type getType(ArrayList receivedBytes)
     {
-        return Packet.Type.REPORT;
+        return SdwnProtocolHelper.getType(receivedBytes);
     }
 
     @Override
@@ -78,5 +78,13 @@ public class SdwnPacketProtocol implements PacketProtocol
         expetedSize = 0;
     }
 
+    public static int getStartByte()
+    {
+        return START_BYTE;
+    }
 
+    public static int getStopByte()
+    {
+        return STOP_BYTE;
+    }
 }

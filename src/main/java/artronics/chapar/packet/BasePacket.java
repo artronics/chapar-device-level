@@ -50,7 +50,7 @@ public class BasePacket implements PacketContract, Analysable
     {
         String csv = toCsv();
         Log.packet().info(csv); //write to file
-        Log.main().info(csv);// write to console
+        //Log.main().info(csv);// write to console
     }
 
     @Override

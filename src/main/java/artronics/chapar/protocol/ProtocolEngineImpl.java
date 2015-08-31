@@ -3,6 +3,7 @@ package artronics.chapar.protocol;
 import artronics.chapar.connection.ConnectionService;
 import artronics.chapar.core.events.DataInEvent;
 import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.packet.Packet;
 import artronics.chapar.packet.PacketContract;
 import artronics.chapar.packet.PacketFactory;
@@ -76,6 +77,7 @@ public class ProtocolEngineImpl implements ProtocolEngineService
                 }
 
                 packetProtocol.clear();
+                Event.mainBus().post(new PacketInEvent());
             }
         }
     }
