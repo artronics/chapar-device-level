@@ -26,12 +26,12 @@ final class SdwnProtocolHelper
 
     static int getLength(ArrayList<Integer> receivedBytes)
     {
-        return receivedBytes.get(Packet.ByteMeaning.LENGTH.getValue());
+        return receivedBytes.get(ByteMeaning.LENGTH.getValue());
     }
 
     static Packet.Type getType(ArrayList<Integer> receviedBytes)
     {
-        int typeIndex = receviedBytes.get(Packet.ByteMeaning.TYPE.getValue());
+        int typeIndex = receviedBytes.get(ByteMeaning.TYPE.getValue());
         for (Packet.Type type : Packet.Type.values()) {
             if (typeIndex == type.getValue())
                 return type;
@@ -51,8 +51,8 @@ final class SdwnProtocolHelper
 
     static Packet.Direction chooseDirection(ArrayList<Integer> receivedBytes)
     {
-        int sourceL = Packet.ByteMeaning.SOURCE_L.getValue();
-        int sourceH = Packet.ByteMeaning.SOURCE_H.getValue();
+        int sourceL = ByteMeaning.SOURCE_L.getValue();
+        int sourceH = ByteMeaning.SOURCE_H.getValue();
 
         int sourceAddL = receivedBytes.get(sourceL);
         int sourceAddH = receivedBytes.get(sourceH);

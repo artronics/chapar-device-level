@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -47,8 +46,8 @@ public class SdwnProtocolHelperTest
     @Test
     public void If_source_of_packet_is_sink_direction_is_out()
     {
-        goodPacket.set(Packet.ByteMeaning.SOURCE_H.getValue(), 0); //address of sink
-        goodPacket.set(Packet.ByteMeaning.SOURCE_L.getValue(), 0);
+        goodPacket.set(ByteMeaning.SOURCE_H.getValue(), 0); //address of sink
+        goodPacket.set(ByteMeaning.SOURCE_L.getValue(), 0);
         Packet.Direction packetDir = SdwnProtocolHelper.chooseDirection(goodPacket);
 
         Packet.Direction outDir = Packet.Direction.OUT;
@@ -59,8 +58,8 @@ public class SdwnProtocolHelperTest
     @Test
     public void If_source_of_packet_is_ohter_than_sink_direction_is_in()
     {
-        goodPacket.set(Packet.ByteMeaning.SOURCE_H.getValue(), 7);
-        goodPacket.set(Packet.ByteMeaning.SOURCE_L.getValue(), 0);
+        goodPacket.set(ByteMeaning.SOURCE_H.getValue(), 7);
+        goodPacket.set(ByteMeaning.SOURCE_L.getValue(), 0);
         Packet.Direction packetDir = SdwnProtocolHelper.chooseDirection(goodPacket);
 
         Packet.Direction inDir = Packet.Direction.IN;
