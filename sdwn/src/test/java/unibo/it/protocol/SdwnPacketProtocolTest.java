@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.*;
 import static org.junit.Assert.assertThat;
 
 public class SdwnPacketProtocolTest
