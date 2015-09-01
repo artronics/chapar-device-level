@@ -20,7 +20,7 @@ final class ProtocolEngineImpl implements ProtocolEngineService
 {
     private static final int MAX_DATA_LENGTH = ConnectionService.MAX_DATA_LENGTH;
 
-    private final PacketProtocol packetProtocol;
+    private final MessageBroker messageBroker = new MessageBrokerImpl();
     private final PacketFactory packetFactory;
 
     private final ArrayBlockingQueue<ArrayList> dataInQueue;
@@ -33,12 +33,10 @@ final class ProtocolEngineImpl implements ProtocolEngineService
     //then packetProtocol process these stream of integers one by one.
     private final ArrayDeque<Integer> intStreamQ = new ArrayDeque(1024);
 
-    public ProtocolEngineImpl(PacketProtocol packetProtocol,
-                              PacketFactory packetFactory,
+    public ProtocolEngineImpl(PacketFactory packetFactory,
                               DataInOutQueueContract dataQueue,
                               PacketInOutQueueContract packetQueue)
     {
-        this.packetProtocol = packetProtocol;
         this.packetFactory = packetFactory;
         this.dataInQueue = dataQueue.getDataInQueue();
         this.dataOutQueue = dataQueue.getDataOutQueue();

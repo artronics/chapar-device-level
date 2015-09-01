@@ -89,7 +89,7 @@ class SerialPortInitializer
     private CommPortIdentifier getComPortFromConfig() throws EstablishConnectionException
     {
         CommPortIdentifier sinkPort = null;
-        String comName = Config.get().getString("SinkCommPortName");
+        String comName = Config.get().getString("SERIAL_PORT_NAME");
         if (this.ports.containsKey(comName)) {
             sinkPort = (CommPortIdentifier) this.ports.get(comName);
             Log.main().info("Com port matched configuration");

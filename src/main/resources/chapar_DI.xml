@@ -5,8 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config />
     <context:component-scan base-package="artronics.chapar"/>
-    <bean id="PacketProtocol" class="unibo.it.protocol.SdwnPacketProtocol"/>
 
+    <bean id="PacketEngineContract" class="artronics.chapar.protocol.MessageBrokerImpl"></bean>
 
     <bean id="AbstractBaseController" class="artronics.chapar.controller.AbstractBaseController">
         <property name="nodeFactory" ref="NodeFactory"></property>
@@ -26,9 +26,9 @@
     <bean id="ProtocolEngineService" class="artronics.chapar.protocol.ProtocolEngineImpl">
         <constructor-arg name="dataQueue" ref="DataInOutQueueContract"></constructor-arg>
         <constructor-arg name="packetQueue" ref="PacketInOutQueueContract"></constructor-arg>
-        <constructor-arg name="packetProtocol" ref="PacketProtocol"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
+    <bean id="PacketProtocol" class="artronics.chapar.protocol.PacketProtocolImp"/>
 
     <bean id="DataInOutQueueContract" class="artronics.chapar.queue.DataInOutQueue"/>
     <bean id="PacketInOutQueueContract" class="artronics.chapar.queue.PacketInOutQueue"/>
