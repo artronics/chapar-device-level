@@ -1,7 +1,6 @@
 package unibo.it.protocol;
 
 import artronics.chapar.packet.Packet;
-import artronics.chapar.protocol.PacketProtocol;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class SdwnPacketProtocolTest
     private static final int startByte = FakePacketFactory.startByte;
     private static final int stopByte = FakePacketFactory.stopByte;
 
-    PacketProtocol sdwnProtocol;
+    SdwnPacketProtocol sdwnProtocol;
     ArrayList<Integer> goodPacket = new ArrayList();
 
     @Before

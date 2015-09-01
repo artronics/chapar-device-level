@@ -28,7 +28,6 @@
         <constructor-arg name="packetQueue" ref="PacketInOutQueueContract"></constructor-arg>
         <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
     </bean>
-    <bean id="PacketProtocol" class="artronics.chapar.protocol.PacketProtocolImp"/>
 
     <bean id="DataInOutQueueContract" class="artronics.chapar.queue.DataInOutQueue"/>
     <bean id="PacketInOutQueueContract" class="artronics.chapar.queue.PacketInOutQueue"/>

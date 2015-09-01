@@ -1,8 +1,6 @@
 package unibo.it.protocol;
 
-import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
-import artronics.chapar.protocol.PacketProtocol;
 
 import java.util.ArrayList;
 

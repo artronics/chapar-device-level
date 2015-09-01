@@ -1,4 +1,4 @@
-package artronics.chapar.protocol;
+package unibo.it.protocol;
 
 import artronics.chapar.packet.Packet;
 
