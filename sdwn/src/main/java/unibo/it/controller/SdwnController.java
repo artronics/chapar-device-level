@@ -8,14 +8,15 @@ import java.util.ArrayList;
 
 public class SdwnController extends BaseController
 {
+    public void someAction(){
+        Node node = nodeFactory.createNode(4);
+        Node anotherNode = nodeFactory.createNode(40);
+        int RSSI=45;
+    }
     public void kk(){
         Node node = nodeFactory.createNode(4);
-        ArrayList<Integer> data = new ArrayList<>();
-        data.add(78);
-        data.add(78);
-        data.add(78);
-        data.add(78);
-        Packet packet = packetFactory.create(Packet.Type.DATA, Packet.Direction.IN,new ArrayList<>());
+        Node anotherNode = nodeFactory.createNode(40);
+        int RSSI=45;
 
     }
 }

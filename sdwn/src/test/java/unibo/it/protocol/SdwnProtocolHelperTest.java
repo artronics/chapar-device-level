@@ -1,5 +1,6 @@
 package unibo.it.protocol;
 
+import artronics.chapar.controller.BaseController;
 import artronics.chapar.packet.Packet;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,5 +87,4 @@ public class SdwnProtocolHelperTest
         actMixed = SdwnProtocolHelper.getIntAddress(l, h);
         assertEquals(exp, actMixed);
     }
-
 }
