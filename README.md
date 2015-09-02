@@ -1,22 +1,14 @@
 #Chapar
 ##Introduction
-**Chapar** is a Software Defined Network (SDN) framework using *java* and a set of other open source libraries to make the process of designing a _Network Controller Service_ easy, flexible, fast, robust and reliable. Although _Chapar_ is not limited to specific implementation, it is designed with the idea of Software Defined Wireless Networks (SDWN) in mind. It is not protocol specific in a sence that it doesn't follow any specific protocol.
-
+**Chapar** is a Software Defined Network (SDN) framework using *java* programming language to make the process of designing a _Network Controller Service_ fast, robust and reliable. It is easy to use and also flexible enough to match with different scenarios Although _Chapar_ is not limited to specific implementation, it is designed with the idea of Software Defined Wireless Networks (SDWN) in mind.
 
 ###Usage
-Using Chapar is easy. You just need to provide your controller implementation and Chapar takes care of other things for you. For this to happen your `Controller` must extends Chapar's `BaseController`. Let's see this in an example.
-
-	public class MySdwnController extends BaseController{
-
-	}
-	
-This `class` is an empty `controller` which means it has **no behaviour**. Now let's create a `main()` method which will be the entry point of our program.
+let's create a `main()` method which will be the entry point of our program.
 
 	public class Sdwn
 	{
 	    public static void main( String[] args )
 	    {
-	        Chapar.setController(MySdwnController.class);
 	        Chapar.start();
 	    }
 	} 
@@ -32,18 +24,24 @@ Since `MySdwnController` has no behaviour, you just see **BEACON** packets. Late
 If you check the parent directory, you also see a `packet.csv` file which contains the same content of what you saw in console output.
 
 ###Installation
-For Installation you need to add *Chapar* as a dependency to your  [*Apache Maven*](https://en.wikipedia.org/wiki/Apache_Maven) project. If you have access to the source code just open the `/Chapr` directory and your IDE (NetBeans, Intellij Idea, etc) will take care of other things for you.
-####Directory Structure
-There are two `maven` modules inside main project directory. One is `chapar` and the other is `sdwn`. As said before, *Chapar* has no specific implementation by itself and obvioudly, this is what is expected from a framework. However there is already an implementation of `sdwn` in a separate module. Although I wrote the code for this module, the credit for original codes for `sdwn` belongs to [**Radio Networks- Research Group**](http://www.robertoverdone.org/index.php?page=r) at [**University of Bologna**.](http://www.unibo.it/it)
-
-*Chapar* has it own seperate name space which starts with `artronics.chapar`. All codes related to framework is there. For *SDWN* implementation name space (in context of `maven` it is known as `groupId`) starts with `it.unibo.sdwn`. If you want to create a new implementation of *SDWN* simply create another maven project and add chapar as its dependency. here is an example of `pom.xml` file.
+For Installation you need to add *Chapar* as a dependency to your  [*Apache Maven*](https://en.wikipedia.org/wiki/Apache_Maven) project. If you have access to the source code just open the `/Chapar` directory and your IDE (NetBeans, IntelliJ Idea, etc) will take care of other things for you. Then create a new project/module and add below lines to your `pom.xml`
 
 	<dependency>
       <groupId>artronics.chapar</groupId>
       <artifactId>chapar</artifactId>
       <version>1.0-SNAPSHOT</version>
 	</dependency>
-	
+
+
+####Directory Structure
+*Chapar* is on early development cycles so if you are reading this text, it means that you have access to private source code of project. If you are already familiar with `maven` there is nothing worth noting on this section. The directory structure follows exactly the *maven* convention‌s.
+The `/src` directory consists of all source codes of the project. inside `/src`, there are `/main` and `/tests`, see section [Tests](#tests). Also the project root namespace is `artronics.chapar`.
+
+
+There are two `maven` modules inside main project directory. One is `chapar` and the other is `sdwn`. As said before, *Chapar* has no specific implementation by itself and obviously, this is what is expected from a framework. However there is already an implementation of `sdwn` in a separate module. Although I wrote the code for this module, the credit for original codes for `sdwn` belongs to [**Radio Networks- Research Group**](http://www.robertoverdone.org/index.php?page=r) at [**University of Bologna**.](http://www.unibo.it/it)
+
+*Chapar* has it own separate name space which starts with `artronics.chapar`. All codes related to framework is there. For *SDWN* implementation name space (in context of `maven` it is known as `groupId`) starts with `it.unibo.sdwn`. If you want to create a new implementation of *SDWN* simply create another maven project and add chapar as its dependency. here is an example of `pom.xml` file.
+
 ###Architecture
 _Chapar_ has a [Modular Architecture](https://en.wikipedia.org/wiki/Modular_programming). If you decide to change behaviour of a _module_ you can simply write your own and then change `chapar_DI.xml` file. This file contains all configuration for [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection).
 
@@ -77,10 +75,10 @@ No matter what does your `Controller` actually do, the final goal is to get some
 
 Currently, _Chapar_ records all generated packets, with their contents as a [`.csv` (Comma Separated Values)](https://en.wikipedia.org/wiki/Comma-separated_values) format. In this format each line of the file is a data record and each record consists of one or more fields, separated by commas. It is worth noting that in European standard the separator is a _semicolon_ ";" because _comma_ is used for decimal separator. 
 
-After each run you can find a `packets.csv` file on root directory of project. The benefit of using `.csv` file is that data can be easily imported to all data manipulation software such as Matlab, Excel, Google sheets, etc. _Chapar_ is also capable of detecting `MALFORMED` packet type based on configurations which you provide. For acheiving desired performance goals. the data which framework provides must be reliable at first place. A question might be arised, is *Chapar* reliable?
+After each run you can find a `packets.csv` file on root directory of project. The benefit of using `.csv` file is that data can be easily imported to all data manipulation software such as Matlab, Excel, Google sheets, etc. _Chapar_ is also capable of detecting `MALFORMED` packet type based on configurations which you provide. For achieving desired performance goals. the data which framework provides must be reliable at first place. A question might be raised, is *Chapar* reliable?
 
-###Tests
-For almost all classes in *Chapar* there are various [unit tests](https://en.wikipedia.org/wiki/Unit_testing). It is intresting that the amount of code in `/tests` directory is much more than the actual code. Tests in *Chapar* serves two purposes. The first one is, obviousley, testing functionality of a unit from various aspects. Secondly tests are a great source of documentation. If you want to see how a particular component works, the first place to look is its test class. For example here is a test method from `BaseNodeTest` class. The behaviour under question is: For two equal `Node`s the `hash code`'s returned value must be the same.
+###<a name="tests"></a>Tests
+For almost all classes in *Chapar* there are various [unit tests](https://en.wikipedia.org/wiki/Unit_testing). It is interesting that the amount of code in `/tests` directory is much more than the actual code. Tests in *Chapar* serves two purposes. The first one is, obviously, testing functionality of a unit from various aspects. Secondly tests are a great source of documentation. If you want to see how a particular component works, the first place to look is its test class. For example here is a test method from `BaseNodeTest` class. The behaviour under question is: For two equal `Node`s the `hash code`'s returned value must be the same.
 
     @Test
     public void For_equal_nodes_hashCode_must_be_the_same()
@@ -91,7 +89,7 @@ For almost all classes in *Chapar* there are various [unit tests](https://en.wik
     }
 Method's name describes the purpose of the test and assertions are as readable as possible.
 
-Although there are various tests, rigth now *Chapar* is in its early development cycles. At the time of this writing there is no stable releas available yet. The APIs are all subjected to change.
+Although there are various tests, right now *Chapar* is in its early development cycles. At the time of this writing there is no stable release available yet. The APIs are all subjected to change.
 
 
 ####Connection
