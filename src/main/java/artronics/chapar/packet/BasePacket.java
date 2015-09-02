@@ -1,67 +1,77 @@
 package artronics.chapar.packet;
 
-import artronics.chapar.core.analyser.Analysable;
-import artronics.chapar.core.logger.Log;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class BasePacket implements Packet, Analysable
+public class BasePacket extends AbstractPacket
 {
-    private static long packetSerialNumber = 0;
-    //    protected final Type packetType;
-//    protected final Direction direction;
-    private final List packetBytes;
+    private static long serialNumber = 0;
+    protected final List header;
+    protected final List data;
+    protected String type;
 
-    private BasePacket(List packetBytes)
+    public BasePacket(List header, List data)
     {
-//        this.packetType = packetType;
-//        this.direction = direction;
-        this.packetBytes = packetBytes;
+        this.header = header;
+        this.data = data;
 
-        writeCsv();
+        serialNumber++;
     }
 
-    public static Packet create(List contents)
+    public BasePacket(List header, List data, String type)
     {
-        return new BasePacket(contents);
-    }
-
-    public static long getPacketSerialNumber()
-    {
-        return packetSerialNumber;
-    }
-
-    private static void incReceivedCounter()
-    {
-        packetSerialNumber++;
-    }
-//
-//    public Direction getDirection()
-//    {
-//        return direction;
-//    }
-
-//    public Type getType()
-//    {
-//        return packetType;
-//    }
-
-    public List<Integer> getPacketBytes()
-    {
-        return this.packetBytes;
-    }
-
-    private void writeCsv()
-    {
-        String csv = toCsv();
-        Log.packet().info(csv); //write to file
-        //Log.main().info(csv);// write to console
+        this.header = header;
+        this.data = data;
+        this.type = type;
     }
 
     @Override
-    public String toCsv()
+    public List getAll()
     {
-        return PacketToCsv.toCsv(this);
+        List all = new ArrayList<>(header);
+        all.addAll(data);
+        return all;
     }
 
+    @Override
+    public List getHeader()
+    {
+        return header;
+    }
+
+    @Override
+    public int getHeaderSize()
+    {
+        return header.size();
+    }
+
+    @Override
+    public int getDataSize()
+    {
+        return data.size();
+    }
+
+    @Override
+    public List getData()
+    {
+        return data;
+    }
+
+    @Override
+    public String getType()
+    {
+        return type != null ? type : "UNK";
+    }
+
+    @Override
+    public long getSerialNumber()
+    {
+        return serialNumber;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return header.isEmpty() && data.isEmpty();
+    }
 }

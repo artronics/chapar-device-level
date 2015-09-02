@@ -7,7 +7,7 @@ final class BasePacketFactory implements PacketFactory
     @Override
     public Packet create(List<Integer> packetBytes)
     {
-        return BasePacket.create(packetBytes);
+        return AbstractPacket.create(packetBytes);
     }
 
 }
