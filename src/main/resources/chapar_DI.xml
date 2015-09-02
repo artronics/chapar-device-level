@@ -8,9 +8,6 @@
 
     <bean id="PacketEngineContract" class="artronics.chapar.protocol.MessageBrokerImpl"></bean>
 
-    <bean id="AbstractBaseController" class="artronics.chapar.controller.AbstractBaseController">
-        <property name="nodeFactory" ref="NodeFactory"></property>
-    </bean>
 
     <bean id="ChaparServiceInitializer" class="artronics.chapar.core.ChaparServiceInitializer">
         <property name="connection" ref="ConnectionService"></property>
