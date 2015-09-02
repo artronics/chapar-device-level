@@ -14,14 +14,14 @@ final class PacketToCsv
     {
         csv = "";
 
-        csv += String.format("%-15s", packet.getType());
-        csvAppend();
+//        csv += String.format("%-15s", packet.getType());
+//        csvAppend();
 
         csv += String.format("%-5d", BasePacket.getPacketSerialNumber());
         csvAppend();
 
-        csv += String.format("%-3s ", packet.getDirection());
-        csvAppend();
+//        csv += String.format("%-3s ", packet.getDirection());
+//        csvAppend();
 
         addPacketBytes(packet.getPacketBytes());
 

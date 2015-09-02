@@ -8,14 +8,14 @@ import java.util.List;
 final class BasePacket implements Packet, Analysable
 {
     private static long packetSerialNumber = 0;
-    protected final Type packetType;
-    protected final Direction direction;
+    //    protected final Type packetType;
+//    protected final Direction direction;
     private final List packetBytes;
 
-    public BasePacket(Type packetType, Direction direction, List packetBytes)
+    public BasePacket(List packetBytes)
     {
-        this.packetType = packetType;
-        this.direction = direction;
+//        this.packetType = packetType;
+//        this.direction = direction;
         this.packetBytes = packetBytes;
 
         writeCsv();
@@ -30,20 +30,20 @@ final class BasePacket implements Packet, Analysable
     {
         packetSerialNumber++;
     }
+//
+//    public Direction getDirection()
+//    {
+//        return direction;
+//    }
 
-    public Direction getDirection()
-    {
-        return direction;
-    }
+//    public Type getType()
+//    {
+//        return packetType;
+//    }
 
     public List<Integer> getPacketBytes()
     {
         return this.packetBytes;
-    }
-
-    public Type getType()
-    {
-        return packetType;
     }
 
     private void writeCsv()
