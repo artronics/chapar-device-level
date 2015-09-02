@@ -1,9 +1,14 @@
 package artronics.chapar.protocol;
 
 import artronics.chapar.FakePacketFactory;
+import artronics.chapar.broker.MessageBroker;
+import artronics.chapar.broker.MessageToPacketConvertor;
+import artronics.chapar.broker.MessageToPacketConvertorI;
+import artronics.chapar.broker.MessagesIn;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,7 +20,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:chapar_DI.xml")
-public class MessageBrokerImplTest
+public class MessageToPacketConvertorImplTest
 {
     private static final int START_BYTE = FakePacketFactory.START_BYTE;
     private static final int STOP_BYTE = FakePacketFactory.STOP_BYTE;
@@ -24,8 +29,10 @@ public class MessageBrokerImplTest
     //if you resolve this class with DI you can not run
     //all test together. I have no reason why this happens
 //    @Autowired
-//    MessageBroker engine ;
-    MessageBroker engine = new MessageBrokerImpl();
+//    MessageToPacketConvertor engine ;
+    @Autowired
+    MessagesIn messagesIn;
+    MessageToPacketConvertorI engine = new MessageToPacketConvertor();
 
     List<Integer> goodPacket;
     List<List<Integer>> generatedPackets;

@@ -18,12 +18,14 @@ public class FakePacketFactory
     private static ArrayList<Integer> goodPacket = new ArrayList();
     private static int[] receivedInts = new int[9];
 
-    public static ArrayList buildGoodPacket()
-    {
-        return buildGoodPacket(Packet.Type.DATA);
-    }
+//    public static ArrayList buildGoodPacket()
+//    {
+//        return buildGoodPacket();
+////        return buildGoodPacket(Packet.Type.DATA);
+//    }
 
-    public static ArrayList buildGoodPacket(Packet.Type type)
+    //    public static ArrayList buildGoodPacket(Packet.Type type)
+    public static ArrayList buildGoodPacket()
     {
         goodPacket.add(START_BYTE);
         goodPacket.add(7);
@@ -32,7 +34,8 @@ public class FakePacketFactory
         goodPacket.add(3);
         goodPacket.add(2);
         goodPacket.add(2);
-        goodPacket.add(type.getValue());
+        goodPacket.add(0);
+//        goodPacket.add(type.getValue());
         goodPacket.add(STOP_BYTE);
 
         ArrayList<Integer> tmp = new ArrayList(goodPacket);

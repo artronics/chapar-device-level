@@ -5,20 +5,25 @@ import artronics.chapar.core.logger.Log;
 
 import java.util.List;
 
-final class BasePacket implements Packet, Analysable
+public class BasePacket implements Packet, Analysable
 {
     private static long packetSerialNumber = 0;
     //    protected final Type packetType;
 //    protected final Direction direction;
     private final List packetBytes;
 
-    public BasePacket(List packetBytes)
+    private BasePacket(List packetBytes)
     {
 //        this.packetType = packetType;
 //        this.direction = direction;
         this.packetBytes = packetBytes;
 
         writeCsv();
+    }
+
+    public static Packet create(List contents)
+    {
+        return new BasePacket(contents);
     }
 
     public static long getPacketSerialNumber()

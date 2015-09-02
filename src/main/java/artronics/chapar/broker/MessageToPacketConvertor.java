@@ -1,13 +1,15 @@
-package artronics.chapar.protocol;
+package artronics.chapar.broker;
+
+import artronics.chapar.core.configuration.Config;
+import artronics.chapar.core.events.DataInEvent;
+import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageBrokerImpl implements MessageBroker
+public class MessageToPacketConvertor implements MessageToPacketConvertorI
 {
-    private static final int MAX_Q_CAP = 1024;
-
     private final ArrayDeque<Integer> dataQueue = new ArrayDeque<>(MAX_Q_CAP);
     private final ArrayList<ArrayList<Integer>> createdPacketes = new ArrayList<>();
     private final ArrayList<Integer> thisPacket = new ArrayList<>();
@@ -15,16 +17,11 @@ public class MessageBrokerImpl implements MessageBroker
     private boolean isStarted = false;
 
     @Override
-    public synchronized List<List<Integer>> generateRawPackets(List receivedData)
-    {
-        fillQueue(receivedData);
-
-        return createPackets();
-    }
-
-    private void fillQueue(List<Integer> receivedData)
+    public List<List<Integer>> generateRawPackets(List receivedData)
     {
         dataQueue.addAll(receivedData);
+
+        return createPackets();
     }
 
     private List<List<Integer>> createPackets()

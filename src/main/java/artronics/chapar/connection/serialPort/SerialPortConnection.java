@@ -1,11 +1,11 @@
 package artronics.chapar.connection.serialPort;
 
+import artronics.chapar.broker.MessagesInOut;
 import artronics.chapar.connection.ConnectionService;
 import artronics.chapar.core.configuration.Config;
 import artronics.chapar.core.events.DataInEvent;
 import artronics.chapar.core.events.Event;
 import artronics.chapar.core.logger.Log;
-import artronics.chapar.queue.DataInOutQueueContract;
 import gnu.io.*;
 
 import java.io.IOException;
@@ -13,23 +13,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
-import java.util.concurrent.ArrayBlockingQueue;
 
 final class SerialPortConnection implements ConnectionService, SerialPortEventListener
 {
-    private final ArrayBlockingQueue<ArrayList> inQueue;
-    private final ArrayBlockingQueue<int[]> outQueue;
+    //    private final ArrayBlockingQueue<List> inQueue;
+//    private final ArrayBlockingQueue<int[]> outQueue;
+    private final MessagesInOut inOutQueue;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
     private SerialPort serialPort = null;
     private InputStream input = null;
     private OutputStream output = null;
 
-    public SerialPortConnection(DataInOutQueueContract dataInOutQueue)
+    public SerialPortConnection(MessagesInOut inOutQueue)
     {
-        this.inQueue = dataInOutQueue.getDataInQueue();
-        this.outQueue = dataInOutQueue.getDataOutQueue();
-
+        this.inOutQueue = inOutQueue;
         Event.mainBus().register(this);
     }
 
@@ -53,13 +51,11 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
                     //convert signed value to unsigned
                     intBuff.add(buff[i] & 0xFF);
                 }
-                inQueue.put(intBuff);
+                inOutQueue.put(intBuff);
                 Event.mainBus().post(new DataInEvent());
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
-                e.printStackTrace();
-            }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
