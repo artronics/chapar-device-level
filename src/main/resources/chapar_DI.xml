@@ -3,16 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:annotation-config />
+    <context:annotation-config/>
     <context:component-scan base-package="artronics.chapar"/>
 
-    <bean id="PacketEngineContract" class="artronics.chapar.protocol.MessageBrokerImpl"></bean>
-
-
+    <bean id="BaseChapar" class="artronics.chapar.core.BaseChapar">
+        <property name="packetsIn" ref="PacketsIn"></property>
+    </bean>
     <bean id="ChaparServiceInitializer" class="artronics.chapar.core.ChaparServiceInitializer">
         <property name="connection" ref="ConnectionService"></property>
-        <property name="protocolEngine" ref="ProtocolEngineService"></property>
-
+    </bean>
+    <bean id="ConnectionService" class="artronics.chapar.connection.serialPort.SerialPortConnection">
+        <constructor-arg name="inOutQueue" ref="MessagesInOut"></constructor-arg>
     </bean>
 
     <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
@@ -20,16 +21,16 @@
     <bean id="NodeFactory" class="artronics.chapar.node.BaseNodeFactory"/>
     <bean id="LinkQualityFactory" class="artronics.chapar.node.LinkQualityFactory"/>
 
-    <bean id="ProtocolEngineService" class="artronics.chapar.protocol.ProtocolEngineImpl">
-        <constructor-arg name="dataQueue" ref="DataInOutQueueContract"></constructor-arg>
-        <constructor-arg name="packetQueue" ref="PacketInOutQueueContract"></constructor-arg>
-        <constructor-arg name="packetFactory" ref="PacketFactory"></constructor-arg>
-    </bean>
+    <bean id="MessagesInOut" class="artronics.chapar.broker.MessagesIn"/>
+    <bean id="PacketsIn" class="artronics.chapar.broker.PacketsIn" factory-method="getQueue">
 
-    <bean id="DataInOutQueueContract" class="artronics.chapar.queue.DataInOutQueue"/>
-    <bean id="PacketInOutQueueContract" class="artronics.chapar.queue.PacketInOutQueue"/>
-    <bean id="ConnectionService" class="artronics.chapar.connection.serialPort.SerialPortConnection">
-        <constructor-arg name="dataInOutQueue" ref="DataInOutQueueContract"></constructor-arg>
+    </bean>
+    <bean id="MessageToPacketConvertor" class="artronics.chapar.broker.MessageToPacketConvertor"/>
+
+    <bean id="MessageBroker" class="artronics.chapar.broker.MessageBroker">
+        <constructor-arg name="convertor" ref="MessageToPacketConvertor"></constructor-arg>
+        <constructor-arg name="inputMsg" ref="MessagesInOut"></constructor-arg>
+        <constructor-arg name="packetsIn" ref="PacketsIn"></constructor-arg>
     </bean>
 
 

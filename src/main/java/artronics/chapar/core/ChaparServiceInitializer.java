@@ -1,12 +1,10 @@
 package artronics.chapar.core;
 
 import artronics.chapar.connection.ConnectionService;
-import artronics.chapar.protocol.ProtocolEngineService;
 
 final class ChaparServiceInitializer
 {
     private ConnectionService connection;
-    private ProtocolEngineService protocolEngine;
 
     public void start()
     {
@@ -19,8 +17,4 @@ final class ChaparServiceInitializer
         this.connection = connection;
     }
 
-    public void setProtocolEngine(ProtocolEngineService protocolEngine)
-    {
-        this.protocolEngine = protocolEngine;
-    }
 }
