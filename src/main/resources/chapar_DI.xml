@@ -16,8 +16,9 @@
         <constructor-arg name="inOutQueue" ref="MessagesInOut"></constructor-arg>
     </bean>
 
-    <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
+
+    <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
     <bean id="NodeFactory" class="artronics.chapar.node.BaseNodeFactory"/>
     <bean id="LinkQualityFactory" class="artronics.chapar.node.LinkQualityFactory"/>
 
@@ -31,6 +32,8 @@
         <constructor-arg name="convertor" ref="MessageToPacketConvertor"></constructor-arg>
         <constructor-arg name="inputMsg" ref="MessagesInOut"></constructor-arg>
         <constructor-arg name="packetsIn" ref="PacketsIn"></constructor-arg>
+
+        <property name="packetFactory" ref="PacketFactory"></property>
     </bean>
 
 
