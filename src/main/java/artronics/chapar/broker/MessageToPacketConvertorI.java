@@ -1,6 +1,7 @@
 package artronics.chapar.broker;
 
 import artronics.chapar.core.configuration.Config;
+import artronics.chapar.packet.Packet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,5 +12,5 @@ public interface MessageToPacketConvertorI
     int START_BYTE = Config.get().getInt("START_BYTE");
     int STOP_BYTE = Config.get().getInt("STOP_BYTE");
 
-    List<List<Integer>> generateRawPackets(List receivedData);
+    List<Packet> generatePackets(List receivedData);
 }

@@ -1,8 +1,8 @@
 package artronics.chapar.broker;
 
-import artronics.chapar.core.configuration.Config;
-import artronics.chapar.core.events.DataInEvent;
-import com.google.common.eventbus.Subscribe;
+import artronics.chapar.packet.BasePacketFactory;
+import artronics.chapar.packet.Packet;
+import artronics.chapar.packet.PacketFactory;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -11,21 +11,23 @@ import java.util.List;
 public class MessageToPacketConvertor implements MessageToPacketConvertorI
 {
     private final ArrayDeque<Integer> dataQueue = new ArrayDeque<>(MAX_Q_CAP);
-    private final ArrayList<ArrayList<Integer>> createdPacketes = new ArrayList<>();
+    private final ArrayList<ArrayList<Integer>> generatedRawPackets = new ArrayList<>();
+    protected final List<Packet> generatedPackets = new ArrayList<>();
     private final ArrayList<Integer> thisPacket = new ArrayList<>();
     private int thisPacketExpectedSize = 0;
     private boolean isStarted = false;
 
-    @Override
-    public List<List<Integer>> generateRawPackets(List receivedData)
-    {
-        dataQueue.addAll(receivedData);
+    private PacketFactory packetFactory;
 
-        return createPackets();
+    @Override
+    public List<Packet> generatePackets(List receivedData)
+    {
+        return createPackets(receivedData);
     }
 
-    private List<List<Integer>> createPackets()
+    protected List<Packet> createPackets(List receivedData)
     {
+        dataQueue.addAll(receivedData);
         while (!dataQueue.isEmpty()) {
             int thisData = dataQueue.removeFirst();
 
@@ -33,30 +35,39 @@ public class MessageToPacketConvertor implements MessageToPacketConvertorI
                     && !isStarted
                     && thisPacketExpectedSize == 0) {
                 isStarted = Boolean.TRUE;
-                thisPacket.add(thisData);
 
             }else if (isStarted) {
                 if (thisPacketExpectedSize == 0) {
                     thisPacket.add(thisData);
                     thisPacketExpectedSize = thisData;
 
-                }else if (thisPacket.size() <= thisPacketExpectedSize) {
+                }else if (thisPacket.size() < thisPacketExpectedSize) {
                     thisPacket.add(thisData);
 
                 }else if (thisData == STOP_BYTE
-                        && thisPacket.size() == thisPacketExpectedSize + 1) {
-                    thisPacket.add(thisData);
+                        && thisPacket.size() == thisPacketExpectedSize) {
                     ArrayList<Integer> newPacket = new ArrayList<>(thisPacket);
-                    createdPacketes.add(newPacket);
+                    generatedRawPackets.add(newPacket);
                     thisPacket.clear();
                     isStarted = Boolean.FALSE;
                     thisPacketExpectedSize = 0;
                 }
             }
         }
-        List<List<Integer>> tmp = new ArrayList<>(createdPacketes);
-        createdPacketes.clear();
+        for (List rawPacket : generatedRawPackets) {
+            Packet packet = packetFactory.create(rawPacket);
+            generatedPackets.add(packet);
+        }
+        generatedRawPackets.clear();
+
+        List tmp = new ArrayList<>(generatedPackets);
+        generatedPackets.clear();
 
         return tmp;
+    }
+
+    public void setPacketFactory(PacketFactory packetFactory)
+    {
+        this.packetFactory = packetFactory;
     }
 }

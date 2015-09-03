@@ -4,6 +4,7 @@ import artronics.chapar.FakePacketFactory;
 import artronics.chapar.broker.MessageToPacketConvertor;
 import artronics.chapar.broker.MessageToPacketConvertorI;
 import artronics.chapar.broker.MessagesIn;
+import artronics.chapar.packet.Packet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ public class MessageToPacketConvertorImplTest
     final FakePacketFactory factory = new FakePacketFactory();
 
     //if you resolve this class with DI you can not run
-    //all test together. I have no reason why this happens
+    //bytes test together. I have no reason why this happens
 //    @Autowired
 //    MessageToPacketConvertor engine ;
     @Autowired
@@ -34,7 +35,7 @@ public class MessageToPacketConvertorImplTest
     MessageToPacketConvertorI engine = new MessageToPacketConvertor();
 
     List<Integer> goodPacket;
-    List<List<Integer>> generatedPackets;
+    List<Packet> generatedPackets;
 
     List<Integer> firstOne;
     List<Integer> secondOne;
@@ -71,16 +72,19 @@ public class MessageToPacketConvertorImplTest
                         START_BYTE, 1, 45, STOP_BYTE //Notice length is less than actual length
                 };
 
+        //for those packets which we want to assert we need to remove start and stop bytes
+        //for first, second, and fullhalf i changed the index range. for others
+        //see removeStartStop method
         Integer[] giberishArr = Arrays.copyOfRange(streamOfBytes, 0, 4);
-        Integer[] firstOneArr = Arrays.copyOfRange(streamOfBytes, 4, 8);
-        Integer[] secondOneArr = Arrays.copyOfRange(streamOfBytes, 12, 16);
+        Integer[] firstOneArr = Arrays.copyOfRange(streamOfBytes, 5, 7);
+        Integer[] secondOneArr = Arrays.copyOfRange(streamOfBytes, 13, 15);
         Integer[] twoPacketsArr = Arrays.copyOfRange(streamOfBytes, 4, 16);
         Integer[] withGibberishArr = Arrays.copyOfRange(streamOfBytes, 0, 16);
         Integer[] withStartStopArr = Arrays.copyOfRange(streamOfBytes, 16, 21);
         Integer[] withStrStp_packet = Arrays.copyOfRange(streamOfBytes, 16, 26);
         Integer[] firstHalfArr = Arrays.copyOfRange(streamOfBytes, 25, 29);
         Integer[] secondHalfArr = Arrays.copyOfRange(streamOfBytes, 29, 33);
-        Integer[] fullHalfArr = Arrays.copyOfRange(streamOfBytes, 25, 33);
+        Integer[] fullHalfArr = Arrays.copyOfRange(streamOfBytes, 26, 32);
 
         firstOne = Arrays.asList(firstOneArr);
         secondOne = Arrays.asList(secondOneArr);
@@ -95,54 +99,63 @@ public class MessageToPacketConvertorImplTest
         mixed = Arrays.asList(streamOfBytes);
     }
 
+    private static List removeStartStop(List<Integer> packet)
+    {
+        List exp = packet.subList(1, packet.size() - 1);
+        return exp;
+    }
+
     @Test
     public void If_we_pass_a_full_packet_it_should_return_that_as_it_is()
     {
-        generatedPackets = engine.generateRawPackets(goodPacket);
+        generatedPackets = engine.generatePackets(goodPacket);
 
         //first sice we send one packet size must be 1
         assertThat(generatedPackets.size(), equalTo(1));
 
-        assertThat(generatedPackets.get(0), equalTo(goodPacket));
+        //remove start and stop bytes
+        List exp = goodPacket.subList(1, goodPacket.size() - 1);
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
     }
 
     @Test
     public void As_long_as_queue_has_data_it_should_create_packets()
     {
-        generatedPackets = engine.generateRawPackets(twoPackets);
+        generatedPackets = engine.generatePackets(twoPackets);
         //first test the size
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0), equalTo(firstOne));
-        assertThat(generatedPackets.get(1), equalTo(secondOne));
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(firstOne));
+        assertThat(generatedPackets.get(1).getBytes(), equalTo(secondOne));
     }
 
     @Test
     public void It_sould_ignore_un_approprite_bytes_before_start_and_after_stop()
     {
-        generatedPackets = engine.generateRawPackets(withGibberish);
+        generatedPackets = engine.generatePackets(withGibberish);
         //first test the size
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0), equalTo(firstOne));
-        assertThat(generatedPackets.get(1), equalTo(secondOne));
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(firstOne));
+        assertThat(generatedPackets.get(1).getBytes(), equalTo(secondOne));
 
     }
 
     @Test
     public void If_data_consists_of_start_and_stop_bytes_it_should_not_fuck_up()
     {
-        generatedPackets = engine.generateRawPackets(withStartStop);
+        generatedPackets = engine.generatePackets(withStartStop);
         //first test the size
+        List exp = removeStartStop(withStartStop);
         assertThat(generatedPackets.size(), equalTo(1));
-        assertThat(generatedPackets.get(0), equalTo(withStartStop));
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
 
         //now lets add another packet to end of unibo
-        generatedPackets = engine.generateRawPackets(withStartStop_anotherPacket);
+        generatedPackets = engine.generatePackets(withStartStop_anotherPacket);
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0), equalTo(withStartStop));
-        assertThat(generatedPackets.get(1), equalTo(firstOne));
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
+        assertThat(generatedPackets.get(1).getBytes(), equalTo(firstOne));
     }
 
     @Test
@@ -151,12 +164,12 @@ public class MessageToPacketConvertorImplTest
         //if a buffer consists of half of a message and another
         //received buffer consists of second half. unibo should create
         //a full packet.
-        generatedPackets = engine.generateRawPackets(firstHalf);
+        generatedPackets = engine.generatePackets(firstHalf);
         assertThat(generatedPackets.size(), equalTo(0)); //this is the first half so size must be 0
         //now send second half
-        generatedPackets = engine.generateRawPackets(secondHalf);
+        generatedPackets = engine.generatePackets(secondHalf);
 
-        assertThat(generatedPackets.get(0), equalTo(fullHalf));
+        assertThat(generatedPackets.get(0).getBytes(), equalTo(fullHalf));
     }
 
     @Test
@@ -164,7 +177,7 @@ public class MessageToPacketConvertorImplTest
     {
         //now we send whole data and check if unibo gets us correct number of packets
         int totalNumberOfPackets = 6;
-        generatedPackets = engine.generateRawPackets(mixed);
+        generatedPackets = engine.generatePackets(mixed);
         int numberOfReceivedPackets = generatedPackets.size();
 
         assertThat(numberOfReceivedPackets, equalTo(totalNumberOfPackets));

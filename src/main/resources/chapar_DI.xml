@@ -26,14 +26,14 @@
     <bean id="PacketsIn" class="artronics.chapar.broker.PacketsIn" factory-method="getQueue">
 
     </bean>
-    <bean id="MessageToPacketConvertor" class="artronics.chapar.broker.MessageToPacketConvertor"/>
+    <bean id="MessageToPacketConvertor" class="artronics.chapar.broker.MessageToPacketConvertor">
+        <property name="packetFactory" ref="PacketFactory"></property>
+    </bean>
 
-    <bean id="MessageBroker" class="artronics.chapar.broker.PacketBroker">
+    <bean id="PacketBroker" class="artronics.chapar.broker.PacketBroker">
         <constructor-arg name="convertor" ref="MessageToPacketConvertor"></constructor-arg>
         <constructor-arg name="inputMsg" ref="MessagesInOut"></constructor-arg>
         <constructor-arg name="packetsIn" ref="PacketsIn"></constructor-arg>
-
-        <property name="packetFactory" ref="PacketFactory"></property>
     </bean>
 
 
