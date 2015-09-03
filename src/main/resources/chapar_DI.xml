@@ -28,7 +28,7 @@
     </bean>
     <bean id="MessageToPacketConvertor" class="artronics.chapar.broker.MessageToPacketConvertor"/>
 
-    <bean id="MessageBroker" class="artronics.chapar.broker.MessageBroker">
+    <bean id="MessageBroker" class="artronics.chapar.broker.PacketBroker">
         <constructor-arg name="convertor" ref="MessageToPacketConvertor"></constructor-arg>
         <constructor-arg name="inputMsg" ref="MessagesInOut"></constructor-arg>
         <constructor-arg name="packetsIn" ref="PacketsIn"></constructor-arg>

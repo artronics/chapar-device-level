@@ -9,14 +9,14 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MessageBroker
+public class PacketBroker
 {
     private final MessageToPacketConvertorI convertor;
     private PacketFactory packetFactory;
     private final MessagesInOut inputMsg;
     private final PacketsInOut packetsIn;
 
-    public MessageBroker(MessageToPacketConvertorI convertor, MessagesInOut inputMsg, PacketsInOut packetsIn)
+    public PacketBroker(MessageToPacketConvertorI convertor, MessagesInOut inputMsg, PacketsInOut packetsIn)
     {
         this.convertor = convertor;
         this.inputMsg = inputMsg;

@@ -1,7 +1,6 @@
 package artronics.chapar.protocol;
 
 import artronics.chapar.FakePacketFactory;
-import artronics.chapar.broker.MessageBroker;
 import artronics.chapar.broker.MessageToPacketConvertor;
 import artronics.chapar.broker.MessageToPacketConvertorI;
 import artronics.chapar.broker.MessagesIn;
