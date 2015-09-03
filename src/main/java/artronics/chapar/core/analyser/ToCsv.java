@@ -1,0 +1,62 @@
+package artronics.chapar.core.analyser;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+public class ToCsv
+{
+    //European countries use ";" as
+    //CSV separator because "," is their digit separator
+    public static final String CSV_SEPARATOR = ";";
+    public static final int INT_WIDTH = 4;
+    public static final int STR_WIDTH = 15;
+    private final List intList = new ArrayList<>();
+
+    public static String creat(Object... args)
+    {
+        String csv = "";
+        for (Object arg : args) {
+            if (arg instanceof Collection<?>) {
+                Collection<?> subArgs = (Collection<?>) arg;
+                Iterator it = subArgs.iterator();
+                while (it.hasNext()) {
+                    csv += formater(it.next());
+                    csv += CSV_SEPARATOR;
+                }
+                continue;
+//                Iterable<?> subArgs = (Iterable<?>) arg;
+//                for (Iterable subArg: subArgs ){
+//                    System.out.println(subArg.toString());
+//                }
+            }
+            csv += formater(arg);
+            csv += CSV_SEPARATOR;
+        }
+        csv += CSV_SEPARATOR;
+        writeCsv(csv);
+        return csv;
+    }
+
+    private static void writeCsv(String csv)
+    {
+        System.out.println(csv);
+    }
+
+    private static String formatString(String arg, int width)
+    {
+        String format = "%-" + width + "s";
+        return String.format(format, arg);
+    }
+
+    private static String formater(Object arg)
+    {
+        if (arg instanceof Number) {
+            Number number = (Number) arg;
+            return formatString(number.toString(), INT_WIDTH);
+        }
+
+        return formatString(arg.toString(), STR_WIDTH);
+    }
+}
