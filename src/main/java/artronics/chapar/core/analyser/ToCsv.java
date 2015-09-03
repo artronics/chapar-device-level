@@ -32,7 +32,6 @@ public class ToCsv
             csv += CSV_SEPARATOR;
         }
         csv += CSV_SEPARATOR;
-        writeCsv(csv);
         return csv;
     }
 
