@@ -38,7 +38,7 @@ For Installation you need to add *Chapar* as a dependency to your  [*Apache Mave
 The `/src` directory consists of all source codes of the project. inside `/src`, there are `/main` and `/tests`, see section [Tests](#tests). Also the project root namespace is `artronics.chapar`.
 
 
-There are two `maven` modules inside main project directory. One is `chapar` and the other is `sdwn`. As said before, *Chapar* has no specific implementation by itself and obviously, this is what is expected from a framework. However there is already an implementation of `sdwn` in a separate module. Although I wrote the code for this module, the credit for original codes for `sdwn` belongs to [**Radio Networks- Research Group**](http://www.robertoverdone.org/index.php?page=r) at [**University of Bologna**.](http://www.unibo.it/it)
+There are two `maven` modules inside main project directory. One is `chapar` and the other is `sdwn`. As said before, *Chapar* has no specific implementation by itself and obviously, this is what is expected from a framework. However there is already an implementation of `sdwn` in a separate module. Although I wrote the code for this module, the credit for original codes for `sdwn` belongs to [**Radio Networks- Research Group**](http://www.robertoverdone.org/index.php?page=r) at [**University of Bologna**.](http://www.it.unibo/it)
 
 *Chapar* has it own separate name space which starts with `artronics.chapar`. All codes related to framework is there. For *SDWN* implementation name space (in context of `maven` it is known as `groupId`) starts with `it.unibo.sdwn`. If you want to create a new implementation of *SDWN* simply create another maven project and add chapar as its dependency. here is an example of `pom.xml` file.
 

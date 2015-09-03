@@ -100,7 +100,7 @@ class SerialPortInitializer
             Log.main().debug("No available com port(s) matched configuration.\n" +
                                      "Your current configuration for SinkCommPortName is {}\n" +
                                      "Check SDWN.config file and change property SinkCommPortName", comName);
-            //TODO change it so it automatically change configuration to match
+            //TODO change unibo so unibo automatically change configuration to match
             throw new EstablishConnectionException();
         }
     }

@@ -6,14 +6,23 @@ import java.util.List;
 public class BasePacket extends AbstractPacket
 {
     private static long serialNumber = 0;
-    protected final List header;
-    protected final List data;
+    protected List header;
+    protected List data;
+    protected List all;
     protected String type;
+
+    public BasePacket(List all)
+    {
+        this.all = all;
+
+        serialNumber++;
+    }
 
     public BasePacket(List header, List data)
     {
         this.header = header;
         this.data = data;
+        this.all = joinDataAndHeader(header, data);
 
         serialNumber++;
     }
@@ -23,13 +32,21 @@ public class BasePacket extends AbstractPacket
         this.header = header;
         this.data = data;
         this.type = type;
+        this.all = joinDataAndHeader(header, data);
+
+        serialNumber++;
+    }
+
+    private List joinDataAndHeader(List header, List data)
+    {
+        List all = new ArrayList<>(header);
+        all.addAll(data);
+        return all;
     }
 
     @Override
     public List getAll()
     {
-        List all = new ArrayList<>(header);
-        all.addAll(data);
         return all;
     }
 

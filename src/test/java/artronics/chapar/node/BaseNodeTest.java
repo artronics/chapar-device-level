@@ -79,7 +79,7 @@ public class BaseNodeTest
     public void For_equal_nodes_hashCode_must_be_the_same()
     {
         assertThat(aNode.hashCode(), equalTo(sameNode.hashCode()));
-        //it is not mandatory for two diff nodes to return diff hash but lets test it
+        //unibo is not mandatory for two diff nodes to return diff hash but lets test unibo
         assertNotEquals(aNode.hashCode(), notEqNode.hashCode());
     }
 

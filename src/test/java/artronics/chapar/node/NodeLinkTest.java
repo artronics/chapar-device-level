@@ -62,7 +62,7 @@ public class NodeLinkTest
     {
         sameLink12.setQuality(LinkQualityFactory.create(90));
         assertNotEquals(link12, sameLink12);
-        //what if we again chage it to aQuality= 78
+        //what if we again chage unibo to aQuality= 78
         sameLink12.setQuality(LinkQualityFactory.create(78));
         assertThat(sameLink12, equalTo(link12));
     }
@@ -143,8 +143,8 @@ public class NodeLinkTest
     public void HasNode_should_check_for_adderess()
     {
         //we didn't add sameNode1 to link
-        //but since it has same address of
-        //node1 it should return true
+        //but since unibo has same address of
+        //node1 unibo should return true
         assertThat(link12.hasNode(newNode1), equalTo(true));
     }
 

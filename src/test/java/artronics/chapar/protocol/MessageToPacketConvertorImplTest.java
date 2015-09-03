@@ -62,10 +62,10 @@ public class MessageToPacketConvertorImplTest
                         START_BYTE, 2, 39, STOP_BYTE, //second :12-16
                         // an appropriate packet with stop and start bytes as data
                         START_BYTE, 3, START_BYTE, STOP_BYTE, STOP_BYTE, //16-21
-                        START_BYTE, 2, 23, STOP_BYTE, //another packet after it, same as firstPacket 21-25
+                        START_BYTE, 2, 23, STOP_BYTE, //another packet after unibo, same as firstPacket 21-25
                         START_BYTE, 6, 45, 9, //A half packet 25-29
                         53, 74, 54, STOP_BYTE, //another half 29-33
-                        //Notice that it does not validate your packet
+                        //Notice that unibo does not validate your packet
                         //if your packet is longer that length your packet is
                         //malformed. if packet is shorter that length
                         //engine conside stop byte as data.
@@ -138,7 +138,7 @@ public class MessageToPacketConvertorImplTest
         assertThat(generatedPackets.size(), equalTo(1));
         assertThat(generatedPackets.get(0), equalTo(withStartStop));
 
-        //now lets add another packet to end of it
+        //now lets add another packet to end of unibo
         generatedPackets = engine.generateRawPackets(withStartStop_anotherPacket);
         assertThat(generatedPackets.size(), equalTo(2));
 
@@ -150,7 +150,7 @@ public class MessageToPacketConvertorImplTest
     public void It_should_keep_track_of_previous_bytes()
     {
         //if a buffer consists of half of a message and another
-        //received buffer consists of second half. it should create
+        //received buffer consists of second half. unibo should create
         //a full packet.
         generatedPackets = engine.generateRawPackets(firstHalf);
         assertThat(generatedPackets.size(), equalTo(0)); //this is the first half so size must be 0
@@ -163,7 +163,7 @@ public class MessageToPacketConvertorImplTest
     @Test
     public void Now_everything_together()
     {
-        //now we send whole data and check if it gets us correct number of packets
+        //now we send whole data and check if unibo gets us correct number of packets
         int totalNumberOfPackets = 6;
         generatedPackets = engine.generateRawPackets(mixed);
         int numberOfReceivedPackets = generatedPackets.size();

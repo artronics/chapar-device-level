@@ -1,6 +1,7 @@
 package artronics.chapar.connection;
 
 import artronics.chapar.core.configuration.Config;
+import artronics.chapar.packet.PacketFactory;
 
 public interface ConnectionService
 {
@@ -12,5 +13,6 @@ public interface ConnectionService
     void open();
 
     void close();
+
 
 }
