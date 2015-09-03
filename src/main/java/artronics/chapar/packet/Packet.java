@@ -4,17 +4,7 @@ import java.util.List;
 
 public interface Packet
 {
-    List getAll();
-
-    List getHeader();
-
-    int getHeaderSize();
-
-    int getDataSize();
-
-    List getData();
-
-    String getType();
+    List getBytes();
 
     long getSerialNumber();
 
