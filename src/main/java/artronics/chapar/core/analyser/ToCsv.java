@@ -26,11 +26,8 @@ public class ToCsv
                     csv += CSV_SEPARATOR;
                 }
                 continue;
-//                Iterable<?> subArgs = (Iterable<?>) arg;
-//                for (Iterable subArg: subArgs ){
-//                    System.out.println(subArg.toString());
-//                }
             }
+
             csv += formater(arg);
             csv += CSV_SEPARATOR;
         }

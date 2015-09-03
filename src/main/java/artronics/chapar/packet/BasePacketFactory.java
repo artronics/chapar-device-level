@@ -9,8 +9,7 @@ final class BasePacketFactory implements PacketFactory
     @Override
     public Packet create(List<Integer> packetBytes)
     {
-        System.out.println(ToCsv.creat(packetBytes));
-
+        ToCsv.creat(packetBytes);
         return new BasePacket(packetBytes);
     }
 

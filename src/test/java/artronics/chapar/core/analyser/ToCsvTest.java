@@ -25,4 +25,18 @@ public class ToCsvTest
         assertEquals(exp, act);
     }
 
+    @Test
+    public void Check_enums()
+    {
+        String act = ToCsv.creat(foo.bar);
+        String exp = "bar            ;;";
+        assertEquals(exp, act);
+    }
+
+}
+
+enum foo
+{
+    bar,
+    baz
 }
