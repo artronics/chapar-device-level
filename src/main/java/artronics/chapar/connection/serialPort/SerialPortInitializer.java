@@ -40,7 +40,7 @@ class SerialPortInitializer
                                  "There might be some workarounds:\n" +
                                  "\t1- Check config file(chapar.config). check if you set property OS correctly\n" +
                                  "\t2- Check the value of SinkCommPort\n" +
-                                 "\t3- Delete chapar.config file run program again and set all values again.\n" +
+                                 "\t3- Delete chapar.config file run program again and set bytes values again.\n" +
                                  "\t4- If non of above worked, well, Happy Debugging!! ;-)");
     }
 
