@@ -7,7 +7,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class SimpleNodeTest
+public class BaseNodeTest
 {
     private Node aNode;
     private Node sameNode;
@@ -17,9 +17,9 @@ public class SimpleNodeTest
     @Before
     public void setUp() throws Exception
     {
-        aNode = new SimpleNode(13); //factory.createNode(13);
-        sameNode = new SimpleNode(13);
-        notEqNode = new SimpleNode(17);
+        aNode = new BaseNode(13); //factory.createNode(13);
+        sameNode = new BaseNode(13);
+        notEqNode = new BaseNode(17);
         /*
         we are going to test a simple network consists of four NormalNodes
         These nodes are stores in a node array and network graph is
@@ -30,10 +30,10 @@ public class SimpleNodeTest
         3<->1 ::value for Weigth:100
         */
 
-        nodes[0] = new SimpleNode(0);
-        nodes[1] = new SimpleNode(1);
-        nodes[2] = new SimpleNode(2);
-        nodes[3] = new SimpleNode(3);
+        nodes[0] = new BaseNode(0);
+        nodes[1] = new BaseNode(1);
+        nodes[2] = new BaseNode(2);
+        nodes[3] = new BaseNode(3);
 
         nodes[0].addLinkTo(nodes[1], 30);
         nodes[1].addLinkTo(nodes[2], 40);
@@ -54,7 +54,7 @@ public class SimpleNodeTest
     @Test
     public void It_should_be_an_instance_of_BaseNode()
     {
-        assertThat(aNode.getClass(), equalTo(SimpleNode.class));
+        assertThat(aNode.getClass(), equalTo(BaseNode.class));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class SimpleNodeTest
     @Test
     public void If_we_create_another_node_with_same_address_it_should_NOT_add_link_to_that()
     {
-        Node sameNode1 = new SimpleNode(1);
+        Node sameNode1 = new BaseNode(1);
         //we didn't add sameNode1 to link but
         //hasLinkTo returns true
         assertTrue(nodes[0].hasLinkTo(sameNode1));

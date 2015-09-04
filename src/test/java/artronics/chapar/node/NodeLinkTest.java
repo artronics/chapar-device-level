@@ -22,13 +22,13 @@ public class NodeLinkTest
     @Before
     public void setUp() throws Exception
     {
-        aNode = new SimpleNode(13);
-        newNode1 = new SimpleNode(1);
-        newNode2 = new SimpleNode(2);
+        aNode = new BaseNode(13);
+        newNode1 = new BaseNode(1);
+        newNode2 = new BaseNode(2);
 
-        node1 = new SimpleNode(1);
-        node2 = new SimpleNode(2);
-        node3 = new SimpleNode(3);
+        node1 = new BaseNode(1);
+        node2 = new BaseNode(2);
+        node3 = new BaseNode(3);
 
         link12 = new NodeLink(node1, node2, aWeigth);
         sameLink12 = new NodeLink(node1, node2, aWeigth);

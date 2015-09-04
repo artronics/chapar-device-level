@@ -3,14 +3,14 @@ package artronics.chapar.node;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SimpleNode extends AbstractNode<Integer, NodeType, Link>
+public class BaseNode extends AbstractNode<Integer, NodeType, Link>
 {
-    public SimpleNode(int address, NodeType type)
+    public BaseNode(int address, NodeType type)
     {
         super(address, type);
     }
 
-    public SimpleNode(int address)
+    public BaseNode(int address)
     {
         super(address, NodeType.NORMAL);
     }
