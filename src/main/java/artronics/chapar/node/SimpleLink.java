@@ -10,8 +10,8 @@ public class SimpleLink extends AbstractLink
     @Override
     public String toString()
     {
-        String target = String.format("%-4d", getTarget().getAddress().toString());
-        String weight = String.format("%-4d", getTarget().getAddress().toString());
+        String target = String.format("%-4s", getTarget().getAddress().toString());
+        String weight = String.format("%-4d", getWeigth());
 
         return target + ";" + weight;
     }
