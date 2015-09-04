@@ -1,10 +1,10 @@
 package artronics.chapar.node;
 
-final class LinkQuality implements Quality
+final class LinkWeigth implements Weigth
 {
     private int qualityValue;
 
-    protected LinkQuality(int qualityValue)
+    protected LinkWeigth(int qualityValue)
     {
         this.qualityValue = qualityValue;
     }
@@ -29,8 +29,8 @@ final class LinkQuality implements Quality
     @Override
     public boolean equals(Object o)
     {
-        if (o instanceof LinkQuality) {
-            return qualityValue == ((LinkQuality) o).getQualityValue();
+        if (o instanceof LinkWeigth) {
+            return qualityValue == ((LinkWeigth) o).getQualityValue();
         }
         return false;
     }
@@ -42,8 +42,8 @@ final class LinkQuality implements Quality
     }
 
     @Override
-    public int compareTo(Quality anotherQuality)
+    public int compareTo(Weigth anotherWeigth)
     {
-        return compare(this.qualityValue, anotherQuality.getQualityValue());
+        return compare(this.qualityValue, anotherWeigth.getQualityValue());
     }
 }

@@ -1,6 +1,6 @@
 package artronics.chapar.node;
 
-interface Quality extends Comparable<Quality>
+interface Weigth extends Comparable<Weigth>
 {
     int getQualityValue();
 

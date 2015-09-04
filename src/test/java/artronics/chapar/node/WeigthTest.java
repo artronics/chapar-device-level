@@ -5,11 +5,11 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class QualityTest
+public class WeigthTest
 {
     @Test
     public void Test_static_factory(){
-        Quality l = LinkQualityFactory.create(10);
-        assertEquals(l.getClass(), LinkQuality.class);
+        Weigth l = LinkQualityFactory.create(10);
+        assertEquals(l.getClass(), LinkWeigth.class);
     }
 }
