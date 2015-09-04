@@ -2,6 +2,7 @@ package artronics.chapar.broker;
 
 import artronics.chapar.core.events.DataInEvent;
 import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.packet.Packet;
 import artronics.chapar.packet.PacketFactory;
 import com.google.common.eventbus.Subscribe;
@@ -34,6 +35,7 @@ public class PacketBroker
                 final List<Packet> packets = convertor.generatePackets(message);
                 for (Packet packet : packets) {
                     packetsIn.put(packet);
+                    Event.mainBus().post(new PacketInEvent());
                 }
             }
         }catch (Exception e) {
