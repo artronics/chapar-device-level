@@ -41,12 +41,18 @@ public class PacketsIn implements PacketsInOut
     @Override
     public Packet take()
     {
-        return null;
+        Packet packet = null;
+        try {
+            packet = packetsInQueue.take();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return packet;
     }
 
     @Override
     public boolean isEmpty()
     {
-        return false;
+        return packetsInQueue.isEmpty();
     }
 }
