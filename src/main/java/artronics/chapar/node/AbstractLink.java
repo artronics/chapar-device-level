@@ -8,13 +8,13 @@ abstract class AbstractLink implements Link
     //of a relationship
     protected final Node source;
     protected final Node target;
-    protected int weigth;
+    protected int weight;
 
-    protected AbstractLink(Node source, Node target, int weigth)
+    protected AbstractLink(Node source, Node target, int weight)
     {
         this.source = source;
         this.target = target;
-        this.weigth = weigth;
+        this.weight = weight;
     }
 
     @Override
@@ -38,13 +38,13 @@ abstract class AbstractLink implements Link
     @Override
     public int getWeigth()
     {
-        return this.weigth;
+        return this.weight;
     }
 
     @Override
-    public void setWeigth(int weigth)
+    public void setWeigth(int weight)
     {
-        this.weigth = weigth;
+        this.weight = weight;
     }
 
     @Override
@@ -53,8 +53,8 @@ abstract class AbstractLink implements Link
         if (!(o instanceof Link))
             return false;
         Link otherLink = (Link) o;
-        //if two links has diff weigth they are not equal
-        if (weigth != otherLink.getWeigth())
+        //if two links has diff weight they are not equal
+        if (weight != otherLink.getWeigth())
             return false;
 
         //there is no difference between source and dest
@@ -72,7 +72,7 @@ abstract class AbstractLink implements Link
     {
         int result = 21;
         result = result * 31 + target.hashCode() + source.hashCode();
-        result = result * 31 + weigth;
+        result = result * 31 + weight;
 
         return result;
     }

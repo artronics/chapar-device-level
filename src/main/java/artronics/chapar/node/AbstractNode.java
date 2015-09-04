@@ -1,12 +1,14 @@
 package artronics.chapar.node;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 abstract class AbstractNode<A, T, L> implements Node<A, T, L>
 {
     protected final A address;
-    protected final HashSet<L> links = new HashSet<>();
+    protected final List<L> links = new ArrayList<>();
     protected final T type;
 
     protected AbstractNode(A address, T type)
@@ -24,7 +26,7 @@ abstract class AbstractNode<A, T, L> implements Node<A, T, L>
     public abstract void addLinkTo(Node node, int wiegth);
 
     @Override
-    public Set<L> getLinks()
+    public List<L> getLinks()
     {
         return links;
     }

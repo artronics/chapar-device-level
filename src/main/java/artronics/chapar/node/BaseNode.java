@@ -16,12 +16,12 @@ public class BaseNode extends AbstractNode<Integer, NodeType, Link>
     }
 
     @Override
-    public void addLinkTo(Node node, int weigth)
+    public void addLinkTo(Node node, int weight)
     {
         if (hasLinkTo(node))
             return;
 
-        Link link = new SimpleLink(this, node, weigth);
+        Link link = new SimpleLink(this, node, weight);
         links.add(link);
         node.getLinks().add(link);
     }

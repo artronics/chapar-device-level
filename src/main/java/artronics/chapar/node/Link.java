@@ -1,10 +1,10 @@
 package artronics.chapar.node;
 
-interface Link
+public interface Link
 {
     int getWeigth();
 
-    void setWeigth(int weigth);
+    void setWeigth(int weight);
 
     Node getSource();
 
