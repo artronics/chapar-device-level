@@ -2,14 +2,16 @@ package artronics.chapar.packet;
 
 import java.util.List;
 
-public class BasePacket implements Packet
+public class BasePacket implements Packet<String>
 {
     private static long serialNumber = 0;
-    protected List bytes;
+    protected final List bytes;
+    private final String type;
 
     public BasePacket(List bytes)
     {
         this.bytes = bytes;
+        this.type = "UNK";
 
         serialNumber++;
     }
@@ -24,6 +26,12 @@ public class BasePacket implements Packet
     public long getSerialNumber()
     {
         return serialNumber;
+    }
+
+    @Override
+    public String getType()
+    {
+        return type;
     }
 
     @Override
