@@ -2,13 +2,13 @@ package artronics.chapar.node;
 
 interface Link
 {
-    Quality getQuality();
+    int getWeigth();
 
-    void setQuality(Quality quality);
+    void setWeigth(int weigth);
 
-    Node getNode1();
+    Node getSource();
 
-    Node getNode2();
+    Node getTarget();
 
     boolean hasNode(Node node);
 }
