@@ -7,9 +7,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class BaseNodeTest
+public class SimpleNodeTest
 {
-    private BaseNodeFactory factory = new BaseNodeFactory();
     private Node aNode;
     private Node sameNode;
     private Node notEqNode;
@@ -18,32 +17,28 @@ public class BaseNodeTest
     @Before
     public void setUp() throws Exception
     {
-        aNode = factory.createNode(13);
-        sameNode = factory.createNode(13);
-        notEqNode = factory.createNode(17);
+        aNode = new SimpleNode(13); //factory.createNode(13);
+        sameNode = new SimpleNode(13);
+        notEqNode = new SimpleNode(17);
         /*
         we are going to test a simple network consists of four NormalNodes
         These nodes are stores in a node array and network graph is
         like this: (numbers are array indexes and address)
-        0<->1 ::value for Quality:30
-        1<->2 ::value for Quality:40
-        0<->2 ::value for Quality:200
-        3<->1 ::value for Quality:100
+        0<->1 ::value for Weigth:30
+        1<->2 ::value for Weigth:40
+        0<->2 ::value for Weigth:200
+        3<->1 ::value for Weigth:100
         */
-        Quality q30 = LinkQualityFactory.create(30);
-        Quality q40 = LinkQualityFactory.create(40);
-        Quality q200 = LinkQualityFactory.create(200);
-        Quality q100 = LinkQualityFactory.create(100);
 
-        nodes[0] = factory.createNode(0);
-        nodes[1] = factory.createNode(1);
-        nodes[2] = factory.createNode(2);
-        nodes[3] = factory.createNode(3);
+        nodes[0] = new SimpleNode(0);
+        nodes[1] = new SimpleNode(1);
+        nodes[2] = new SimpleNode(2);
+        nodes[3] = new SimpleNode(3);
 
-        nodes[0].addLinkTo(nodes[1], q30);
-        nodes[1].addLinkTo(nodes[2], q40);
-        nodes[0].addLinkTo(nodes[2], q200);
-        nodes[3].addLinkTo(nodes[0], q100);
+        nodes[0].addLinkTo(nodes[1], 30);
+        nodes[1].addLinkTo(nodes[2], 40);
+        nodes[0].addLinkTo(nodes[2], 200);
+        nodes[3].addLinkTo(nodes[0], 100);
     }
 
     /**************************
@@ -59,7 +54,7 @@ public class BaseNodeTest
     @Test
     public void It_should_be_an_instance_of_BaseNode()
     {
-        assertThat(aNode.getClass(), equalTo(BaseNode.class));
+        assertThat(aNode.getClass(), equalTo(SimpleNode.class));
     }
 
     @Test
@@ -97,7 +92,7 @@ public class BaseNodeTest
     @Test
     public void If_we_create_another_node_with_same_address_it_should_NOT_add_link_to_that()
     {
-        Node sameNode1 = factory.createNode(1);
+        Node sameNode1 = new SimpleNode(1);
         //we didn't add sameNode1 to link but
         //hasLinkTo returns true
         assertTrue(nodes[0].hasLinkTo(sameNode1));

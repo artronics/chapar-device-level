@@ -2,23 +2,16 @@ package artronics.chapar.node;
 
 import java.util.Set;
 
-public interface Node
+public interface Node<A, T, L>
 {
-    void addLinkTo(Node node, Quality quality);
+    void addLinkTo(Node node, int wieght);
 
-    Set<Link> getLinks();
+    Set<L> getLinks();
 
     boolean hasLinkTo(Node node);
 
-    int getAddress();
+    A getAddress();
 
-    NodeType getType();
+    T getType();
 
-    enum NodeType{
-        SINK,
-        NORMAL,
-        ROUTER,
-        END_NODE
-
-    }
 }
