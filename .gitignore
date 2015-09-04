@@ -2,6 +2,7 @@
 target/
 packets.csv
 chapar.config
+logs/
 
 
 

@@ -1,8 +1,11 @@
 package artronics.chapar.packet;
 
+import artronics.chapar.core.analyser.Analysable;
+import artronics.chapar.core.analyser.ToCsv;
+
 import java.util.List;
 
-public class BasePacket implements Packet<String>
+public class BasePacket implements Packet<String>, Analysable
 {
     private static long serialNumber = 0;
     protected final List bytes;
@@ -40,4 +43,9 @@ public class BasePacket implements Packet<String>
         return bytes.isEmpty();
     }
 
+    @Override
+    public String toCsv()
+    {
+        return ToCsv.creat(serialNumber, bytes);
+    }
 }

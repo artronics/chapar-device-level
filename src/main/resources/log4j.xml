@@ -9,12 +9,19 @@
             <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
         </layout>
     </appender>
+    <appender name="util" class="org.apache.log4j.FileAppender">
+        <param name="File" value="/tmp/util.log"/>
+        <param name="Append" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%t %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
         <param name="append" value="false"/>
         <param name="maxFileSize" value="10KB"/>
         <param name="maxBackupIndex" value="5"/>
         <!-- For Tomcat -->
-        <param name="file" value="chapar.log"/>
+        <param name="file" value="logs/chapar.log"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                    value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
@@ -23,6 +30,11 @@
     <logger name="org.springframework">
         <level value="warn"/>
     </logger>
+
+    <logger name="csv">
+        <level value="in"/>
+    </logger>
+
     <root>
         <priority value="debug"/>
         <appender-ref ref="console"/>
