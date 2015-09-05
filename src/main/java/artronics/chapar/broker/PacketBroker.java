@@ -25,16 +25,20 @@ public class PacketBroker
 
 
     @Subscribe
-    public void dataInEventHandler(MessageInEvent event)
+    public void messageInEventHandler(MessageInEvent event)
     {
 //        System.out.println("kir tush");
         while (!inputMsg.isEmpty()) {
-            List<Integer> message = inputMsg.take();
-            final List<Packet> packets = convertor.generatePackets(message);
-            for (Packet packet : packets) {
-//                System.out.println("fooo");
-                packetsIn.put(packet);
-                Event.mainBus().post(new PacketInEvent());
+            try {
+                List<Integer> message = inputMsg.take();
+                final List<Packet> packets = convertor.generatePackets(message);
+                for (Packet packet : packets) {
+                    //                System.out.println("fooo");
+                    packetsIn.put(packet);
+                    Event.mainBus().post(new PacketInEvent());
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
