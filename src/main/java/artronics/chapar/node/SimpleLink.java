@@ -1,6 +1,8 @@
 package artronics.chapar.node;
 
-public class SimpleLink extends AbstractLink
+import com.sun.javafx.collections.SortableList;
+
+public class SimpleLink extends AbstractLink implements Comparable
 {
     public SimpleLink(Node source, Node target, Integer weight)
     {
@@ -14,5 +16,20 @@ public class SimpleLink extends AbstractLink
         String weight = String.format("%-4d", getWeigth());
 
         return target + ";" + weight;
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        Link otherLink = (Link) o;
+
+        if (weight > otherLink.getWeigth())
+            return 1;
+
+        else if (weight < otherLink.getWeigth())
+            return -1;
+
+        else
+            return 0;
     }
 }
