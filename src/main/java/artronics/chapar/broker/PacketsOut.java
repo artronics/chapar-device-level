@@ -1,5 +1,10 @@
 package artronics.chapar.broker;
 
+import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketOutEvent;
+import artronics.chapar.core.logger.Log;
+import artronics.chapar.packet.Packet;
+
 public class PacketsOut extends PacketsQueue
 {
 
@@ -10,6 +15,7 @@ public class PacketsOut extends PacketsQueue
 
     private PacketsOut()
     {
+        Event.mainBus().register(this);
         if (PacketsOutLoader.INSTANCE != null) {
             throw new IllegalStateException("Already instantiated");
         }
@@ -18,5 +24,14 @@ public class PacketsOut extends PacketsQueue
     public static PacketsOut getQueue()
     {
         return PacketsOutLoader.INSTANCE;
+    }
+
+    @Override
+    public void put(Packet data)
+    {
+        super.put(data);
+
+        Log.event().debug("Firing PacketOutEvent");
+        Event.mainBus().post(new PacketOutEvent());
     }
 }

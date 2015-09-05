@@ -3,6 +3,7 @@ package artronics.chapar.broker;
 import artronics.chapar.core.events.Event;
 import artronics.chapar.core.events.MessageOutEvent;
 import artronics.chapar.core.events.PacketOutEvent;
+import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
 import com.google.common.eventbus.Subscribe;
 
@@ -28,11 +29,14 @@ public class MessageBroker
     @Subscribe
     public void packetOutEventHandler(PacketOutEvent event)
     {
+        Log.event().debug("Handling PacketOutEvent");
+
         Packet packet = packetsOut.take();
         List message = convertor.convert(packet);
 
         messagesOut.put(message);
 
+        Log.main().debug("Firing MessageOutEvent");
         Event.mainBus().post(new MessageOutEvent());
     }
 }

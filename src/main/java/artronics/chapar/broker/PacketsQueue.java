@@ -1,5 +1,7 @@
 package artronics.chapar.broker;
 
+import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketOutEvent;
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
 
@@ -14,18 +16,19 @@ class PacketsQueue implements PacketsInOut
     @Override
     public void put(Packet data)
     {
+        Log.event().debug("Putting packet to Queue");
         try {
             packetsQueue.put(data);
         }catch (InterruptedException e) {
             Log.main().debug("Exp Unable to put packet to packetQueue");
             e.printStackTrace();
         }
-
     }
 
     @Override
     public Packet take()
     {
+        Log.event().debug("Taking packet from Queue");
         Packet packet = null;
         try {
             packet = packetsQueue.take();

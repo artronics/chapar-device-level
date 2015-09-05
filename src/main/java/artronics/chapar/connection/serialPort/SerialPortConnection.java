@@ -58,7 +58,6 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
                     intBuff.add(buff[i] & 0xFF);
                 }
                 messagesIn.put(intBuff);
-                Event.mainBus().post(new MessageInEvent());
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
@@ -71,6 +70,7 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
     @Subscribe
     public void messageOutEventHandler(MessageOutEvent event)
     {
+        Log.event().debug("Handling MessageOutEvent");
         List<Integer> message = messagesOut.take();
 
         try {

@@ -73,14 +73,14 @@ class SerialPortInitializer
                             curPort.getName().contains("tty")) {
 
                         this.ports.put(curPort.getName(), curPort);
-                        Log.main().debug("Found Com port:[{}] --> {}", this.ports.size(), curPort.getName());
+                        Log.main().debug("Found Com port:[" + this.ports.size() + "] --> " + curPort.getName());
                     }
                 }else {
                     //Currently there is no code for windows and linux.
                     //Add filter here
                     //TODO Put windows filtering here.
                     this.ports.put(curPort.getName(), curPort);
-                    Log.main().debug("Found Com port:[{}] --> {}", this.ports.size(), curPort.getName());
+                    Log.main().debug("Found Com port:[" + this.ports.size() + "] --> " + curPort.getName());
                 }
             }
         }
@@ -93,13 +93,13 @@ class SerialPortInitializer
         if (this.ports.containsKey(comName)) {
             sinkPort = (CommPortIdentifier) this.ports.get(comName);
             Log.main().info("Com port matched configuration");
-            Log.main().debug("Sink port is associated to {}", sinkPort.getName());
+            Log.main().debug("Sink port is associated to " + sinkPort.getName());
 
             return sinkPort;
         }else {
             Log.main().debug("No available com port(s) matched configuration.\n" +
-                                     "Your current configuration for SinkCommPortName is {}\n" +
-                                     "Check SDWN.config file and change property SinkCommPortName", comName);
+                                     "Your current configuration for SinkCommPortName is" + comName + "\n" +
+                                     "Check SDWN.config file and change property SinkCommPortName");
             //TODO change unibo so unibo automatically change configuration to match
             throw new EstablishConnectionException();
         }

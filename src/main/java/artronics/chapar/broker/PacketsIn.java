@@ -1,5 +1,7 @@
 package artronics.chapar.broker;
 
+import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
 
@@ -14,6 +16,7 @@ public class PacketsIn extends PacketsQueue
 
     private PacketsIn()
     {
+        Event.mainBus().register(this);
         if (PacketsInLoader.INSTANCE != null) {
             throw new IllegalStateException("Already instantiated");
         }
@@ -24,4 +27,12 @@ public class PacketsIn extends PacketsQueue
         return PacketsInLoader.INSTANCE;
     }
 
+    @Override
+    public void put(Packet data)
+    {
+        super.put(data);
+
+        Log.event().debug("Firing PacketInEvent");
+        Event.mainBus().post(new PacketInEvent());
+    }
 }

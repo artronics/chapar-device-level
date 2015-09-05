@@ -3,6 +3,7 @@ package artronics.chapar.broker;
 import artronics.chapar.core.events.MessageInEvent;
 import artronics.chapar.core.events.Event;
 import artronics.chapar.core.events.PacketInEvent;
+import artronics.chapar.core.logger.Log;
 import artronics.chapar.packet.Packet;
 import com.google.common.eventbus.Subscribe;
 
@@ -27,6 +28,7 @@ public class PacketBroker
     @Subscribe
     public void messageInEventHandler(MessageInEvent event)
     {
+        Log.event().debug("Handling MessageInEvent");
 //        System.out.println("kir tush");
         while (!inputMsg.isEmpty()) {
             try {
@@ -34,8 +36,9 @@ public class PacketBroker
                 final List<Packet> packets = convertor.generatePackets(message);
                 for (Packet packet : packets) {
                     //                System.out.println("fooo");
+                    Log.event().debug("Putting packet to paketsIn-PacketBroker");
                     packetsIn.put(packet);
-                    Event.mainBus().post(new PacketInEvent());
+//                    Event.mainBus().post(new PacketInEvent());
                 }
             }catch (Exception e) {
                 e.printStackTrace();
