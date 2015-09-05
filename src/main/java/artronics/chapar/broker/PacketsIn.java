@@ -5,11 +5,8 @@ import artronics.chapar.packet.Packet;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class PacketsIn implements PacketsInOut
+public class PacketsIn extends PacketsQueue
 {
-    private final ArrayBlockingQueue<Packet> packetsInQueue =
-            new ArrayBlockingQueue(MAX_QUEUE_CAPACITY);
-
     private static class PacketsInLoader
     {
         private static final PacketsIn INSTANCE = new PacketsIn();
@@ -27,32 +24,4 @@ public class PacketsIn implements PacketsInOut
         return PacketsInLoader.INSTANCE;
     }
 
-    @Override
-    public void put(Packet data)
-    {
-        try {
-            packetsInQueue.put(data);
-        }catch (InterruptedException e) {
-            Log.main().debug("Exp Unable to put packet to packetInQueue");
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Packet take()
-    {
-        Packet packet = null;
-        try {
-            packet = packetsInQueue.take();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return packet;
-    }
-
-    @Override
-    public boolean isEmpty()
-    {
-        return packetsInQueue.isEmpty();
-    }
 }
