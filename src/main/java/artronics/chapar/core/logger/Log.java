@@ -2,18 +2,24 @@ package artronics.chapar.core.logger;
 
 import artronics.chapar.core.analyser.Analysable;
 import artronics.chapar.core.analyser.CsvLoggerWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 public interface Log
 {
-    Logger MAIN = LoggerFactory.getLogger("main");
-    Logger PACKET = LoggerFactory.getLogger("packet");
-    Logger CSV = LoggerFactory.getLogger("csv");
+    Logger MAIN = Logger.getLogger("main");
+    Logger PACKET = Logger.getLogger("packet");
+    Logger EVENT = Logger.getLogger("event");
+    Logger CSV = Logger.getLogger("csv");
+
 
     static Logger main()
     {
         return MAIN;
+    }
+
+    static Logger event()
+    {
+        return EVENT;
     }
 
     static Logger packet()
