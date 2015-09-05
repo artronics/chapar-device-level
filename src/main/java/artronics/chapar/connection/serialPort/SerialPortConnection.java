@@ -3,31 +3,37 @@ package artronics.chapar.connection.serialPort;
 import artronics.chapar.broker.MessagesInOut;
 import artronics.chapar.connection.ConnectionService;
 import artronics.chapar.core.configuration.Config;
-import artronics.chapar.core.events.DataInEvent;
+import artronics.chapar.core.events.MessageInEvent;
 import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.MessageOutEvent;
 import artronics.chapar.core.logger.Log;
+import com.google.common.eventbus.Subscribe;
 import gnu.io.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TooManyListenersException;
 
 final class SerialPortConnection implements ConnectionService, SerialPortEventListener
 {
     //    private final ArrayBlockingQueue<List> inQueue;
 //    private final ArrayBlockingQueue<int[]> outQueue;
-    private final MessagesInOut inOutQueue;
+    private final MessagesInOut messagesIn;
+    private final MessagesInOut messagesOut;
     //this is the object that contains the opened port
     private CommPortIdentifier selectedPortIdentifier;
     private SerialPort serialPort = null;
     private InputStream input = null;
     private OutputStream output = null;
 
-    public SerialPortConnection(MessagesInOut inOutQueue)
+    public SerialPortConnection(MessagesInOut messagesIn, MessagesInOut messagesOut)
     {
-        this.inOutQueue = inOutQueue;
+        this.messagesIn = messagesIn;
+        this.messagesOut = messagesOut;
+
         Event.mainBus().register(this);
     }
 
@@ -51,8 +57,8 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
                     //convert signed value to unsigned
                     intBuff.add(buff[i] & 0xFF);
                 }
-                inOutQueue.put(intBuff);
-                Event.mainBus().post(new DataInEvent());
+                messagesIn.put(intBuff);
+                Event.mainBus().post(new MessageInEvent());
 
             }catch (IOException e) {
                 Log.main().error("Can not open IO in ComConnection.");
@@ -60,6 +66,21 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
             }
         }
 
+    }
+
+    @Subscribe
+    public void messageOutEventHandler(MessageOutEvent event)
+    {
+        List<Integer> message = messagesOut.take();
+
+        try {
+            for (int i = 0; i < message.size(); i++) {
+                output.write(message.get(i));
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(message);
     }
 
     private void initEventListenersAndIO()

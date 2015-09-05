@@ -1,6 +1,6 @@
 package artronics.chapar.broker;
 
-import artronics.chapar.core.events.DataInEvent;
+import artronics.chapar.core.events.MessageInEvent;
 import artronics.chapar.core.events.Event;
 import artronics.chapar.core.events.PacketInEvent;
 import artronics.chapar.packet.Packet;
@@ -14,10 +14,10 @@ public class PacketBroker
     private final MessagesInOut inputMsg;
     private final PacketsInOut packetsIn;
 
-    public PacketBroker(MessageToPacketConvertorI convertor, MessagesInOut inputMsg, PacketsInOut packetsIn)
+    public PacketBroker(MessageToPacketConvertorI convertor, MessagesInOut messagesIn, PacketsInOut packetsIn)
     {
         this.convertor = convertor;
-        this.inputMsg = inputMsg;
+        this.inputMsg = messagesIn;
         this.packetsIn = packetsIn;
 
         Event.mainBus().register(this);
@@ -25,7 +25,7 @@ public class PacketBroker
 
 
     @Subscribe
-    public void dataInEventHandler(DataInEvent event)
+    public void dataInEventHandler(MessageInEvent event)
     {
 //        System.out.println("kir tush");
         while (!inputMsg.isEmpty()) {

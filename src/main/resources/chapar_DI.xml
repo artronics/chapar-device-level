@@ -13,25 +13,34 @@
         <property name="connection" ref="ConnectionService"></property>
     </bean>
     <bean id="ConnectionService" class="artronics.chapar.connection.serialPort.SerialPortConnection">
-        <constructor-arg name="inOutQueue" ref="MessagesInOut"></constructor-arg>
+        <constructor-arg name="messagesIn" ref="MessagesIn"></constructor-arg>
+        <constructor-arg name="messagesOut" ref="MessagesOut"></constructor-arg>
     </bean>
 
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
 
     <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
 
-    <bean id="MessagesInOut" class="artronics.chapar.broker.MessagesIn"/>
-    <bean id="PacketsIn" class="artronics.chapar.broker.PacketsIn" factory-method="getQueue">
+    <bean id="MessagesIn" class="artronics.chapar.broker.MessagesIn"/>
+    <bean id="MessagesOut" class="artronics.chapar.broker.MessagesOut"/>
 
-    </bean>
+    <bean id="PacketsIn" class="artronics.chapar.broker.PacketsIn" factory-method="getQueue"/>
+    <bean id="PacketsOut" class="artronics.chapar.broker.PacketsOut" factory-method="getQueue"/>
+
     <bean id="MessageToPacketConvertor" class="artronics.chapar.broker.MessageToPacketConvertor">
         <property name="packetFactory" ref="PacketFactory"></property>
     </bean>
+    <bean id="PacketToMessageConvertor" class="artronics.chapar.broker.PacketToMessageConvertor"/>
 
     <bean id="PacketBroker" class="artronics.chapar.broker.PacketBroker">
         <constructor-arg name="convertor" ref="MessageToPacketConvertor"></constructor-arg>
-        <constructor-arg name="inputMsg" ref="MessagesInOut"></constructor-arg>
+        <constructor-arg name="messagesIn" ref="MessagesIn"></constructor-arg>
         <constructor-arg name="packetsIn" ref="PacketsIn"></constructor-arg>
+    </bean>
+    <bean id="MessageBrokeer" class="artronics.chapar.broker.MessageBroker">
+        <constructor-arg name="convertor" ref="PacketToMessageConvertor"></constructor-arg>
+        <constructor-arg name="packetsOut" ref="PacketsOut"></constructor-arg>
+        <constructor-arg name="messagesOut" ref="MessagesOut"></constructor-arg>
     </bean>
 
 
