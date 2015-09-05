@@ -31,4 +31,10 @@ public interface Log
         String logname = analysable.getClass().getSimpleName();
         CsvLoggerWrapper.log(logname, analysable);
     }
+
+    static void csv(String csv, String loggerName)
+    {
+        CsvLoggerWrapper.log(loggerName, csv);
+
+    }
 }

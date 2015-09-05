@@ -30,6 +30,17 @@ public class CsvLoggerWrapper
         }
     }
 
+    public static void log(String appenderName, String csvStr)
+    {
+        if (!loggingIsInitialized)
+            initLogging();
+        if (Arrays.asList(csvFiles).contains(appenderName)) {
+            Logger csv = Logger.getLogger(appenderName);
+            csv.info(csvStr);
+            return;
+        }
+    }
+
     // log4j logging is lazily constructed; it gets initialized
     // the first time the invoking app calls a log method
     private static void initLogging()
