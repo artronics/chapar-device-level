@@ -29,16 +29,13 @@ public class PacketBroker
     public void messageInEventHandler(MessageInEvent event)
     {
         Log.event().debug("Handling MessageInEvent");
-//        System.out.println("kir tush");
         while (!inputMsg.isEmpty()) {
             try {
                 List<Integer> message = inputMsg.take();
                 final List<Packet> packets = convertor.generatePackets(message);
                 for (Packet packet : packets) {
-                    //                System.out.println("fooo");
                     Log.event().debug("Putting packet to paketsIn-PacketBroker");
                     packetsIn.put(packet);
-//                    Event.mainBus().post(new PacketInEvent());
                 }
             }catch (Exception e) {
                 e.printStackTrace();
