@@ -5,8 +5,10 @@ import artronics.chapar.core.analyser.ToCsv;
 
 import java.util.List;
 
-public class BasePacket implements Packet<String>, Analysable
+public class BasePacket implements Packet<String>
 {
+    private final Analysable csv = new CsvWriter();
+
     private static long serialNumber = 0;
     protected final List bytes;
     private final String type;
@@ -17,6 +19,8 @@ public class BasePacket implements Packet<String>, Analysable
         this.type = "UNK";
 
         serialNumber++;
+
+        ToCsv.write("Packets", csv);
     }
 
     @Override
@@ -43,9 +47,15 @@ public class BasePacket implements Packet<String>, Analysable
         return bytes.isEmpty();
     }
 
-    @Override
-    public String toCsv()
+    private final class CsvWriter implements Analysable
     {
-        return ToCsv.creat(serialNumber, bytes);
+        @Override
+        public String toCsv()
+        {
+            return ToCsv.creat(getSerialNumber(),
+                               getType(),
+                               getBytes()
+            );
+        }
     }
 }
