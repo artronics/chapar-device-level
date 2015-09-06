@@ -1,5 +1,7 @@
 package artronics.chapar.core.analyser;
 
+import artronics.chapar.core.logger.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,6 +15,16 @@ public class ToCsv
     public static final int INT_WIDTH = 4;
     public static final int STR_WIDTH = 15;
     private final List intList = new ArrayList<>();
+
+    public static void write(String fileName, String csv)
+    {
+        Log.csv(fileName, csv);
+    }
+
+    public static void write(String fileName, Analysable csv)
+    {
+        Log.csv(fileName, csv.toCsv());
+    }
 
     public static String creat(Object... args)
     {

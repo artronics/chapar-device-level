@@ -27,20 +27,27 @@ public interface Log
         return PACKET;
     }
 
+    @Deprecated
     static void csv(Analysable analysable, String loggerName)
     {
         CsvLoggerWrapper.log(loggerName, analysable);
     }
 
+    @Deprecated
     static void csv(Analysable analysable)
     {
         String logname = analysable.getClass().getSimpleName();
         CsvLoggerWrapper.log(logname, analysable);
     }
 
-    static void csv(String csv, String loggerName)
+    static void csv(String loggerName, Analysable csv)
     {
         CsvLoggerWrapper.log(loggerName, csv);
+    }
 
+    @Deprecated
+    static void csv(String loggerName, String csv)
+    {
+        CsvLoggerWrapper.log(loggerName, csv);
     }
 }
