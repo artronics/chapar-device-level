@@ -36,7 +36,7 @@ public class MessageBroker
 
         messagesOut.put(message);
 
-        Log.main().debug("Firing MessageOutEvent");
+        Log.event().debug("Firing MessageOutEvent");
         Event.mainBus().post(new MessageOutEvent());
     }
 }
