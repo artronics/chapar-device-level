@@ -16,11 +16,6 @@ public class ToCsv
     public static final int STR_WIDTH = 15;
     private final List intList = new ArrayList<>();
 
-    public static void write(String fileName, String csv)
-    {
-        Log.csv(fileName, csv);
-    }
-
     public static void write(String fileName, Analysable csv)
     {
         Log.csv(fileName, csv.toCsv());

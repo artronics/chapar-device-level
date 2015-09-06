@@ -19,17 +19,6 @@ public class CsvLoggerWrapper
 
     private static boolean loggingIsInitialized = false;
 
-    public static void log(String appenderName, Analysable analysable)
-    {
-        if (!loggingIsInitialized)
-            initLogging();
-        if (Arrays.asList(csvFiles).contains(appenderName)) {
-            Logger csv = Logger.getLogger(appenderName);
-            csv.info(analysable.toCsv());
-            return;
-        }
-    }
-
     public static void log(String appenderName, String csvStr)
     {
         if (!loggingIsInitialized)
