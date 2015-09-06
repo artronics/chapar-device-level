@@ -51,7 +51,7 @@ public class CsvLoggerWrapper
             try {
                 csvFile = new RollingFileAppender(layout, fileName, false);
                 csvFile.setMaxBackupIndex(1000);
-                csvFile.setMaximumFileSize(10240);//10KB
+                csvFile.setMaximumFileSize(102400);//100KB
             }catch (IOException e) {
                 e.printStackTrace();
             }
