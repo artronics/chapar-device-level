@@ -26,6 +26,17 @@ public class BaseNode extends AbstractNode<Integer, NodeType, Link>
         node.getLinks().add(link);
     }
 
+    @Override
+    public Link getLinkTo(Node node)
+    {
+        for (Link link : links) {
+            if (link.getSource().equals(node) ||
+                    link.getTarget().equals(node))
+                return link;
+        }
+
+        return null;
+    }
 
     @Override
     public boolean hasLinkTo(Node node)

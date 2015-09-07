@@ -98,6 +98,18 @@ public class BaseNodeTest
         assertTrue(nodes[0].hasLinkTo(sameNode1));
     }
 
+    @Test
+    public void Test_getLinkTo()
+    {
+        Link link01 = (Link) nodes[0].getLinkTo(nodes[1]);
+        Link expLink01 = new SimpleLink(nodes[0], nodes[1], 30);
+
+        assertThat(link01, equalTo(expLink01));
+
+        Link link03 = (Link) nodes[0].getLinkTo(nodes[3]);
+        assertThat(link03, equalTo(null));
+    }
+
     /**********************
      * GRAPH
      *******************/

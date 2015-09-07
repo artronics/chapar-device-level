@@ -7,6 +7,8 @@ public interface Node<A, T, L>
 {
     void addLinkTo(Node node, int wieght);
 
+    L getLinkTo(Node destination);
+
     List<L> getLinks();
 
     boolean hasLinkTo(Node node);

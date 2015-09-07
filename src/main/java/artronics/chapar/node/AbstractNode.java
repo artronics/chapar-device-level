@@ -25,6 +25,8 @@ abstract class AbstractNode<A, T, L> implements Node<A, T, L>
 
     public abstract void addLinkTo(Node node, int wiegth);
 
+    public abstract L getLinkTo(Node node);
+
     @Override
     public List<L> getLinks()
     {
