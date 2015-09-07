@@ -1,28 +1,21 @@
 package artronics.chapar.routing;
 
-import artronics.chapar.map.BaseNetworkMap;
 import artronics.chapar.map.NetworkMap;
-import artronics.chapar.map.SimpleNetworkMap;
 import artronics.chapar.node.Node;
-import artronics.chapar.node.BaseLink;
-import org.jgrapht.Graph;
-import org.jgrapht.alg.DijkstraShortestPath;
 
 import java.util.List;
 
 public class Router
 {
-    private final NetworkMap networkMap;
-    private final GraphAdapter graphAdapter;
+    private final GraphDelegator graphDelegator;
 
-    public Router(GraphAdapter graphAdapter, NetworkMap networkMap)
+    public Router(NetworkMap networkMap)
     {
-        this.networkMap = networkMap;
-        this.graphAdapter = graphAdapter;
+        this.graphDelegator = new GraphDelegator(networkMap.getNetworkGraph());
     }
 
     List getShortestPath(Node source, Node target){
 
-        return graphAdapter.getShortestPath(source,target);
+        return graphDelegator.getShortestPath(source, target);
     }
 }

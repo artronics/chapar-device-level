@@ -6,11 +6,11 @@ import org.jgrapht.alg.DijkstraShortestPath;
 
 import java.util.List;
 
-public class GraphAdapter
+public class GraphDelegator
 {
     private final Graph graph;
 
-    public GraphAdapter(Graph graph)
+    public GraphDelegator(Graph graph)
     {
         this.graph = graph;
     }
