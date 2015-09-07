@@ -1,9 +1,6 @@
 package artronics.chapar.map;
 
-import artronics.chapar.node.BaseLink;
-import artronics.chapar.node.BaseNode;
-import artronics.chapar.node.Link;
-import artronics.chapar.node.Node;
+import artronics.chapar.node.*;
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleGraph;
@@ -14,8 +11,7 @@ public class BaseNetworkMap implements NetworkMap<Node, Link>
     private static final BaseNetworkMap INSTANCE = new BaseNetworkMap();
 
     private final SimpleWeightedGraph<Node, Link> graph = new
-            SimpleWeightedGraph(
-            BaseLink.class);
+            SimpleWeightedGraph(BaseLink.class);
 
     private BaseNetworkMap()
     {
