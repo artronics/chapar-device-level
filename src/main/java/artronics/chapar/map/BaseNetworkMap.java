@@ -5,18 +5,20 @@ import artronics.chapar.node.BaseNode;
 import artronics.chapar.node.Link;
 import artronics.chapar.node.Node;
 import org.jgrapht.EdgeFactory;
+import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
-public class BaseNetworkMap extends SimpleWeightedGraph<Node, Link>
-        implements NetworkMap<Node, Link>
+public class BaseNetworkMap implements NetworkMap<Node, Link>
 {
-    private static final BaseNetworkMap INSTANCE = new BaseNetworkMap(BaseLink.class);
+    private static final BaseNetworkMap INSTANCE = new BaseNetworkMap();
 
-    private BaseNetworkMap(
-            Class<? extends Link> edgeClass)
+    private final SimpleWeightedGraph<Node, Link> graph = new
+            SimpleWeightedGraph(
+            BaseLink.class);
+
+    private BaseNetworkMap()
     {
-        super(edgeClass);
         if (INSTANCE != null) {
             throw new IllegalStateException("Already instantiated");
         }
@@ -30,19 +32,25 @@ public class BaseNetworkMap extends SimpleWeightedGraph<Node, Link>
     @Override
     public void addNode(Node node)
     {
-        this.addVertex(node);
+        this.graph.addVertex(node);
     }
 
     @Override
     public void addLink(Node source, Node target, double weight)
     {
-        Link link = this.addEdge(source, target);
-        this.setEdgeWeight(link,weight);
+        Link link = this.graph.addEdge(source, target);
+        this.graph.setEdgeWeight(link, weight);
     }
 
     @Override
     public boolean hasLink(Node source, Node target)
     {
-        return this.containsEdge(source,target);
+        return this.graph.containsEdge(source, target);
+    }
+
+    @Override
+    public Graph<Node, Link> getNetworkGraph()
+    {
+        return this.graph;
     }
 }

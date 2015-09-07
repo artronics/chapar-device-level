@@ -9,4 +9,6 @@ public interface NetworkMap<N, L>
     void addLink(N source, N target, double weight);
 
     boolean hasLink(N source, N target);
+
+    Graph<N, L> getNetworkGraph();
 }
