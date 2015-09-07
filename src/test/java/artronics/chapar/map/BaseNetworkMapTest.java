@@ -39,6 +39,14 @@ public class BaseNetworkMapTest
     }
 
     @Test
+    public void
+    If_we_add_link_to_a_node_which_already_exists_we_should_ignore_it()
+    {
+        //null check on addLink otherwise jgrapht throws exp
+        networkMap.addLink(node0, node2, 10);
+    }
+
+    @Test
     public void It_should_return_true_if_a_node_hasLink_to_other_node()
     {
         assertThat(networkMap.hasLink(node0, node1), equalTo(true));

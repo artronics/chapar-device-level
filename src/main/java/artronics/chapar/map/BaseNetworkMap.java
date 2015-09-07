@@ -39,7 +39,10 @@ public class BaseNetworkMap implements NetworkMap<Node, Link>
     public void addLink(Node source, Node target, double weight)
     {
         Link link = this.graph.addEdge(source, target);
-        this.graph.setEdgeWeight(link, weight);
+
+        if (link != null) {
+            this.graph.setEdgeWeight(link, weight);
+        }
     }
 
     @Override
