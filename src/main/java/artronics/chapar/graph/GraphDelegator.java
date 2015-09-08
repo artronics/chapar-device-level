@@ -1,4 +1,4 @@
-package artronics.chapar.routing;
+package artronics.chapar.graph;
 
 import artronics.chapar.node.Node;
 import org.jgrapht.Graph;

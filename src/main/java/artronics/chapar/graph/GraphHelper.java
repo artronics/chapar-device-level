@@ -1,17 +1,16 @@
-package artronics.chapar.routing;
+package artronics.chapar.graph;
 
 import artronics.chapar.map.NetworkMap;
-import artronics.chapar.node.BaseLink;
 import artronics.chapar.node.Link;
 import artronics.chapar.node.Node;
 
 import java.util.List;
 
-public class Router<N extends Node, L extends Link>
+public class GraphHelper<N extends Node, L extends Link>
 {
     private final GraphDelegator<N, L> graphDelegator;
 
-    public Router(NetworkMap<N, L> networkMap)
+    public GraphHelper(NetworkMap<N, L> networkMap)
     {
         this.graphDelegator = new GraphDelegator(networkMap.getNetworkGraph());
     }

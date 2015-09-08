@@ -1,4 +1,4 @@
-package artronics.chapar.routing;
+package artronics.chapar.graph;
 
 import artronics.chapar.map.BaseNetworkMap;
 import artronics.chapar.map.NetworkMap;
@@ -11,10 +11,10 @@ import java.util.List;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class RouterTest
+public class GraphHelperTest
 {
     NetworkMap networkMap;
-    Router router ;
+    GraphHelper graphHelper;
 
     Node node0;
     Node node1;
@@ -26,10 +26,10 @@ public class RouterTest
     {
         networkMap = new BaseNetworkMap<SimpleNode>();
 
-        router = new Router(networkMap);
+        graphHelper = new GraphHelper(networkMap);
 
         /*
-            A simple graph for testing Router
+            A simple graph for testing GraphHelper
             node0 --30--> node1
             node2 --05--> node1
             node2 --10--> node0
@@ -62,15 +62,15 @@ public class RouterTest
     @Test
     public void It_should_give_the_shortest_path()
     {
-        List<SimpleNode> path = router.getShortestPath(node0, node3);
+        List<SimpleNode> path = graphHelper.getShortestPath(node0, node3);
 
-        assertThat(path.size(),equalTo(3));
+        assertThat(path.size(), equalTo(3));
     }
 
     @Test
     public void It_should_give_a_list_of_nodes_rigth_order_except_source()
     {
-        List<SimpleNode> path = router.getShortestPath(node0, node3);
+        List<SimpleNode> path = graphHelper.getShortestPath(node0, node3);
 
         SimpleNode targetNode2 = path.get(0);
         SimpleNode targetNode1 = path.get(1);
