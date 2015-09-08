@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**Chapar** is a Software Defined Network (SDN) framework using *java* programming language to make the process of designing a _Network Controller Service_ fast, robust and reliable. It is easy to use and also flexible enough to match with different scenarios. Although *Chapar* is not limited to specific implementation, it is designed with the idea of *Software Defined Wireless Networks (SDWN)* in mind.
+**Chapar** is a Software Defined Network (SDN) framework using *java* programming language to make the process of designing a _Network Controller Service_ fast, robust and reliable. It is easy to use and also flexible enough to match with different scenarios.
 
 ## Usage
 
@@ -16,7 +16,7 @@ Let's create a `main()` method which will be the entry point of our program.
 	    }
 	}
 	
-We start _Chapar_ by invoking its `start()` method, If you run the program, you will see an output similar to this.
+We start *Chapar* by invoking its `start()` method, If you run the program, you will see an output similar to this.
 
 	INFO  [Thread-1  ]: 1   ;UNK            ;22  ;1   ;0   ;0   ;0   ;0   ;2   ;20  ;0   ;0   ;0   ;255 ;3   ;0   ;50  ;211 ;0   ;30  ;204 ;0   ;39  ;205 ;;
 	INFO  [Thread-1  ]: 2   ;UNK            ;22  ;1   ;0   ;50  ;0   ;0   ;2   ;19  ;0   ;0   ;1   ;255 ;3   ;0   ;30  ;235 ;0   ;39  ;247 ;0   ;0   ;211 ;;
@@ -25,9 +25,9 @@ We start _Chapar_ by invoking its `start()` method, If you run the program, you 
 
 	etc...
 
-Notice that before running the program, I connected four *Wireless Sensor Devices* with addresses of 0, 30, 39 and 50. `INFO [Thread-1  ]` is the information related to `logger`. Each line starts with *Packet Serial-Number*, follows the type of packet (in this case **UNKown**). Each time you create a packet, or each time system receives a packet this serial number increases.
+Notice that before running the program, I connected four *Wireless Sensor Devices* with addresses of 0, 30, 39 and 50. `INFO [Thread-1  ]` is the information related to `logger`. Each line starts with *Packet Serial-Number*, follows the type of packet (in this case **UNKnown**). Each time you create a packet, or each time system receives a packet this serial number increases.
 
-These packets are *put* in `PacketsIn` queue, until you *take* them with your controller. Later we will see how you can write a controller to take and use these packets.
+These packets are *put* in `PacketsIn` queue, until you *take* them with your controller. Later we will see how you can write a controller to take and use these packets. Currently there is one implementation for *Connection Service* which is `SerialPortConnection`. Using this *Connection* layer, you will have well-formed packets in `PacketsIn`. These packets contains data which could be from any kind of devices. It is not limited to *Wireless Sensors*. You can connect your [Arduino](https://en.wikipedia.org/wiki/Arduino) or any serial port enabled devices. 
 
 If you check the parent directory, you also see a `/logs/Packets` directory, which contains `packets.csv` file. This file contains the same content of what you saw in console output. See [Analyzing Data](#analyzing_data) section.
 
@@ -50,11 +50,11 @@ The `/src` directory consists of all source codes of the project. inside `/src`,
 
 
 ### Architecture
-*Chapar* has a [Modular Architecture](https://en.wikipedia.org/wiki/Modular_programming). If you decide to change behaviour of a _module_ you can simply write your own and then configure _Cahpar_ to use your own modules. Changing the implementation of a module is resolving by [Spring](https://en.wikipedia.org/wiki/Spring_Framework) [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection). If you decide to change a module the first step is to create a [bean definition](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/) `xml` file. You can pass this `xml` like so `Chapar.start(myProjectBeans.xml)`
+*Chapar* has a [Modular Architecture](https://en.wikipedia.org/wiki/Modular_programming). If you decide to change behaviour of a _module_ you can simply write your own and then configure _Chapar_ to use your own modules. Changing the implementation of a module is resolving by [Spring](https://en.wikipedia.org/wiki/Spring_Framework) [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection). If you decide to change a module the first step is to create a [bean definition](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/) `xml` file. You can pass this `xml` like so `Chapar.start(myProjectBeans.xml)`
 
 The below figure shows how different modules are connected.
 
-![Chapar High Leve Architecture](/img/Chapar-HL.jpg)
+![Chapar High Leve Architecture](https://www.dropbox.com/s/v8faa3b6017vjk9/Chapar-HL.jpg?dl=0)
 
 Each _module_ talks to other modules by implementing a **contract** (i.e. _java_ _interfaces_) for that module. See [Services](#services) section for further information. 
 For example *Chapar* uses its own implementation of `PacketFactory` contract, which is called `BasedPacketFactory`. This [factory](https://en.wikipedia.org/wiki/Factory_method_pattern) creates `BasePackets`. As said before, *Chapar* is protocol unaware, and this is the reason why you saw `UNK` as packet types when running the first program. You can write your own implementation of  `PacketFactory` and inject that implementation to `PacketBroker`. Here is an example of *Spring* beans configuration `xml` file.
@@ -78,7 +78,7 @@ The second group gives all you need for implementing your desire **Controller**.
 
 ### Controller
 
-It is the reponsibility of developer to create a *Controller* for her network. Here is a demonstration of how you can use various available modules/services to create a controller. Notice that this is an snippet code, it serves no purpose.
+It is the responsibility of developer to create a *Controller* for her network. Here is a demonstration of how you can use various available modules/services to create a controller. Notice that this is an snippet code, it serves no purpose.
 
     private void processPacket(Packet packet)
     {
@@ -101,7 +101,7 @@ No matter what does your `Controller` actually do, the final goal is to get some
 
 Currently, *Chapar* records all generated packets, with their contents as a [`.csv` (Comma Separated Values)](https://en.wikipedia.org/wiki/Comma-separated_values) format. In this format each line of the file is known as a **record** and each record consists of one or more **field**s, separated by commas. The benefit of using `.csv` file is that, data can be easily imported to all data manipulation software such as GNU Octave, Matlab, Excel, etc. It is worth noting that in European standard the separator is a _semicolon_ ";" because _comma_ is used for decimal separator. 
 
-In order to create csv records inside your program, you can use `ToCsv` helper class. It creates a `csv` formated `String` out of your important variables. This class has two `static` methods: `create` and `write`. `create` method accepts an infinite number of arguments ([varagrs](http://acacha.org/mediawiki/Java_varargs#.Vez7GnhVuEI)) and it returns a `csv` compatible **record** out of provided data. Remeber if you pass a `Collection` type, it iterate over each element and calls `toString` method for each element inside collection.
+In order to create csv records inside your program, you can use `ToCsv` helper class. It creates a `csv` formatted `String` out of your important variables. This class has two `static` methods: `create` and `write`. `create` method accepts an infinite number of arguments ([varagrs](http://acacha.org/mediawiki/Java_varargs#.Vez7GnhVuEI)) and it returns a `csv` compatible **record** out of provided data. Remember if you pass a `Collection` type, it iterate over each element and calls `toString` method for each element inside collection.
 In the other hand, `write` method helps you to write your created `csv` record to a file. You should provide a name (inside `chapar.config` file) for that file before running the program. Otherwise `write` method ignores it without throwing any exceptions.
 
 ###<a name="tests"><a/>Tests
@@ -122,7 +122,7 @@ Remember, although there are various tests, right now *Chapar* is in its early d
 
 ### <a name="services"><a/>Services
 
-There are various services available in *Chapar*. In this section we take a look at thoese services that would be intersting. As siad before you can always write you own service.
+There are various services available in *Chapar*. In this section we take a look at those services that would be interesting. As said before you can always write you own service.
 
 #### Connection
 
@@ -138,7 +138,7 @@ There are various services available in *Chapar*. In this section we take a look
 	}
 
 #### Message and Packet Boker
-There are two services wich behaves similarly, `MessageBroker` and `PacketBroker`. Before going further we need to define what is a **message** and **packet**. Everythings that *Connection Service* receives from outside world is called a *message*. For a message to be applicable it must follows a convention. It should starts with a `START_BYTE` follows by `LENGTH` of packet and ends with `STOP_BYTE`. There is a helper service inside `PacketBroker` which splits received messages to chunks of `int` streams which obeys start_length_stop rule. Remember though, a message would either consists of several packets or a part of a packet. It dosen't matter becuase that helper service has a `queue` which keeps track of previous received messages and as soon as it receives stop byte it produces a chunk of integers which together constructs a packet. `PacketBroker` uses `PacketFactory` to create actual packets out of thoese chunks and then it puts created packets in a queue object which is called `PacketsIn`. `PacketsIn` is a singleton and you can get the instance inside your controller. here is a code for controller which gets the received packet and puts it in another queue (`packetsQueue`):
+There are two services which behaves similarly, `MessageBroker` and `PacketBroker`. Before going further we need to define what is a **message** and **packet**. Everything that *Connection Service* receives from outside world is called a *message*. For a message to be applicable it must follows a convention. It should starts with a `START_BYTE` follows by `LENGTH` of packet and ends with `STOP_BYTE`. There is a helper service inside `PacketBroker` which splits received messages to chunks of `int` streams which obeys start_length_stop rule. Remember though, a message would either consists of several packets or a part of a packet. It doesn't matter because that helper service has a `queue` which keeps track of previous received messages and as soon as it receives stop byte it produces a chunk of integers which together constructs a packet. `PacketBroker` uses `PacketFactory` to create actual packets out of those chunks and then it puts created packets in a queue object which is called `PacketsIn`. `PacketsIn` is a singleton and you can get the instance inside your controller. here is a code for controller which gets the received packet and puts it in another queue (`packetsQueue`):
 
 	@Subscribe
 	public void packetInEventHandler(PacketInEvent event)
@@ -157,21 +157,23 @@ You may ask how my controller is supposed to know when a packet is available. We
 
 #### Events
 
-Whenever a service wants to make other services aware of an important occurrence, it fires an event so other service(s) who are intersted on that particular event will receive that event. These service(s) sould provide a handler to hook on to that event.
+Whenever a service wants to make other services aware of an important occurrence, it fires an event so other service(s) who are interested on that particular event will receive that event. These service(s) should provide a handler to hook on to that event.
 
-*Chapar* uses *google guava EventBus* library to implement its own event bus. Currently there is just one **Event Bus** which is called `mainbus`. If you want to leverage event driven architecture it is recommanded to create your own bus.
+*Chapar* uses *google guava EventBus* library to implement its own event bus. Currently there is just one **Event Bus** which is called `mainbus`. If you want to leverage event driven architecture it is recommended to create your own bus.
 
 ### Components
 There are various components that helps you to create your network model fast and easy. In following sections you can find a short introduction to each component.
 
 #### Node
-The generic `Node` interface is the core _type_ of a Network Node. Currently, there is one implementation of this interface which is called `BaseNode`. It gets an integer number as the address of node .It also holds a `List` of `Link`s to other nodes. It is recommended that you `extend` this class and add other members and behaviours to it, based on your needs. `BaseNode` has everything that a vertex object needs to have to pass to graph libraries.
+The generic `Node` interface is the core _type_ of a Network Node. Currently, there is one implementation of this interface which is called `SimpleNode`. It gets an integer number as the address of node. It is recommended that you `extend` `AbstractNode` class and add other members and behaviours to it, based on your needs. The `Node` interface is compatible with *Graph* library. See NetworkMap section.
 
 #### Packet
-The generic `Packet` inteface is the core type of a Network Packet. Since *Chapar* is protocol unaware there is no much behaviour in `BasePacket`. Remember if you want to put/take packets to/from packet queue, your implementation of packet must implement `Packet` interface.
+The generic `Packet` interface is the core type of a Network Packet. Since *Chapar* is protocol unaware there is no much behaviour in `BasePacket`. Remember if you want to put/take packets to/from packet queue, your implementation of packet must implement `Packet` interface.
 
-#### NetworkMap
-`NetworkMap` is more like a service. It has a `Set` and a `List`. The set consists of updated view of network. If you want to know what is the current snapshot of network you can refer to `networkMap` which is a `HashTable`. In the other hand there is an `ArrayDequeue` field which is called `networkMapHistory`. As the name implies, it holds a history of changes inside your network. You can change the capacity of this queue inside configuration file.
+### NetworkMap
+Think of `NetworkMap` as a *Graph* representation of your network. It gives you all you need to maintain a picture of current status/connections of your network. Behind the scenes, *NetworkMap* uses [jgrapht](https://github.com/jgrapht/jgrapht/wiki) as a graph resolver. There are helper method that you can use for your graph needs, however nothing can stop you to use your desire algorithms. Invoking `getNetworkGraph()` method, gives you a *jgrapht* `Graph` type. You can use this object to implement other algorithms.
+
+Remember that *NetworkMap* maintains a *Weighted Undirected Graph*. 
 
 ### What's the meaning of Chapar?
 From [wiki: Chapar-Khane](https://en.wikipedia.org/wiki/Chapar_Khaneh)
