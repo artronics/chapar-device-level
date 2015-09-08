@@ -96,7 +96,7 @@ It is the reponsibility of developer to create a *Controller* for her network. H
 
 `PacketsIn` is a [`singleton`](https://en.wikipedia.org/wiki/Singleton_pattern) class which holds all received packets. In above example we take the last packet and based on its type we call appropriate method (`processReportPacket()`).
 
-### <a name="analyzing_data"><a/> Analyzing Data  
+### <a id="analyzing_data">Analyzing Data <a/> 
 No matter what does your `Controller` actually do, the final goal is to get some data that let you analyze the performance of your `Controller` and your algorithms. For achieving this goal, there would be two possible solutions. The first one is, implementing analyzing requirements inside java, and the second one is to record all required data somewhere and let other programs to analyze your data. Latter solution would give more flexibility. This approach is also less error prone.
 
 Currently, *Chapar* records all generated packets, with their contents as a [`.csv` (Comma Separated Values)](https://en.wikipedia.org/wiki/Comma-separated_values) format. In this format each line of the file is known as a **record** and each record consists of one or more **field**s, separated by commas. The benefit of using `.csv` file is that, data can be easily imported to all data manipulation software such as GNU Octave, Matlab, Excel, etc. It is worth noting that in European standard the separator is a _semicolon_ ";" because _comma_ is used for decimal separator. 
