@@ -6,16 +6,15 @@ import artronics.chapar.node.Node;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 
 public abstract class AbstractNetworkMap<N extends Node, L extends Link>
         implements NetworkMap<N, L>
 {
     protected final SimpleWeightedGraph<N, L> graph;
-
-//    protected final HashSet<N> nodeSet = new HashSet<>();
-
 
     public AbstractNetworkMap(Class<? extends BaseLink> linkClass)
     {
@@ -25,7 +24,6 @@ public abstract class AbstractNetworkMap<N extends Node, L extends Link>
     @Override
     public void addNode(N node)
     {
-//        nodeSet.add(node);
         graph.addVertex(node);
     }
 
@@ -36,6 +34,12 @@ public abstract class AbstractNetworkMap<N extends Node, L extends Link>
     public boolean hasLink(N source, N target)
     {
         return graph.containsEdge(source, target);
+    }
+
+    @Override
+    public List<N> getAllNodes()
+    {
+        return new ArrayList<>(graph.vertexSet());
     }
 
     @Override

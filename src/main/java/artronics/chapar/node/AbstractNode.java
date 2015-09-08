@@ -14,4 +14,20 @@ public class AbstractNode<A> implements Node<A>
     {
         return address;
     }
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Node) {
+            Node node = (Node) obj;
+            return getAddress().equals(node.getAddress());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getAddress().hashCode();
+    }
 }

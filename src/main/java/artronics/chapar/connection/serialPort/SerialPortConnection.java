@@ -80,7 +80,6 @@ final class SerialPortConnection implements ConnectionService, SerialPortEventLi
         }catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(message);
     }
 
     private void initEventListenersAndIO()

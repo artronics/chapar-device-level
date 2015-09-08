@@ -19,7 +19,6 @@
 
     <bean id="PacketFactory" class="artronics.chapar.packet.BasePacketFactory"/>
 
-    <bean id="RoutingService" class="artronics.chapar.routing.Router"/>
 
     <bean id="MessagesIn" class="artronics.chapar.broker.MessagesIn"/>
     <bean id="MessagesOut" class="artronics.chapar.broker.MessagesOut"/>
