@@ -2,10 +2,7 @@ package artronics.chapar.routing;
 
 import artronics.chapar.map.BaseNetworkMap;
 import artronics.chapar.map.NetworkMap;
-import artronics.chapar.node.BaseLink;
-import artronics.chapar.node.BaseNode;
-import artronics.chapar.node.Link;
-import artronics.chapar.node.Node;
+import artronics.chapar.node.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +24,7 @@ public class RouterTest
     @Before
     public void setUp() throws Exception
     {
-        networkMap = BaseNetworkMap.getInstance();
+        networkMap = new BaseNetworkMap<SimpleNode>();
 
         router = new Router(networkMap);
 
@@ -46,10 +43,10 @@ public class RouterTest
             Remember NetworkMap is not a directed graph.
          */
 
-        node0 = new BaseNode(0);
-        node1 = new BaseNode(1);
-        node2 = new BaseNode(2);
-        node3 = new BaseNode(3);
+        node0 = new SimpleNode(0);
+        node1 = new SimpleNode(1);
+        node2 = new SimpleNode(2);
+        node3 = new SimpleNode(3);
 
         networkMap.addNode(node0);
         networkMap.addNode(node1);
@@ -65,9 +62,22 @@ public class RouterTest
     @Test
     public void It_should_give_the_shortest_path()
     {
-        List<Link> path = router.getShortestPath(node0, node3);
-        assertThat(path.size(),equalTo(3));
+        List<SimpleNode> path = router.getShortestPath(node0, node3);
 
-//        assertThat(path.get(0),equalTo(node0));
+        assertThat(path.size(),equalTo(3));
+    }
+
+    @Test
+    public void It_should_give_a_list_of_nodes_rigth_order_except_source()
+    {
+        List<SimpleNode> path = router.getShortestPath(node0, node3);
+
+        SimpleNode targetNode2 = path.get(0);
+        SimpleNode targetNode1 = path.get(1);
+        SimpleNode targetNode3 = path.get(2);
+
+        assertThat(targetNode2, equalTo(node2));
+        assertThat(targetNode1, equalTo(node1));
+        assertThat(targetNode3, equalTo(node3));
     }
 }

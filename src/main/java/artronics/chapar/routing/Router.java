@@ -7,18 +7,26 @@ import artronics.chapar.node.Node;
 
 import java.util.List;
 
-public class Router
+public class Router<N extends Node, L extends Link>
 {
-    private final GraphDelegator graphDelegator;
+    private final GraphDelegator<N, L> graphDelegator;
 
-    public Router(NetworkMap networkMap)
+    public Router(NetworkMap<N, L> networkMap)
     {
         this.graphDelegator = new GraphDelegator(networkMap.getNetworkGraph());
     }
 
-    List<Link> getShortestPath(Node source, Node target)
+    /**
+     * Get shortest path. This method returns a <code>List</code> containing all
+     * <code>Node</code>s through target, containing {@code target} itself.
+     * Remember this list does not contain the {@code source} node.
+     *
+     * @param source the source
+     * @param target the target
+     * @return the list
+     */
+    List<N> getShortestPath(Node source, Node target)
     {
-
         return graphDelegator.getShortestPath(source, target);
     }
 }

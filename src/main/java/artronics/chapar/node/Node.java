@@ -1,5 +1,6 @@
 package artronics.chapar.node;
 
-public interface Node
+public interface Node<A>
 {
+    A getAddress();
 }

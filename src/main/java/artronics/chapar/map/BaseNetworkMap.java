@@ -6,50 +6,20 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
-public class BaseNetworkMap implements NetworkMap<Node, Link>
+public class BaseNetworkMap<N extends AbstractNode> extends AbstractNetworkMap<N,BaseLink>
 {
-    private static final BaseNetworkMap INSTANCE = new BaseNetworkMap();
-
-    private final SimpleWeightedGraph<Node, Link> graph = new
-            SimpleWeightedGraph(BaseLink.class);
-
-    private BaseNetworkMap()
+    public BaseNetworkMap()
     {
-        if (INSTANCE != null) {
-            throw new IllegalStateException("Already instantiated");
-        }
-    }
-
-    public static BaseNetworkMap getInstance()
-    {
-        return INSTANCE;
+        super(BaseLink.class);
     }
 
     @Override
-    public void addNode(Node node)
+    public void addLink(N source, N target, double weight)
     {
-        this.graph.addVertex(node);
-    }
-
-    @Override
-    public void addLink(Node source, Node target, double weight)
-    {
-        Link link = this.graph.addEdge(source, target);
+        BaseLink link = this.graph.addEdge(source, target);
 
         if (link != null) {
             this.graph.setEdgeWeight(link, weight);
         }
-    }
-
-    @Override
-    public boolean hasLink(Node source, Node target)
-    {
-        return this.graph.containsEdge(source, target);
-    }
-
-    @Override
-    public Graph<Node, Link> getNetworkGraph()
-    {
-        return this.graph;
     }
 }

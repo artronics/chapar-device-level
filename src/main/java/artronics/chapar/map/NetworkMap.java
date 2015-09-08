@@ -1,8 +1,10 @@
 package artronics.chapar.map;
 
+import artronics.chapar.node.Link;
+import artronics.chapar.node.Node;
 import org.jgrapht.Graph;
 
-public interface NetworkMap<N, L>
+public interface NetworkMap<N extends Node, L extends Link>
 {
     void addNode(N node);
 
@@ -11,4 +13,6 @@ public interface NetworkMap<N, L>
     boolean hasLink(N source, N target);
 
     Graph<N, L> getNetworkGraph();
+
+    boolean contains(N node);
 }

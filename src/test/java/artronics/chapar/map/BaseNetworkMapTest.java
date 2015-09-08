@@ -1,7 +1,8 @@
 package artronics.chapar.map;
 
-import artronics.chapar.node.BaseNode;
+import artronics.chapar.node.SimpleNode;
 import artronics.chapar.node.Node;
+import artronics.chapar.node.SimpleNode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertThat;
 
 public class BaseNetworkMapTest
 {
-    BaseNetworkMap networkMap;
+    NetworkMap networkMap;
 
     Node node0;
     Node node1;
@@ -20,12 +21,12 @@ public class BaseNetworkMapTest
     @Before
     public void setUp() throws Exception
     {
-        networkMap = BaseNetworkMap.getInstance();
+        networkMap = new BaseNetworkMap<SimpleNode>();
 
-        node0 = new BaseNode(0);
-        node1 = new BaseNode(1);
-        node2 = new BaseNode(2);
-        node3 = new BaseNode(3);
+        node0 = new SimpleNode(0);
+        node1 = new SimpleNode(1);
+        node2 = new SimpleNode(2);
+        node3 = new SimpleNode(3);
 
         networkMap.addNode(node0);
         networkMap.addNode(node1);
@@ -40,7 +41,7 @@ public class BaseNetworkMapTest
 
     @Test
     public void
-    If_we_add_link_to_a_node_which_already_exists_we_should_ignore_it()
+    If_we_add_link_to_a_node_which_already_exists_it_should_ignore_it()
     {
         //null check on addLink otherwise jgrapht throws exp
         networkMap.addLink(node0, node2, 10);
@@ -60,6 +61,19 @@ public class BaseNetworkMapTest
     public void It_should_return_false_if_we_ask_a_node_hasLink_to_itself()
     {
         assertThat(networkMap.hasLink(node0, node0), equalTo(false));
+    }
+
+    @Test
+    public void Test_contains_node()
+    {
+        assertThat(networkMap.contains(node0), equalTo(true));
+    }
+
+    @Test
+    public void Two_nodes_with_same_address_are_equal()
+    {
+        Node eqNode0 = new SimpleNode(0);
+        assertThat(networkMap.contains(eqNode0), equalTo(true));
     }
 
 }
