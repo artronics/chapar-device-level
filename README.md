@@ -53,8 +53,9 @@ The `/src` directory consists of all source codes of the project. inside `/src`,
 *Chapar* has a [Modular Architecture](https://en.wikipedia.org/wiki/Modular_programming). If you decide to change behaviour of a _module_ you can simply write your own and then configure _Chapar_ to use your own modules. Changing the implementation of a module is resolving by [Spring](https://en.wikipedia.org/wiki/Spring_Framework) [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection). If you decide to change a module the first step is to create a [bean definition](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/) `xml` file. You can pass this `xml` like so `Chapar.start(myProjectBeans.xml)`
 
 The below figure shows how different modules are connected.
+https://www.dropbox.com/s/v8faa3b6017vjk9/Chapar-HL.jpg?dl=0
 
-![Chapar High Leve Architecture](https://www.dropbox.com/s/v8faa3b6017vjk9/Chapar-HL.jpg?dl=0)
+![Chapar High Leve Architecture](https://dl.dropboxusercontent.com/s/v8faa3b6017vjk9/Chapar-HL.jpg?dl=0)
 
 Each _module_ talks to other modules by implementing a **contract** (i.e. _java_ _interfaces_) for that module. See [Services](#services) section for further information. 
 For example *Chapar* uses its own implementation of `PacketFactory` contract, which is called `BasedPacketFactory`. This [factory](https://en.wikipedia.org/wiki/Factory_method_pattern) creates `BasePackets`. As said before, *Chapar* is protocol unaware, and this is the reason why you saw `UNK` as packet types when running the first program. You can write your own implementation of  `PacketFactory` and inject that implementation to `PacketBroker`. Here is an example of *Spring* beans configuration `xml` file.
