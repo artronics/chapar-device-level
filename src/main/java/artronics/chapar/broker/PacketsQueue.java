@@ -21,7 +21,7 @@ class PacketsQueue implements PacketsInOut
             packetsQueue.put(data);
         }catch (InterruptedException e) {
             Log.main().debug("Exp Unable to put packet to packetQueue");
-            e.printStackTrace();
+            Log.main().error(e.getStackTrace());
         }
     }
 
