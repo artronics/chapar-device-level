@@ -62,20 +62,22 @@ public class GraphHelperTest
     @Test
     public void It_should_give_the_shortest_path()
     {
-        List<SimpleNode> path = graphHelper.getShortestPath(node0, node3);
+        List<Node> path = graphHelper.getShortestPath(node0, node3);
 
-        assertThat(path.size(), equalTo(3));
+        assertThat(path.size(), equalTo(4));
     }
 
     @Test
-    public void It_should_give_a_list_of_nodes_rigth_order_except_source()
+    public void It_should_give_a_list_of_nodes_rigth_order_contains_source_target()
     {
-        List<SimpleNode> path = graphHelper.getShortestPath(node0, node3);
+        List<Node> path = graphHelper.getShortestPath(node0, node3);
 
-        SimpleNode targetNode2 = path.get(0);
-        SimpleNode targetNode1 = path.get(1);
-        SimpleNode targetNode3 = path.get(2);
+        Node targetNode0 = path.get(0);
+        Node targetNode2 = path.get(1);
+        Node targetNode1 = path.get(2);
+        Node targetNode3 = path.get(3);
 
+        assertThat(targetNode0, equalTo(node0));
         assertThat(targetNode2, equalTo(node2));
         assertThat(targetNode1, equalTo(node1));
         assertThat(targetNode3, equalTo(node3));

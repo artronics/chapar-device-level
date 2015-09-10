@@ -21,7 +21,8 @@ public class GraphDelegator<N, L>
         this.graph = graph;
     }
 
-    public List<N> getShortestPath(Node source, Node target){
+    public List<N> getShortestPath(N source, N target)
+    {
         DijkstraShortestPath dijkstra = new DijkstraShortestPath(graph,source,target);
         List<L> links = dijkstra.getPathEdgeList();
 
@@ -30,15 +31,22 @@ public class GraphDelegator<N, L>
             we need a list of nodes. A LinkedHashSet
             preserve the ordering of element and also
             ignore duplicated nodes. At the end we remove
-            the source from set.
+            the source from set. This is because in case
+            reversed direction from source to target
+            we'll get a wrong order. We'll add source to
+            final list.
         */
         Set<N> nodes = new LinkedHashSet<>();
+
         for (L link : links) {
             nodes.add(graph.getEdgeSource(link));
             nodes.add(graph.getEdgeTarget(link));
         }
         nodes.remove(source);
 
-        return new ArrayList<>(nodes);
+        List<N> nodesList = new ArrayList<>(nodes);
+        nodesList.add(0, source);
+
+        return nodesList;
     }
 }
