@@ -6,6 +6,9 @@ import artronics.chapar.node.SimpleNode;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -17,6 +20,8 @@ public class BaseNetworkMapTest
     Node node1;
     Node node2;
     Node node3;
+
+    List<Node> nodes = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception
@@ -37,6 +42,11 @@ public class BaseNetworkMapTest
         networkMap.addLink(node2, node1, 5);
         networkMap.addLink(node2, node0, 10);
         networkMap.addLink(node3, node1, 50);
+
+        nodes.add(node0);
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
     }
 
     @Test
@@ -74,6 +84,12 @@ public class BaseNetworkMapTest
     {
         Node eqNode0 = new SimpleNode(0);
         assertThat(networkMap.contains(eqNode0), equalTo(true));
+    }
+
+    @Test
+    public void test_getAllNodes()
+    {
+        assertThat(networkMap.getAllNodes(), equalTo(nodes));
     }
 
 }
