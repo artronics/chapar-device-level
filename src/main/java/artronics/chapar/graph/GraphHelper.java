@@ -24,7 +24,7 @@ public class GraphHelper
      * @param target the target
      * @return the list
      */
-    List<Node> getShortestPath(Node source, Node target)
+    public List<Node> getShortestPath(Node source, Node target)
     {
         return graphDelegator.getShortestPath(source, target);
     }
