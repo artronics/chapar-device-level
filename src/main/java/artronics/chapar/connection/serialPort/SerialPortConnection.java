@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TooManyListenersException;
 
-final class SerialPortConnection implements ConnectionService, SerialPortEventListener
+class SerialPortConnection implements ConnectionService, SerialPortEventListener
 {
     //    private final ArrayBlockingQueue<List> inQueue;
 //    private final ArrayBlockingQueue<int[]> outQueue;
