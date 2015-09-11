@@ -12,7 +12,8 @@
     <bean id="ChaparServiceInitializer" class="artronics.chapar.core.ChaparServiceInitializer">
         <property name="connection" ref="ConnectionService"></property>
     </bean>
-    <bean id="ConnectionService" class="artronics.chapar.connection.serialPort.SerialPortConnection">
+    <bean id="ConnectionService"
+          class="artronics.chapar.connection.serialPort.SerialPortConnection">
         <constructor-arg name="messagesIn" ref="MessagesIn"></constructor-arg>
         <constructor-arg name="messagesOut" ref="MessagesOut"></constructor-arg>
     </bean>
