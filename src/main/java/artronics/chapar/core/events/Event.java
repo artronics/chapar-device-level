@@ -6,7 +6,7 @@ public class Event
 {
     private static final EventBus mainBus = new EventBus();
 
-    private Event()
+    protected Event()
     {
     }
 
