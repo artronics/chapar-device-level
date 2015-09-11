@@ -4,7 +4,7 @@ import com.google.common.eventbus.EventBus;
 
 public class Event
 {
-    private static final EventBus mainBus = new EventBus();
+    private static final EventBus MAIN_BUS = new EventBus();
 
     protected Event()
     {
@@ -12,6 +12,6 @@ public class Event
 
     public static EventBus mainBus()
     {
-        return mainBus;
+        return MAIN_BUS;
     }
 }
