@@ -23,7 +23,7 @@ public class FakeConnectionBuffer
     private List<Integer> fullHalf;
     private List<Integer> mixed;
 
-    private List<List<Integer>> allBufferes;
+    private List<List<Integer>> allBuffers = new ArrayList<>();
 
     public FakeConnectionBuffer()
     {
@@ -48,20 +48,24 @@ public class FakeConnectionBuffer
 
         //for those packets which we want to assert we need to remove start and stop bytes
         //for first, second, and fullhalf i changed the index range. for others
-        //see removeStartStop method
+        //see removeStartStop inside MessageToPacketConvertorImplTest method
         Integer[] giberishArr = Arrays.copyOfRange(streamOfBytes, 0, 4);
         Integer[] firstOneArr = Arrays.copyOfRange(streamOfBytes, 5, 7);
         Integer[] secondOneArr = Arrays.copyOfRange(streamOfBytes, 13, 15);
         Integer[] twoPacketsArr = Arrays.copyOfRange(streamOfBytes, 4, 16);
         Integer[] withGibberishArr = Arrays.copyOfRange(streamOfBytes, 0, 16);
         Integer[] withStartStopArr = Arrays.copyOfRange(streamOfBytes, 16, 21);
-        Integer[] withStrStp_packet = Arrays.copyOfRange(streamOfBytes, 16, 26);
+        Integer[] withStrStp_packet = Arrays.copyOfRange(streamOfBytes, 16, 25);
         Integer[] firstHalfArr = Arrays.copyOfRange(streamOfBytes, 25, 29);
         Integer[] secondHalfArr = Arrays.copyOfRange(streamOfBytes, 29, 33);
         Integer[] fullHalfArr = Arrays.copyOfRange(streamOfBytes, 26, 32);
 
-        List<List<Integer>> allBuffers = new ArrayList<>();
-        allBuffers.add(firstOne = Arrays.asList(firstOneArr));
+        //These are the with start and stop
+        Integer[] firstOneBuff = Arrays.copyOfRange(streamOfBytes, 4, 8);
+        Integer[] secondOneBuff = Arrays.copyOfRange(streamOfBytes, 12, 16);
+
+
+        firstOne = Arrays.asList(firstOneArr);
         secondOne = Arrays.asList(secondOneArr);
         twoPackets = Arrays.asList(twoPacketsArr);
         giberish = Arrays.asList(giberishArr);
@@ -72,11 +76,28 @@ public class FakeConnectionBuffer
         secondHalf = Arrays.asList(secondHalfArr);
         fullHalf = Arrays.asList(fullHalfArr);
         mixed = Arrays.asList(streamOfBytes);
+
+        //all buffers consists of a list of pure data inside buffer.
+        //I add them here to make it seperate and clear.
+        //Well, it's supposed to make things easier.
+        // now i need another test for this shit LOOL
+        allBuffers.add(giberish);
+
+        allBuffers.add(Arrays.asList(firstOneBuff));
+        allBuffers.add(Arrays.asList(secondOneBuff));
+
+        allBuffers.add(twoPackets);
+        allBuffers.add(withGibberish);
+        allBuffers.add(withStartStop);
+        allBuffers.add(withStartStop_anotherPacket);
+        allBuffers.add(firstHalf);
+        allBuffers.add(secondHalf);
+        allBuffers.add(fullHalf);
     }
 
     public List<List<Integer>> getAllBuffres()
     {
-        return allBufferes;
+        return allBuffers;
     }
 
     //<editor-fold desc="getters">
