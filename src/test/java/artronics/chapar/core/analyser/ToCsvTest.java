@@ -3,8 +3,8 @@ package artronics.chapar.core.analyser;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,15 +21,24 @@ public class ToCsvTest
         strArgs.add("foo");
         strArgs.add("bar");
 
-        String act = ToCsv.creat(56, 64, args, 78, strArgs);
+        String act = ToCsv.create(56, 64, args, 78, strArgs);
         assertEquals(exp, act);
     }
 
     @Test
     public void Check_enums()
     {
-        String act = ToCsv.creat(foo.bar);
+        String act = ToCsv.create(foo.bar);
         String exp = "bar            ;;";
+        assertEquals(exp, act);
+    }
+
+    @Test
+    public void test_passing_a_format()
+    {
+        String exp = "12  ;foo ;";
+        String act = ToCsv.createStrCsv(4, "12", "foo");
+
         assertEquals(exp, act);
     }
 

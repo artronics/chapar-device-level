@@ -16,12 +16,18 @@ public class ToCsv
     public static final int STR_WIDTH = 15;
     private final List intList = new ArrayList<>();
 
+    @Deprecated
     public static void write(String fileName, Analysable csv)
     {
         Log.csv(fileName, csv.toCsv());
     }
 
-    public static String creat(Object... args)
+    public static void write(String fileName, String csv)
+    {
+        Log.csv(fileName, csv);
+    }
+
+    public static String createStrCsv(int strWidth, String... args)
     {
         String csv = "";
         for (Object arg : args) {
@@ -29,17 +35,43 @@ public class ToCsv
                 Collection<?> subArgs = (Collection<?>) arg;
                 Iterator it = subArgs.iterator();
                 while (it.hasNext()) {
-                    csv += formater(it.next());
+                    csv += formater(it.next(), INT_WIDTH, strWidth);
                     csv += CSV_SEPARATOR;
                 }
                 continue;
             }
 
-            csv += formater(arg);
+            csv += formater(arg, INT_WIDTH, strWidth);
+            csv += CSV_SEPARATOR;
+        }
+
+        return csv;
+    }
+
+    public static String create(Object... args)
+    {
+        String csv = "";
+        for (Object arg : args) {
+            if (arg instanceof Collection<?>) {
+                Collection<?> subArgs = (Collection<?>) arg;
+                Iterator it = subArgs.iterator();
+                while (it.hasNext()) {
+                    csv += formater(it.next(), INT_WIDTH, STR_WIDTH);
+                    csv += CSV_SEPARATOR;
+                }
+                continue;
+            }
+
+            csv += formater(arg, INT_WIDTH, STR_WIDTH);
             csv += CSV_SEPARATOR;
         }
         csv += CSV_SEPARATOR;
         return csv;
+    }
+
+    public static String appendSeparator(String csv)
+    {
+        return csv + CSV_SEPARATOR;
     }
 
     private static void writeCsv(String csv)
@@ -53,13 +85,13 @@ public class ToCsv
         return String.format(format, arg);
     }
 
-    private static String formater(Object arg)
+    private static String formater(Object arg, int intWidth, int strWidth)
     {
         if (arg instanceof Number) {
             Number number = (Number) arg;
-            return formatString(number.toString(), INT_WIDTH);
+            return formatString(number.toString(), intWidth);
         }
 
-        return formatString(arg.toString(), STR_WIDTH);
+        return formatString(arg.toString(), strWidth);
     }
 }
