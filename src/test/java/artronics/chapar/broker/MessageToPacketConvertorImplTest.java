@@ -60,7 +60,7 @@ public class MessageToPacketConvertorImplTest
 
         //remove start and stop bytes
         List exp = goodPacket.subList(1, goodPacket.size() - 1);
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(exp));
     }
 
     @Test
@@ -70,8 +70,8 @@ public class MessageToPacketConvertorImplTest
         //first test the size
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(firstOne));
-        assertThat(generatedPackets.get(1).getBytes(), equalTo(secondOne));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(firstOne));
+        assertThat(generatedPackets.get(1).getPacketContent(), equalTo(secondOne));
     }
 
     @Test
@@ -81,8 +81,8 @@ public class MessageToPacketConvertorImplTest
         //first test the size
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(firstOne));
-        assertThat(generatedPackets.get(1).getBytes(), equalTo(secondOne));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(firstOne));
+        assertThat(generatedPackets.get(1).getPacketContent(), equalTo(secondOne));
 
     }
 
@@ -93,14 +93,14 @@ public class MessageToPacketConvertorImplTest
         //first test the size
         List exp = removeStartStop(withStartStop);
         assertThat(generatedPackets.size(), equalTo(1));
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(exp));
 
         //now lets add another packet to end of unibo
         generatedPackets = convertor.generatePackets(withStartStop_anotherPacket);
         assertThat(generatedPackets.size(), equalTo(2));
 
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(exp));
-        assertThat(generatedPackets.get(1).getBytes(), equalTo(firstOne));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(exp));
+        assertThat(generatedPackets.get(1).getPacketContent(), equalTo(firstOne));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class MessageToPacketConvertorImplTest
         //now send second half
         generatedPackets = convertor.generatePackets(secondHalf);
 
-        assertThat(generatedPackets.get(0).getBytes(), equalTo(fullHalf));
+        assertThat(generatedPackets.get(0).getPacketContent(), equalTo(fullHalf));
     }
 
     @Test

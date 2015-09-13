@@ -24,7 +24,7 @@ public class BasePacket implements Packet<String>
     }
 
     @Override
-    public List getBytes()
+    public List getPacketContent()
     {
         return bytes;
     }
@@ -52,9 +52,9 @@ public class BasePacket implements Packet<String>
         @Override
         public String toCsv()
         {
-            return ToCsv.creat(getSerialNumber(),
-                               getType(),
-                               getBytes()
+            return ToCsv.create(getSerialNumber(),
+                                getType(),
+                                getPacketContent()
             );
         }
     }

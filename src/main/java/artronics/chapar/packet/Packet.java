@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Packet<T>
 {
-    List getBytes();
+    List getPacketContent();
 
     long getSerialNumber();
 

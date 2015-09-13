@@ -12,7 +12,7 @@ public class PacketToMessageConvertor
 
     public List convert(Packet packet)
     {
-        List bytes = packet.getBytes();
+        List bytes = packet.getPacketContent();
         bytes.add(0, START_BYTE);
         bytes.add(STOP_BYTE);
 
