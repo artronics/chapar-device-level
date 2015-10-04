@@ -19,6 +19,14 @@ public class CsvParserTest
                                                                      Arrays.asList(34, 4));
 
     private static final List<List<Integer>> withoutSec = Arrays.asList(Arrays.asList(23, 4, 55));
+
+    private static final List<List<Integer>> tableWithRawRecords =
+            Arrays.asList(
+                    Arrays.asList(12, 234, 0, 0),
+                    Arrays.asList(78, 12345, 34, 4),
+                    Arrays.asList(23, 4, 55),
+                    Arrays.asList(23, 4, 55));
+
     private List<List<Integer>> expValues = new ArrayList<>();
     private List<List<Integer>> actValues;
 
@@ -31,6 +39,7 @@ public class CsvParserTest
         lines.add("12;  234; 0 ;	 00;;;;");
         lines.add(" 78; 12345 ;; 34 ; 4 ;;;;");
         lines.add("23;  4 ; 55 ;;");
+        lines.add("23;  REPORT;4 ; 55 ;;");
 
         parser = new CsvParser(lines);
     }
@@ -61,6 +70,23 @@ public class CsvParserTest
         expValues = withoutSec;
 
         assertEquals(expValues, actValues);
+    }
+
+    @Test
+    public void ignore_non_integer_values()
+    {
+        actValues = parser.getValuesTable().get(3);
+        expValues = withoutSec; //if we ignore the string the record is identical with withoutSec
+
+        assertEquals(expValues, actValues);
+
+    }
+
+    @Test
+    public void test_raw_records_ie_joint_sections()
+    {
+        List<List<Integer>> actTable = parser.getRawRecords();
+        assertEquals(tableWithRawRecords, actTable);
 
     }
 }

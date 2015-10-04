@@ -48,7 +48,11 @@ public class CsvParser
                 String[] values = split(section, ";");
                 List<Integer> secValues = new ArrayList<>();
                 for (String value : values) {
-                    secValues.add(Integer.parseInt(value.trim()));
+                    try {
+                        secValues.add(Integer.parseInt(value.trim()));
+                    }catch (NumberFormatException e) {
+                        continue;
+                    }
                 }
                 records.add(secValues);
             }
@@ -58,5 +62,20 @@ public class CsvParser
     public List<List<List<Integer>>> getValuesTable()
     {
         return valuesTable;
+    }
+
+    public List<List<Integer>> getRawRecords()
+    {
+        List<List<Integer>> records = new ArrayList<>();
+        List<Integer> data = new ArrayList<>();
+        for (List<List<Integer>> record : valuesTable) {
+            for (List<Integer> section : record) {
+                data.addAll(section);
+            }
+            records.add(new ArrayList<Integer>(data));
+            data.clear();
+        }
+
+        return records;
     }
 }

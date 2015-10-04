@@ -3,6 +3,8 @@ package artronics.chapar.packet;
 import artronics.chapar.core.analyser.Analysable;
 import artronics.chapar.core.analyser.ToCsv;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class BasePacket implements Packet<String>
@@ -57,5 +59,13 @@ public class BasePacket implements Packet<String>
                                 getPacketContent()
             );
         }
+    }
+
+    public static String getCurrentTimeStamp()
+    {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
     }
 }
