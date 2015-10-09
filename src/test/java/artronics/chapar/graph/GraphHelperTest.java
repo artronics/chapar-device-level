@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class GraphHelperTest
@@ -81,5 +82,32 @@ public class GraphHelperTest
         assertThat(targetNode2, equalTo(node2));
         assertThat(targetNode1, equalTo(node1));
         assertThat(targetNode3, equalTo(node3));
+    }
+
+    /*
+        In this test I created a simple graph with 3 vertices.
+        The goal is to test the order of src and dst in simple fully
+        connected graph.
+     */
+    @Test
+    public void test_for_simple_graph()
+    {
+        NetworkMap map = new BaseNetworkMap<SimpleNode>();
+        map.addNode(node0);
+        map.addNode(node1);
+        map.addNode(node2);
+
+        map.addLink(node0, node1, 40);
+        map.addLink(node0, node2, 30);
+        map.addLink(node1, node2, 30);
+
+        GraphHelper helper = new GraphHelper(map);
+        List<Node> path = helper.getShortestPath(node1, node0);
+
+        Node targetNode0 = path.get(0);
+        Node targetNode1 = path.get(1);
+
+        assertThat(targetNode0, equalTo(node1));
+        assertThat(targetNode1, equalTo(node0));
     }
 }
