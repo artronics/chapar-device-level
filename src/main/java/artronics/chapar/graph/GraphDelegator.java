@@ -1,6 +1,5 @@
 package artronics.chapar.graph;
 
-import artronics.chapar.node.Node;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.DijkstraShortestPath;
 
@@ -23,7 +22,7 @@ public class GraphDelegator<N, L>
 
     public List<N> getShortestPath(N source, N target)
     {
-        DijkstraShortestPath dijkstra = new DijkstraShortestPath(graph,source,target);
+        DijkstraShortestPath dijkstra = new DijkstraShortestPath(graph, source, target);
         List<L> links = dijkstra.getPathEdgeList();
 
         /*
