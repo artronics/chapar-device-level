@@ -44,6 +44,11 @@
             <artifactId>jgrapht</artifactId>
             <version>0.7.3</version>
         </dependency>
+        <dependency>
+            <groupId>jgraph</groupId>
+            <artifactId>jgraph</artifactId>
+            <version>5.13.0.0</version>
+        </dependency>
         <!-- Spring Framework-->
         <dependency>
             <groupId>org.springframework</groupId>
