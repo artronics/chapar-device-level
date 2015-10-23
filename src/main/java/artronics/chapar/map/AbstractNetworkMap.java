@@ -22,8 +22,8 @@ public abstract class AbstractNetworkMap<N extends Node, L extends Link>
     {
         this.graph = new ListenableUndirectedWeightedGraph<N, L>(linkClass);
 
-        GraphGui<N, L> graphGui = new GraphGui<>((ListenableUndirectedWeightedGraph) graph);
-        graphGui.start();
+//        GraphGui<N, L> graphGui = new GraphGui<>((ListenableUndirectedWeightedGraph) graph);
+//        graphGui.start();
     }
 
     @Override
