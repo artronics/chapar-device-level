@@ -26,4 +26,13 @@ final public class Chapar
 
         initializer.start();
     }
+
+    public static void stop()
+    {
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"chapar_DI" +
+                ".xml"});
+        ChaparServiceInitializer initializer = context.getBean(ChaparServiceInitializer.class);
+
+        initializer.stop();
+    }
 }

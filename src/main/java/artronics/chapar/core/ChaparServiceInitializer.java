@@ -17,4 +17,8 @@ final class ChaparServiceInitializer
         this.connection = connection;
     }
 
+    public void stop()
+    {
+        connection.close();
+    }
 }
