@@ -2,6 +2,7 @@ package artronics.chapar.core;
 
 import artronics.chapar.device.serialPort.DeviceConnectionSerialPort;
 import artronics.chapar.device.serialPort.SerialPortConnection;
+import artronics.chapar.server.ChaparServer;
 
 import java.util.Set;
 
@@ -11,9 +12,8 @@ public class Main
     {
         System.out.println("kiir");
 
-        Set<SerialPortConnection> sp = new DeviceConnectionSerialPort().getConnections();
-        for (SerialPortConnection c : sp)
-            System.out.println(c.toString());
+        ChaparServer server = new ChaparServer();
+        server.start();
 
     }
 
