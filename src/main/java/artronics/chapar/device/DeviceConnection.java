@@ -1,12 +1,13 @@
 package artronics.chapar.device;
 
+import java.util.Hashtable;
 import java.util.Set;
 
 public interface DeviceConnection<C extends Connection>
 {
     void establishConnection();
 
-    Set<C> getConnections();
+    Hashtable<String,C> getConnections();
 
     void open(C connection);
 

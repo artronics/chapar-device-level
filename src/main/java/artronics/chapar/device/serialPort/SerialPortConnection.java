@@ -1,12 +1,17 @@
 package artronics.chapar.device.serialPort;
 
+import artronics.chapar.core.events.Event;
+import artronics.chapar.core.events.PacketReceivedEvent;
 import artronics.chapar.device.Connection;
-import gnu.io.CommPort;
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
+import gnu.io.*;
 
-public class SerialPortConnection implements Connection
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.TooManyListenersException;
+
+public class SerialPortConnection implements Connection , SerialPortEventListener
 {
     private final CommPortIdentifier commPortIdentifier;
 
@@ -14,9 +19,15 @@ public class SerialPortConnection implements Connection
 
     private SerialPort serialPort;
 
+    private InputStream input = null;
+
+    private OutputStream output = null;
+
     public SerialPortConnection(CommPortIdentifier commPortIdentifier)
     {
         this.commPortIdentifier = commPortIdentifier;
+
+        Event.mainBus().register(this);
     }
 
     public void setSetting(SerialPortSetting setting)
@@ -50,6 +61,7 @@ public class SerialPortConnection implements Connection
 
         if (serialPort != null) {
             this.serialPort = serialPort;
+            initEventListenersAndIO();
         }else
             throw new NullPointerException();
     }
@@ -57,12 +69,61 @@ public class SerialPortConnection implements Connection
     @Override
     public void close()
     {
-        serialPort.close();
+        try {
+
+            serialPort.close();
+            input.close();
+            output.close();
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public String toString()
     {
         return commPortIdentifier.getName();
+    }
+
+    private void initEventListenersAndIO()
+    {
+        try {
+
+            serialPort.addEventListener(this);
+            serialPort.notifyOnDataAvailable(true);
+            input = serialPort.getInputStream();
+            output = serialPort.getOutputStream();
+
+        }catch (TooManyListenersException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void serialEvent(SerialPortEvent serialPortEvent)
+    {
+        if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            try {
+                Integer maxPacketLength = setting.getMaxPacketLength();
+                final byte[] buff = new byte[maxPacketLength];
+                final int length = input.read(buff, 0, maxPacketLength);
+                ArrayList<Integer> intBuff = new ArrayList<>(maxPacketLength);
+                for (int i = 0; i < length; i++) {
+                    //convert signed value to unsigned
+                    intBuff.add(buff[i] & 0xFF);
+                }
+
+                PacketReceivedEvent event = new PacketReceivedEvent(intBuff);
+                Event.mainBus().post(event);
+
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

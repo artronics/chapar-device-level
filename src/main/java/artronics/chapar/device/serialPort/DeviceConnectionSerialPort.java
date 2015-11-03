@@ -5,27 +5,29 @@ import gnu.io.CommPortIdentifier;
 
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 
 public class DeviceConnectionSerialPort implements DeviceConnection<SerialPortConnection>
 {
-    private Set<SerialPortConnection> ports = new HashSet<SerialPortConnection>();
+    private Hashtable<String,SerialPortConnection> ports = new Hashtable<>();
 
     @Override
     public void establishConnection()
     {
 
+
     }
 
     @Override
-    public Set<SerialPortConnection> getConnections()
+    public Hashtable<String,SerialPortConnection> getConnections()
     {
         Enumeration portsEnum = CommPortIdentifier.getPortIdentifiers();
 
         while (portsEnum.hasMoreElements()){
             CommPortIdentifier port = (CommPortIdentifier) portsEnum.nextElement();
             SerialPortConnection sp=new SerialPortConnection(port);
-            this.ports.add(sp);
+            this.ports.put(port.getName(), sp);
         }
 
         return this.ports;
